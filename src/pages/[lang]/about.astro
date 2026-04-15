@@ -1,0 +1,152 @@
+---
+import Page from '@layouts/Page.astro';
+import { useTranslations, getAlternateUrls, type Lang } from '@i18n/utils';
+import { SITE_URL, PERSON_SCHEMA } from '@lib/schema';
+import { getCollection } from 'astro:content';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'hu' } },
+    { params: { lang: 'it' } },
+    { params: { lang: 'de' } },
+  ];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = useTranslations(lang);
+const translations = getAlternateUrls('/about');
+
+const fullTranslations = Object.fromEntries(
+  Object.entries(translations).map(([l, path]) => [l, `${SITE_URL}${path}`])
+) as Partial<Record<Lang, string>>;
+
+const teamMembers = await getCollection('team');
+const sortedTeam = teamMembers.sort((a, b) => a.data.order - b.data.order);
+
+const badges = [
+  { name: 'Immigration Advisers Authority', short: 'IAA' },
+  { name: 'NAATI — National Accreditation Authority for Translators and Interpreters', short: 'NAATI' },
+  { name: 'Licensed Immigration Advisers Association', short: 'LIAA' },
+  { name: 'New Zealand Society of Translators and Interpreters', short: 'NZSTI' },
+  { name: 'IELTS / IDP Partner', short: 'IELTS' },
+];
+---
+
+<Page
+  title={t('about.title')}
+  description={`${t('about.subtitle')} Dr Edit Fellner-Andrejkovics — LIA #202001046, MARN #2418597, PhD in Law.`}
+  lang={lang}
+  translations={fullTranslations}
+  canonicalUrl={`${SITE_URL}/${lang}/about`}
+  schema={PERSON_SCHEMA}
+>
+  <!-- Hero banner -->
+  <div class="bg-earth-800 py-20">
+    <div class="container text-center">
+      <h1 class="font-heading text-5xl text-cream-50 mb-4">{t('about.title')}</h1>
+      <p class="text-cream-200 text-lg max-w-xl mx-auto">{t('about.subtitle')}</p>
+    </div>
+  </div>
+
+  <!-- Director profile -->
+  <section class="py-20">
+    <div class="container">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <!-- Photo placeholder -->
+        <div class="aspect-[4/5] bg-cream-200 rounded-2xl flex items-center justify-center overflow-hidden">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" class="text-cream-300" aria-hidden="true">
+            <circle cx="40" cy="30" r="18" fill="currentColor"/>
+            <ellipse cx="40" cy="72" rx="28" ry="18" fill="currentColor"/>
+          </svg>
+        </div>
+
+        <!-- Bio -->
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-teal-500/10 text-teal-700 text-sm font-medium rounded-full mb-6">
+            LIA #202001046 · MARN #2418597
+          </div>
+          <h2 class="section-heading mb-2">Dr Edit Fellner-Andrejkovics</h2>
+          <p class="text-teal-600 font-semibold mb-6">Licensed Immigration Adviser & Director</p>
+
+          <div class="prose-content text-text-muted space-y-4 mb-8">
+            <p>Dr Edit Fellner-Andrejkovics immigrated to New Zealand nearly 20 years ago — an experience that gave her first-hand understanding of the challenges, hopes, and vulnerabilities that come with moving to a new country.</p>
+            <p>After building a career that spanned law, translation, and language teaching, Edit founded Harmony Immigration with a clear mission: to provide the kind of professional, genuinely caring immigration support she wished had been available to her when she first arrived.</p>
+            <p>A mother of two who established her business at age 34, Edit brings her entire professional expertise — PhD in Law, licensed immigration adviser status in both New Zealand and Australia, and NAATI translation certification — to every client relationship.</p>
+          </div>
+
+          <!-- Qualifications list -->
+          <div class="bg-cream-50 rounded-xl p-6 mb-8">
+            <h3 class="font-heading text-earth-800 text-lg mb-4">Qualifications & Credentials</h3>
+            <ul class="space-y-2">
+              {sortedTeam[0]?.data.qualifications.map((q) => (
+                <li class="flex items-start gap-2 text-sm text-text-muted">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="mt-0.5 shrink-0" aria-hidden="true">
+                    <circle cx="8" cy="8" r="7" fill="#2a9d8f" fill-opacity="0.15"/>
+                    <path d="M5 8l2 2 4-4" stroke="#2a9d8f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  {q}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Languages -->
+          <div>
+            <h3 class="font-semibold text-earth-800 mb-3 text-sm uppercase tracking-wider">Languages</h3>
+            <div class="flex flex-wrap gap-2">
+              {sortedTeam[0]?.data.languages.map((lang_) => (
+                <span class="px-3 py-1.5 bg-teal-500/10 text-teal-700 text-sm rounded-full font-medium">
+                  {lang_}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team section -->
+  <section class="py-16 bg-cream-50">
+    <div class="container">
+      <h2 class="section-heading text-center mb-12">{t('about.team.title')}</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+        {sortedTeam.slice(1).map((member) => (
+          <div class="card p-7 flex gap-5 items-start">
+            <!-- Avatar placeholder -->
+            <div class="w-16 h-16 rounded-full bg-cream-200 flex items-center justify-center shrink-0">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" class="text-cream-400" aria-hidden="true">
+                <circle cx="16" cy="12" r="6" fill="currentColor"/>
+                <ellipse cx="16" cy="28" rx="10" ry="6" fill="currentColor"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-heading text-earth-800 text-lg mb-0.5">{member.data.name}</h3>
+              <p class="text-teal-600 text-sm font-semibold mb-3">{member.data.role}</p>
+              <div class="flex flex-wrap gap-1.5">
+                {member.data.languages.map((l) => (
+                  <span class="text-xs px-2 py-0.5 bg-cream-100 text-text-muted rounded-full">{l}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Professional badges -->
+  <section class="py-16 bg-white">
+    <div class="container">
+      <h2 class="section-heading text-center mb-10">{t('about.credentials.title')}</h2>
+      <div class="flex flex-wrap justify-center gap-6">
+        {badges.map(({ name, short }) => (
+          <div class="flex items-center justify-center w-32 h-20 bg-cream-50 rounded-xl border border-cream-200 p-4 hover:border-teal-400 transition-colors" title={name}>
+            <span class="font-heading font-semibold text-earth-600 text-sm text-center">{short}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Page>

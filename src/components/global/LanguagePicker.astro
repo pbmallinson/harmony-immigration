@@ -1,0 +1,50 @@
+---
+import { languages, type Lang, getLocalePath } from '@i18n/utils';
+
+interface Props {
+  lang: Lang;
+  translations?: Partial<Record<Lang, string>>;
+}
+
+const { lang, translations = {} } = Astro.props;
+---
+
+<div class="language-picker">
+  <label for="lang-select" class="sr-only">Select language</label>
+  <select
+    id="lang-select"
+    class="text-sm font-medium bg-transparent border border-cream-200 rounded-md px-2 py-1.5 cursor-pointer hover:border-teal-400 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors"
+    aria-label="Language selector"
+  >
+    {Object.entries(languages).map(([code, label]) => (
+      <option
+        value={translations[code as Lang] ?? getLocalePath('/', code as Lang)}
+        selected={code === lang}
+      >
+        {label}
+      </option>
+    ))}
+  </select>
+
+  <noscript>
+    <ul class="flex gap-2 text-sm">
+      {Object.entries(languages).map(([code, label]) => (
+        <li>
+          <a
+            href={translations[code as Lang] ?? getLocalePath('/', code as Lang)}
+            class={`px-2 py-1 rounded ${code === lang ? 'bg-teal-500 text-white' : 'hover:bg-cream-100'}`}
+          >
+            {code.toUpperCase()}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </noscript>
+</div>
+
+<script>
+  const select = document.getElementById('lang-select') as HTMLSelectElement | null;
+  select?.addEventListener('change', () => {
+    if (select.value) window.location.href = select.value;
+  });
+</script>

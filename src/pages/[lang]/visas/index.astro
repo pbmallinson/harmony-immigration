@@ -1,0 +1,93 @@
+---
+import Page from '@layouts/Page.astro';
+import { useTranslations, getAlternateUrls, getLocalePath, type Lang } from '@i18n/utils';
+import { SITE_URL } from '@lib/schema';
+import { getCollection } from 'astro:content';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'hu' } },
+    { params: { lang: 'it' } },
+    { params: { lang: 'de' } },
+  ];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = useTranslations(lang);
+const translations = getAlternateUrls('/visas');
+
+const fullTranslations = Object.fromEntries(
+  Object.entries(translations).map(([l, path]) => [l, `${SITE_URL}${path}`])
+) as Partial<Record<Lang, string>>;
+
+const allVisas = await getCollection('visas');
+const visas = allVisas
+  .filter((v) => v.data.locale === lang || (lang !== 'en' && v.data.locale === 'en'))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<Page
+  title={t('visas.title')}
+  description={t('visas.subtitle')}
+  lang={lang}
+  translations={fullTranslations}
+  canonicalUrl={`${SITE_URL}/${lang}/visas`}
+>
+  <!-- Header -->
+  <div class="bg-earth-800 py-20">
+    <div class="container text-center">
+      <h1 class="font-heading text-5xl text-cream-50 mb-4">{t('visas.title')}</h1>
+      <p class="text-cream-200 text-lg max-w-xl mx-auto">{t('visas.subtitle')}</p>
+    </div>
+  </div>
+
+  <!-- Visa grid -->
+  <section class="py-20">
+    <div class="container">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {visas.map((visa) => (
+          <a
+            href={getLocalePath(`/visas/${visa.data.slug}`, lang)}
+            class="card p-7 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group block"
+          >
+            <div class="flex justify-between items-start mb-3">
+              <span class="text-xs font-semibold px-2.5 py-1 bg-earth-600/10 text-earth-600 rounded-full">
+                {visa.data.country === 'nz' ? 'New Zealand' : visa.data.country === 'au' ? 'Australia' : 'NZ & AU'}
+              </span>
+              {visa.data.isFreeOfCharge && (
+                <span class="text-xs font-semibold px-2.5 py-1 bg-teal-500/10 text-teal-700 rounded-full">
+                  {t('visas.free')}
+                </span>
+              )}
+            </div>
+            <h2 class="font-heading text-xl text-earth-800 mb-2 group-hover:text-teal-600 transition-colors">
+              {visa.data.title}
+            </h2>
+            <p class="text-text-muted text-sm leading-relaxed mb-5">
+              {visa.data.shortDesc}
+            </p>
+            <span class="text-teal-600 text-sm font-semibold inline-flex items-center gap-1">
+              {t('visas.learnmore')}
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Free eligibility assessment CTA -->
+  <div class="bg-teal-600 py-16">
+    <div class="container text-center">
+      <h2 class="font-heading text-3xl text-cream-50 mb-4">Not sure which visa is right for you?</h2>
+      <p class="text-teal-100 max-w-lg mx-auto mb-8">Book a free eligibility assessment and we'll identify the best pathway for your specific circumstances.</p>
+      <a href="https://calendly.com/harmonyimmigration/30min?primary_color=2a9d8f" target="_blank" rel="noopener noreferrer"
+        class="inline-flex items-center justify-center px-8 py-4 bg-cream-50 text-teal-700 font-semibold rounded-lg hover:bg-white transition-colors">
+        {t('cta.assess')}
+      </a>
+    </div>
+  </div>
+</Page>

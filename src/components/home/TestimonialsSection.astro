@@ -1,0 +1,61 @@
+---
+import { useTranslations, getLocalePath, type Lang } from '@i18n/utils';
+import { getCollection } from 'astro:content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const allTestimonials = await getCollection('testimonials');
+---
+
+<section class="py-20 bg-cream-100">
+  <div class="container">
+    <div class="text-center mb-14">
+      <h2 class="section-heading mb-4">{t('testimonials.title')}</h2>
+      <p class="section-subheading mx-auto">{t('testimonials.subtitle')}</p>
+    </div>
+
+    <!-- Scrollable testimonial cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {allTestimonials.slice(0, 6).map((testimonial) => (
+        <div class="card p-7 flex flex-col gap-4">
+          <!-- Stars -->
+          <div class="flex gap-1" aria-label={`${testimonial.data.rating} out of 5 stars`}>
+            {Array.from({ length: testimonial.data.rating }).map(() => (
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="#2a9d8f" aria-hidden="true">
+                <path d="M9 1L11.27 6.64H17.18L12.45 9.87L14.73 15.51L9 12.28L3.27 15.51L5.55 9.87L0.82 6.64H6.73L9 1Z"/>
+              </svg>
+            ))}
+          </div>
+
+          <!-- Quote -->
+          <blockquote class="text-text-base leading-relaxed flex-1">
+            "{testimonial.data.text}"
+          </blockquote>
+
+          <!-- Attribution -->
+          <div class="flex items-center justify-between pt-3 border-t border-cream-100">
+            <div>
+              <p class="font-semibold text-earth-800 text-sm">{testimonial.data.name}</p>
+              {testimonial.data.location && (
+                <p class="text-text-light text-xs">{testimonial.data.location}</p>
+              )}
+            </div>
+            <span class="text-xs text-text-light bg-cream-100 px-2 py-1 rounded">
+              {t(`testimonials.source.${testimonial.data.source}`)}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="text-center mt-10">
+      <a href={getLocalePath('/testimonials', lang)} class="btn-secondary">
+        {t('testimonials.viewall')}
+      </a>
+    </div>
+  </div>
+</section>

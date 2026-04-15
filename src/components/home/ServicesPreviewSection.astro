@@ -1,0 +1,62 @@
+---
+import { useTranslations, getLocalePath, type Lang } from '@i18n/utils';
+import { getCollection } from 'astro:content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const allServices = await getCollection('services');
+const services = allServices
+  .filter((s) => s.data.locale === lang || (lang !== 'en' && s.data.locale === 'en'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 5);
+
+const iconMap: Record<string, string> = {
+  scale: `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#2a9d8f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v22M7 7h14M5 11l2 6h6L5 11zM17 11l2 6h6L17 11z"/></svg>`,
+  briefcase: `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#2a9d8f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="22" height="16" rx="3"/><path d="M9 9V7a5 5 0 0110 0v2"/><path d="M3 17h22"/></svg>`,
+  'book-open': `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#2a9d8f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h8a6 6 0 016 6v12H12A8 8 0 014 15V5z"/><path d="M24 5h-8a6 6 0 00-6 6v12h6a8 8 0 008-8V5z"/></svg>`,
+  languages: `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#2a9d8f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h12M10 6v3M5 12c2 3 6 5 9 5"/><path d="M15 14l8 10M19 14l-4 10"/><path d="M16 10l8 14"/></svg>`,
+  home: `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#2a9d8f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L14 3l11 9v13H18v-8H10v8H3V12z"/></svg>`,
+};
+---
+
+<section class="py-20 bg-white" id="services">
+  <div class="container">
+    <div class="text-center mb-14">
+      <h2 class="section-heading mb-4">{t('services.title')}</h2>
+      <p class="section-subheading mx-auto">{t('services.subtitle')}</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {services.map((service) => (
+        <a
+          href={getLocalePath(`/services/${service.data.slug}`, lang)}
+          class="card p-7 hover:shadow-md transition-all duration-300 hover:-translate-y-1 group block"
+        >
+          <div class="mb-4" set:html={iconMap[service.data.icon] ?? iconMap['scale']} />
+          <h3 class="font-heading text-lg text-earth-800 mb-2 group-hover:text-teal-600 transition-colors">
+            {service.data.title}
+          </h3>
+          <p class="text-text-muted text-sm leading-relaxed mb-4">
+            {service.data.shortDesc}
+          </p>
+          <span class="text-teal-600 text-sm font-semibold inline-flex items-center gap-1">
+            {t('services.learnmore')}
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+      ))}
+    </div>
+
+    <div class="text-center mt-10">
+      <a href={getLocalePath('/services', lang)} class="btn-secondary">
+        {t('services.viewall')}
+      </a>
+    </div>
+  </div>
+</section>

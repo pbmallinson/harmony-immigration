@@ -1,0 +1,94 @@
+---
+import '@styles/global.css';
+import { SITE_URL, LOCAL_BUSINESS_SCHEMA } from '@lib/schema';
+import type { Lang } from '@i18n/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  canonicalUrl?: string;
+  ogImage?: string;
+  translations?: Partial<Record<Lang, string>>;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  lang,
+  canonicalUrl = Astro.url.href,
+  ogImage = `${SITE_URL}/og-default.jpg`,
+  translations = {},
+  schema,
+} = Astro.props;
+
+const allLangs = ['en', 'hu', 'it', 'de'] as const;
+const fullTitle = `${title} | Harmony Immigration`;
+
+const schemas = [
+  LOCAL_BUSINESS_SCHEMA,
+  ...(schema ? (Array.isArray(schema) ? schema : [schema]) : []),
+];
+---
+
+<!doctype html>
+<html lang={lang} dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#2a9d8f" />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- hreflang -->
+    {allLangs.map((l) => {
+      const url = translations[l] ?? `${SITE_URL}/${l}/`;
+      return <link rel="alternate" hreflang={l} href={url} />;
+    })}
+    <link rel="alternate" hreflang="x-default" href={translations['en'] ?? `${SITE_URL}/en/`} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={lang === 'en' ? 'en_NZ' : lang === 'hu' ? 'hu_HU' : lang === 'it' ? 'it_IT' : 'de_DE'} />
+    <meta property="og:site_name" content="Harmony Immigration" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Sitemap -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Structured Data -->
+    {schemas.map((s) => (
+      <script type="application/ld+json" set:html={JSON.stringify(s)} />
+    ))}
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

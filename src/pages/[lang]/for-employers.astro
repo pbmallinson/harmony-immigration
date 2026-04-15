@@ -1,0 +1,184 @@
+---
+import Page from '@layouts/Page.astro';
+import { useTranslations, getAlternateUrls, type Lang } from '@i18n/utils';
+import { SITE_URL } from '@lib/schema';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'hu' } },
+    { params: { lang: 'it' } },
+    { params: { lang: 'de' } },
+  ];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = useTranslations(lang);
+const translations = getAlternateUrls('/for-employers');
+
+const fullTranslations = Object.fromEntries(
+  Object.entries(translations).map(([l, path]) => [l, `${SITE_URL}${path}`])
+) as Partial<Record<Lang, string>>;
+
+const steps = [
+  {
+    num: '01',
+    title: 'Free Consultation',
+    desc: 'Book a 30-minute call to discuss your hiring needs and understand the accreditation process.',
+  },
+  {
+    num: '02',
+    title: 'Accreditation Application',
+    desc: 'We prepare and lodge your employer accreditation application with Immigration New Zealand.',
+  },
+  {
+    num: '03',
+    title: 'Job Check',
+    desc: 'Once accredited, we complete the mandatory job check for each role you wish to fill.',
+  },
+  {
+    num: '04',
+    title: 'Visa Application',
+    desc: 'Your candidate applies for their Accredited Employer Work Visa. We support the process end-to-end.',
+  },
+];
+---
+
+<Page
+  title={t('employers.title')}
+  description={t('employers.subtitle')}
+  lang={lang}
+  translations={fullTranslations}
+  canonicalUrl={`${SITE_URL}/${lang}/for-employers`}
+>
+  <!-- Header -->
+  <div class="bg-earth-800 py-20">
+    <div class="container text-center">
+      <h1 class="font-heading text-5xl text-cream-50 mb-4">{t('employers.title')}</h1>
+      <p class="text-cream-200 text-lg max-w-xl mx-auto">{t('employers.subtitle')}</p>
+    </div>
+  </div>
+
+  <!-- AEWV section -->
+  <section class="py-20">
+    <div class="container">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-teal-500/10 text-teal-700 text-sm font-medium rounded-full mb-6">
+            Accredited Employer Work Visa
+          </div>
+          <h2 class="section-heading mb-5">{t('employers.aewv.title')}</h2>
+          <p class="text-text-muted leading-relaxed mb-6">{t('employers.aewv.desc')}</p>
+
+          <div class="prose-content text-text-muted space-y-4 mb-8">
+            <p>The Accredited Employer Work Visa (AEWV) is the primary pathway for New Zealand employers to hire skilled workers from overseas. To use this visa, employers must first obtain accreditation from Immigration New Zealand — a one-off process that remains valid for up to 5 years (with regular checks).</p>
+            <p>Once accredited, you can hire workers for specific roles by completing a job check, then supporting the employee's visa application. The process is straightforward with the right guidance.</p>
+          </div>
+
+          <div class="bg-cream-50 rounded-xl p-6 mb-8">
+            <h3 class="font-heading text-earth-800 text-lg mb-4">Why use Harmony Immigration?</h3>
+            <ul class="space-y-3">
+              {[
+                'End-to-end case management — we handle everything',
+                'Ensure compliance with all INZ requirements',
+                'Avoid costly delays from incomplete applications',
+                'Specialist knowledge of AEWV conditions and wage requirements',
+                'Ongoing support as your business grows',
+              ].map((point) => (
+                <li class="flex items-start gap-2 text-sm text-text-muted">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="mt-0.5 shrink-0" aria-hidden="true">
+                    <circle cx="8" cy="8" r="7" fill="#2a9d8f" fill-opacity="0.15"/>
+                    <path d="M5 8l2 2 4-4" stroke="#2a9d8f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <a
+            href="https://calendly.com/harmonyimmigration/30min?primary_color=2a9d8f"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary"
+          >
+            Book Free Employer Consultation
+          </a>
+        </div>
+
+        <!-- Process steps -->
+        <div>
+          <h2 class="section-heading mb-8">How It Works</h2>
+          <div class="space-y-6">
+            {steps.map(({ num, title, desc }) => (
+              <div class="flex gap-5">
+                <div class="w-12 h-12 bg-teal-500/10 rounded-xl flex items-center justify-center shrink-0">
+                  <span class="font-heading font-bold text-teal-600 text-lg">{num}</span>
+                </div>
+                <div>
+                  <h3 class="font-heading text-earth-800 text-lg mb-1">{title}</h3>
+                  <p class="text-text-muted text-sm leading-relaxed">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ section -->
+  <section class="py-16 bg-cream-50">
+    <div class="container max-w-3xl">
+      <h2 class="section-heading mb-8 text-center">Common Questions</h2>
+      <div class="space-y-3">
+        {[
+          {
+            q: 'Do I need to be accredited before advertising a role?',
+            a: 'You can advertise before accreditation, but you cannot make a job offer that triggers an AEWV application until you are accredited and the job check is complete.',
+          },
+          {
+            q: 'How long does accreditation take?',
+            a: 'Standard accreditation typically takes 4–6 weeks once a complete application is submitted. We prepare thorough applications to minimise delays.',
+          },
+          {
+            q: 'What does accreditation cost?',
+            a: 'INZ charges a government fee for accreditation. Our service fee is separate. Contact us for a quote based on your specific situation.',
+          },
+          {
+            q: 'Does accreditation expire?',
+            a: 'Standard accreditation is valid for 12 months initially (renewable). High-volume accreditation is valid for 24 months. We can advise which is right for your business.',
+          },
+        ].map(({ q, a }) => (
+          <details class="bg-white border border-cream-200 rounded-xl group">
+            <summary class="flex justify-between items-center p-5 cursor-pointer list-none font-medium text-earth-800 hover:text-teal-600 transition-colors">
+              {q}
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="shrink-0 ml-3 transition-transform group-open:rotate-180" aria-hidden="true">
+                <path d="M4 6l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <div class="px-5 pb-5 text-text-muted text-sm leading-relaxed">{a}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <div class="bg-teal-600 py-16">
+    <div class="container text-center">
+      <h2 class="font-heading text-3xl text-cream-50 mb-4">Ready to build your team?</h2>
+      <p class="text-teal-100 max-w-lg mx-auto mb-8">Contact us today to discuss your employer immigration needs.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a href="https://calendly.com/harmonyimmigration/30min?primary_color=2a9d8f" target="_blank" rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-8 py-4 bg-cream-50 text-teal-700 font-semibold rounded-lg hover:bg-white transition-colors">
+          Book Free Consultation
+        </a>
+        <a href="mailto:harmonyimmigration.nz@gmail.com?subject=Employer Enquiry"
+          class="inline-flex items-center justify-center px-8 py-4 border-2 border-cream-50/50 text-cream-50 font-semibold rounded-lg hover:bg-teal-700/30 transition-colors">
+          Email Us
+        </a>
+      </div>
+    </div>
+  </div>
+</Page>

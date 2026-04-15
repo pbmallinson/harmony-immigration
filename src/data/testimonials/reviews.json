@@ -1,0 +1,50 @@
+[
+  {
+    "id": "annemarie",
+    "name": "Suhajda Annemarie",
+    "rating": 5,
+    "text": "From start to finish, Edit was professional, efficient, and went above and beyond to ensure a smooth process. I cannot recommend her highly enough.",
+    "date": "2024-06-01",
+    "source": "google"
+  },
+  {
+    "id": "giseli",
+    "name": "GISELI Reis",
+    "rating": 5,
+    "text": "She is always very professional and leaves us completely at ease with our applications. Highly recommend Harmony Immigration for anyone navigating the NZ immigration process.",
+    "date": "2024-04-15",
+    "source": "google"
+  },
+  {
+    "id": "csilla",
+    "name": "Szántó Csilla",
+    "rating": 5,
+    "text": "She was always there for me whenever I had a question... or whenever a problem occurred, she sorted it out straight away. Outstanding service.",
+    "date": "2024-03-20",
+    "source": "google"
+  },
+  {
+    "id": "michelle",
+    "name": "Michelle S",
+    "rating": 5,
+    "text": "She is incredibly professional and kind, providing clarity on a very confusing process navigating residency. I felt supported every step of the way.",
+    "date": "2024-02-10",
+    "source": "google"
+  },
+  {
+    "id": "istvan",
+    "name": "Istvan Heffner",
+    "rating": 5,
+    "text": "She is an extremely kind and helpful person who is a top professional. I would not hesitate to recommend Harmony Immigration to anyone.",
+    "date": "2024-01-22",
+    "source": "google"
+  },
+  {
+    "id": "alex",
+    "name": "Alex Dobos",
+    "rating": 5,
+    "text": "Edit's professionalism and knowledge are amazing. She made the application process smooth and understandable. A truly exceptional immigration adviser.",
+    "date": "2023-12-05",
+    "source": "google"
+  }
+]

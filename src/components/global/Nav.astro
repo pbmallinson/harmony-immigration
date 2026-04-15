@@ -1,0 +1,108 @@
+---
+import { useTranslations, getLocalePath, type Lang } from '@i18n/utils';
+import LanguagePicker from './LanguagePicker.astro';
+
+interface Props {
+  lang: Lang;
+  translations?: Partial<Record<Lang, string>>;
+}
+
+const { lang, translations = {} } = Astro.props;
+const t = useTranslations(lang);
+const path = Astro.url.pathname;
+
+function isActive(href: string) {
+  return path === href || path.startsWith(href + '/') ? 'aria-current="page"' : '';
+}
+---
+
+<header class="sticky top-0 z-50 bg-cream-50/95 backdrop-blur-sm border-b border-cream-200 shadow-sm">
+  <div class="container">
+    <nav class="flex items-center justify-between h-16 gap-4" aria-label="Main navigation">
+      <!-- Logo -->
+      <a href={getLocalePath('/', lang)} class="flex items-center gap-2 shrink-0">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <circle cx="16" cy="16" r="16" fill="#2a9d8f"/>
+          <path d="M8 20 Q16 8 24 20" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M10 22 Q16 12 22 22" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+        </svg>
+        <span class="font-heading font-semibold text-lg text-earth-800 leading-tight">
+          Harmony<br class="hidden" /><span class="text-teal-600"> Immigration</span>
+        </span>
+      </a>
+
+      <!-- Desktop nav -->
+      <ul class="hidden lg:flex items-center gap-1 text-sm font-medium" role="list">
+        <li>
+          <a href={getLocalePath('/about', lang)} class="px-3 py-2 rounded-sm hover:bg-cream-100 text-text-base transition-colors" aria-current={path.includes('/about') ? 'page' : undefined}>
+            {t('nav.about')}
+          </a>
+        </li>
+        <li>
+          <a href={getLocalePath('/services', lang)} class="px-3 py-2 rounded-sm hover:bg-cream-100 text-text-base transition-colors" aria-current={path.includes('/services') ? 'page' : undefined}>
+            {t('nav.services')}
+          </a>
+        </li>
+        <li>
+          <a href={getLocalePath('/visas', lang)} class="px-3 py-2 rounded-sm hover:bg-cream-100 text-text-base transition-colors" aria-current={path.includes('/visas') ? 'page' : undefined}>
+            {t('nav.visas')}
+          </a>
+        </li>
+        <li>
+          <a href={getLocalePath('/for-employers', lang)} class="px-3 py-2 rounded-sm hover:bg-cream-100 text-text-base transition-colors" aria-current={path.includes('/for-employers') ? 'page' : undefined}>
+            {t('nav.employers')}
+          </a>
+        </li>
+        <li>
+          <a href={getLocalePath('/blog', lang)} class="px-3 py-2 rounded-sm hover:bg-cream-100 text-text-base transition-colors" aria-current={path.includes('/blog') ? 'page' : undefined}>
+            {t('nav.blog')}
+          </a>
+        </li>
+        <li>
+          <a href={getLocalePath('/contact', lang)} class="px-3 py-2 rounded-sm hover:bg-cream-100 text-text-base transition-colors" aria-current={path.includes('/contact') ? 'page' : undefined}>
+            {t('nav.contact')}
+          </a>
+        </li>
+      </ul>
+
+      <!-- Right side -->
+      <div class="flex items-center gap-3">
+        <LanguagePicker lang={lang} translations={translations} />
+        <a
+          href="https://calendly.com/harmonyimmigration/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden sm:inline-flex btn-primary text-sm py-2 px-4"
+        >
+          {t('nav.book')}
+        </a>
+
+        <!-- Mobile hamburger -->
+        <details class="lg:hidden relative">
+          <summary class="list-none cursor-pointer p-2 rounded-md hover:bg-cream-100 transition-colors" aria-label="Open menu">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <path d="M3 5h16M3 11h16M3 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </summary>
+          <div class="absolute right-0 top-full mt-1 w-64 bg-white rounded-xl shadow-lg border border-cream-200 p-2 z-50">
+            <ul role="list" class="space-y-1">
+              <li><a href={getLocalePath('/about', lang)} class="block px-4 py-2.5 rounded-lg hover:bg-cream-50 text-sm font-medium">{t('nav.about')}</a></li>
+              <li><a href={getLocalePath('/services', lang)} class="block px-4 py-2.5 rounded-lg hover:bg-cream-50 text-sm font-medium">{t('nav.services')}</a></li>
+              <li><a href={getLocalePath('/visas', lang)} class="block px-4 py-2.5 rounded-lg hover:bg-cream-50 text-sm font-medium">{t('nav.visas')}</a></li>
+              <li><a href={getLocalePath('/for-employers', lang)} class="block px-4 py-2.5 rounded-lg hover:bg-cream-50 text-sm font-medium">{t('nav.employers')}</a></li>
+              <li><a href={getLocalePath('/blog', lang)} class="block px-4 py-2.5 rounded-lg hover:bg-cream-50 text-sm font-medium">{t('nav.blog')}</a></li>
+              <li><a href={getLocalePath('/events', lang)} class="block px-4 py-2.5 rounded-lg hover:bg-cream-50 text-sm font-medium">{t('nav.events')}</a></li>
+              <li><a href={getLocalePath('/testimonials', lang)} class="block px-4 py-2.5 rounded-lg hover:bg-cream-50 text-sm font-medium">{t('nav.testimonials')}</a></li>
+              <li><a href={getLocalePath('/contact', lang)} class="block px-4 py-2.5 rounded-lg hover:bg-cream-50 text-sm font-medium">{t('nav.contact')}</a></li>
+              <li class="pt-1 border-t border-cream-100">
+                <a href="https://calendly.com/harmonyimmigration/30min" target="_blank" rel="noopener noreferrer" class="block btn-primary text-sm text-center mx-2 my-1">
+                  {t('nav.book')}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </nav>
+  </div>
+</header>
