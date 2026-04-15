@@ -4,10 +4,6 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-// The @astrojs/cloudflare adapter is added in Cloudflare Pages CI via env var.
-// Locally we use pure static output (no adapter needed for SSG builds).
-const isCI = process.env.CF_PAGES === '1';
-
 const config = defineConfig({
   site: 'https://harmony-immigration.com',
   output: 'static',

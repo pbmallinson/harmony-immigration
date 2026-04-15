@@ -1,9 +1,0 @@
-name = "harmony-immigration"
-pages_build_output_dir = "dist"
-compatibility_date = "2025-04-01"
-
-[env.preview]
-vars = { ASTRO_ENV = "preview" }
-
-[env.production]
-vars = { ASTRO_ENV = "production" }
