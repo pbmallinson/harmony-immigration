@@ -1,4 +1,6 @@
+# Crawling blocked while site is in staging (harmony-immigration.pages.dev).
+# Change to Allow: / when custom domain is live.
 User-agent: *
-Allow: /
+Disallow: /
 
 Sitemap: https://harmony-immigration.com/sitemap-index.xml
