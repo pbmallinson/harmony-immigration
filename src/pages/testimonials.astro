@@ -1,0 +1,24 @@
+---
+import Page from '@layouts/Page.astro';
+import TestimonialsSection from '@components/home/TestimonialsSection.astro';
+import CtaSection from '@components/home/CtaSection.astro';
+---
+
+<Page
+  title="Testimonials"
+  description="Read what Meridian Immigration clients say about their experience — from work visas to family reunification and citizenship."
+>
+  <section class="relative overflow-hidden pt-16 pb-8 md:pt-24">
+    <div class="mesh-bg">
+      <div class="mesh-blob" style="width:440px;height:440px;background:var(--color-flame-500);top:-180px;left:-100px;opacity:0.3;"></div>
+    </div>
+    <div class="container relative z-10 reveal max-w-2xl">
+      <span class="eyebrow">Client Stories</span>
+      <h1 class="mt-5">Real people, real outcomes.</h1>
+      <p class="mt-6 text-lg">Every case is different — here's how a few of them turned out.</p>
+    </div>
+  </section>
+
+  <TestimonialsSection showHeading={false} />
+  <CtaSection />
+</Page>

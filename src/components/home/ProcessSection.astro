@@ -1,0 +1,48 @@
+---
+const steps = [
+  {
+    number: '01',
+    title: 'Free Consultation',
+    desc: 'We review your goals, background, and timeline to identify the pathways realistically open to you.',
+  },
+  {
+    number: '02',
+    title: 'Tailored Strategy',
+    desc: 'You receive a clear, written plan — the visa route, required documents, timeline, and total cost, no surprises.',
+  },
+  {
+    number: '03',
+    title: 'Application Filed',
+    desc: 'We prepare and file your application, handling correspondence with immigration authorities on your behalf.',
+  },
+  {
+    number: '04',
+    title: 'Approval & Settlement',
+    desc: 'Once approved, we support your transition — from paperwork to practical settling-in guidance.',
+  },
+];
+---
+
+<section class="py-24 md:py-32 bg-[var(--color-cream-100)]">
+  <div class="container">
+    <div class="reveal max-w-2xl">
+      <span class="eyebrow">How It Works</span>
+      <h2 class="mt-5">A straightforward process, from first call to approval.</h2>
+    </div>
+
+    <div class="mt-16 grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-4">
+      {steps.map((step, i) => (
+        <div class="reveal relative" style={`transition-delay:${i * 90}ms`}>
+          <span class="font-display text-5xl font-semibold text-transparent [-webkit-text-stroke:1.5px_var(--color-ink-500)] opacity-40">
+            {step.number}
+          </span>
+          <h3 class="mt-4">{step.title}</h3>
+          <p class="mt-3 text-sm">{step.desc}</p>
+          {i < steps.length - 1 && (
+            <div class="hidden lg:block absolute top-6 -right-4 w-8 h-px bg-[var(--color-neutral-200)]"></div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

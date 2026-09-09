@@ -1,0 +1,44 @@
+---
+import Page from '@layouts/Page.astro';
+import CtaSection from '@components/home/CtaSection.astro';
+import { getCollection } from 'astro:content';
+import Icon from '@components/global/Icon.astro';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Page
+  title="Services"
+  description="Explore Meridian Immigration's full range of visa and immigration services — work, family, business, residence, student, and visitor pathways."
+>
+  <section class="relative overflow-hidden pt-16 pb-16 md:pt-24">
+    <div class="mesh-bg">
+      <div class="mesh-blob" style="width:460px;height:460px;background:var(--color-ink-500);top:-200px;right:-100px;"></div>
+    </div>
+    <div class="container relative z-10 reveal max-w-2xl">
+      <span class="eyebrow">Our Services</span>
+      <h1 class="mt-5">Every pathway, one team.</h1>
+      <p class="mt-6 text-lg">Whichever direction you're headed, we've likely handled a case like it before.</p>
+    </div>
+  </section>
+
+  <section class="pb-24 md:pb-32">
+    <div class="container grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {services.map((service, i) => (
+        <a href={`/services/${service.data.slug}`} class="card reveal group flex flex-col p-8" style={`transition-delay:${i * 60}ms`}>
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--color-cream-200)] text-[var(--color-ink-800)]">
+            <Icon name={service.data.icon} class="w-6 h-6" />
+          </div>
+          <h3 class="mt-6">{service.data.title}</h3>
+          <p class="mt-2 text-sm flex-1">{service.data.shortDesc}</p>
+          <span class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-ink-800)] group-hover:gap-2.5 transition-all">
+            Learn more
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <CtaSection />
+</Page>

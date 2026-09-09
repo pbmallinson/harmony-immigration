@@ -1,45 +1,66 @@
 ---
-import { useTranslations, type Lang } from '@i18n/utils';
-
-interface Props {
-  lang: Lang;
-}
-const { lang } = Astro.props;
-const t = useTranslations(lang);
+import Icon from '@components/global/Icon.astro';
 
 const principles = [
   {
-    key: 'ethical',
-    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 3L20 12H30L22 18L25 28L16 22L7 28L10 18L2 12H12L16 3Z" stroke="#2a9d8f" stroke-width="2" fill="#2a9d8f" fill-opacity="0.1"/></svg>`,
+    icon: 'target',
+    title: 'Honest Assessments',
+    desc: "If a pathway isn't realistic, we tell you upfront — before you spend time or money on it.",
+    size: 'large',
   },
   {
-    key: 'professional',
-    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="4" y="8" width="24" height="18" rx="3" stroke="#2a9d8f" stroke-width="2" fill="#2a9d8f" fill-opacity="0.1"/><path d="M11 8V6a5 5 0 0110 0v2" stroke="#2a9d8f" stroke-width="2"/><circle cx="16" cy="17" r="3" fill="#2a9d8f"/></svg>`,
+    icon: 'scale',
+    title: 'Licensed & Accountable',
+    desc: 'Every case is handled by licensed advisers bound by a professional code of conduct.',
   },
   {
-    key: 'reliable',
-    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 3L27 8V16C27 22 22 27 16 29C10 27 5 22 5 16V8L16 3Z" stroke="#2a9d8f" stroke-width="2" fill="#2a9d8f" fill-opacity="0.1"/><path d="M11 16l3 3 7-7" stroke="#2a9d8f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    icon: 'clock',
+    title: 'Clear Timelines',
+    desc: 'You always know what stage your case is at and what happens next.',
+  },
+  {
+    icon: 'globe',
+    title: 'Global Experience',
+    desc: 'Cases handled across dozens of nationalities and visa categories.',
   },
 ];
 ---
 
-<section class="py-20 bg-cream-50">
+<section class="py-24 md:py-32">
   <div class="container">
-    <div class="text-center mb-14">
-      <h2 class="section-heading mb-4">{t('principles.title')}</h2>
-      <p class="section-subheading mx-auto">{t('principles.subtitle')}</p>
+    <div class="reveal max-w-2xl">
+      <span class="eyebrow">Why Meridian</span>
+      <h2 class="mt-5">Guidance you can actually trust.</h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {principles.map(({ key, icon }) => (
-        <div class="card p-8 text-center hover:shadow-lg transition-shadow duration-300">
-          <div class="flex justify-center mb-5" set:html={icon} />
-          <h3 class="font-heading text-xl text-earth-800 mb-3">
-            {t(`principles.${key}.title`)}
-          </h3>
-          <p class="text-text-muted leading-relaxed">
-            {t(`principles.${key}.desc`)}
-          </p>
+    <div class="mt-14 grid gap-6 md:grid-cols-3">
+      <div class="reveal card md:col-span-2 md:row-span-2 p-10 flex flex-col justify-between bg-[var(--color-ink-950)] text-white border-none">
+        <div>
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-white">
+            <Icon name={principles[0].icon} class="w-6 h-6" />
+          </div>
+          <h3 class="mt-6 text-white">{principles[0].title}</h3>
+          <p class="mt-3 text-white/70 max-w-sm">{principles[0].desc}</p>
+        </div>
+        <div class="mt-10 grid grid-cols-2 gap-6 max-w-sm">
+          <div>
+            <p class="font-display text-2xl font-semibold text-white">97%</p>
+            <p class="text-xs text-white/50 mt-1">Approval rate</p>
+          </div>
+          <div>
+            <p class="font-display text-2xl font-semibold text-white">4,200+</p>
+            <p class="text-xs text-white/50 mt-1">Cases filed</p>
+          </div>
+        </div>
+      </div>
+
+      {principles.slice(1).map((p, i) => (
+        <div class="reveal card p-8" style={`transition-delay:${(i + 1) * 80}ms`}>
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--color-cream-200)] text-[var(--color-ink-800)]">
+            <Icon name={p.icon} class="w-6 h-6" />
+          </div>
+          <h3 class="mt-5">{p.title}</h3>
+          <p class="mt-2 text-sm">{p.desc}</p>
         </div>
       ))}
     </div>

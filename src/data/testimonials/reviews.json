@@ -1,50 +1,50 @@
 [
   {
-    "id": "annemarie",
-    "name": "Suhajda Annemarie",
+    "id": "amara-osei",
+    "name": "Amara Osei",
+    "location": "Relocated from Ghana",
     "rating": 5,
-    "text": "From start to finish, Edit was professional, efficient, and went above and beyond to ensure a smooth process. I cannot recommend her highly enough.",
-    "date": "2024-06-01",
-    "source": "google"
+    "text": "They made a confusing process feel completely manageable. Every question was answered within a day, and my work visa was approved faster than I expected.",
+    "outcome": "Work Visa client"
   },
   {
-    "id": "giseli",
-    "name": "GISELI Reis",
+    "id": "liam-chen",
+    "name": "Liam Chen",
+    "location": "Relocated from Singapore",
     "rating": 5,
-    "text": "She is always very professional and leaves us completely at ease with our applications. Highly recommend Harmony Immigration for anyone navigating the NZ immigration process.",
-    "date": "2024-04-15",
-    "source": "google"
+    "text": "Honest from day one about what was and wasn't possible. That honesty saved us months of chasing the wrong pathway.",
+    "outcome": "Business Visa client"
   },
   {
-    "id": "csilla",
-    "name": "Szántó Csilla",
+    "id": "priya-raj-nair",
+    "name": "Priya & Raj Nair",
+    "location": "Relocated from India",
     "rating": 5,
-    "text": "She was always there for me whenever I had a question... or whenever a problem occurred, she sorted it out straight away. Outstanding service.",
-    "date": "2024-03-20",
-    "source": "google"
+    "text": "Our partner visa application had already been declined once elsewhere. Meridian rebuilt our case from scratch and got it approved on the second attempt.",
+    "outcome": "Partner Visa clients"
   },
   {
-    "id": "michelle",
-    "name": "Michelle S",
+    "id": "marta-kowalski",
+    "name": "Marta Kowalski",
+    "location": "Relocated from Poland",
     "rating": 5,
-    "text": "She is incredibly professional and kind, providing clarity on a very confusing process navigating residency. I felt supported every step of the way.",
-    "date": "2024-02-10",
-    "source": "google"
+    "text": "I appreciated getting a real answer to every email, not a generic template. It felt like they actually knew our file.",
+    "outcome": "Residence Visa client"
   },
   {
-    "id": "istvan",
-    "name": "Istvan Heffner",
-    "rating": 5,
-    "text": "She is an extremely kind and helpful person who is a top professional. I would not hesitate to recommend Harmony Immigration to anyone.",
-    "date": "2024-01-22",
-    "source": "google"
+    "id": "tomas-rivera",
+    "name": "Tomás Rivera",
+    "location": "Relocated from Mexico",
+    "rating": 4,
+    "text": "Straightforward, professional, and clear about timelines from the start. Our student visa came through with no complications.",
+    "outcome": "Student Visa client"
   },
   {
-    "id": "alex",
-    "name": "Alex Dobos",
+    "id": "grace-mbeki",
+    "name": "Grace Mbeki",
+    "location": "Relocated from Kenya",
     "rating": 5,
-    "text": "Edit's professionalism and knowledge are amazing. She made the application process smooth and understandable. A truly exceptional immigration adviser.",
-    "date": "2023-12-05",
-    "source": "google"
+    "text": "After years of trying on our own, Meridian got our citizenship application over the line in under a year.",
+    "outcome": "Citizenship client"
   }
 ]

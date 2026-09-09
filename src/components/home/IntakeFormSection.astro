@@ -1,0 +1,74 @@
+---
+const options = [
+  'Work Visa',
+  'Family & Partner Visa',
+  'Business & Investment',
+  'Residence & Citizenship',
+  'Student Visa',
+  'Visitor Visa',
+  'Not sure yet',
+];
+---
+
+<section class="py-24 md:py-32 bg-[var(--color-cream-100)]">
+  <div class="container">
+    <div class="grid gap-14 lg:grid-cols-2 items-start">
+      <div class="reveal">
+        <span class="eyebrow">Get Started</span>
+        <h2 class="mt-5">Tell us where you're headed.</h2>
+        <p class="mt-5 text-lg max-w-md">
+          Share a few details and one of our advisers will get back to you within one business day with next steps.
+        </p>
+
+        <div class="mt-10 space-y-5">
+          <div class="flex gap-4">
+            <div class="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-[var(--color-ink-950)] text-white text-sm font-semibold">✓</div>
+            <p class="text-sm pt-2">No obligation — the initial review is completely free</p>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-[var(--color-ink-950)] text-white text-sm font-semibold">✓</div>
+            <p class="text-sm pt-2">Response within one business day</p>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-[var(--color-ink-950)] text-white text-sm font-semibold">✓</div>
+            <p class="text-sm pt-2">Your information is kept confidential</p>
+          </div>
+        </div>
+      </div>
+
+      <form class="reveal card p-8 md:p-10" style="transition-delay:100ms" data-demo-form>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div class="sm:col-span-1">
+            <label for="name" class="text-sm font-medium text-[var(--color-neutral-800)]">Full name</label>
+            <input id="name" name="name" type="text" required class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="Jane Doe" />
+          </div>
+          <div class="sm:col-span-1">
+            <label for="email" class="text-sm font-medium text-[var(--color-neutral-800)]">Email</label>
+            <input id="email" name="email" type="email" required class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="jane@email.com" />
+          </div>
+          <div class="sm:col-span-2">
+            <label for="pathway" class="text-sm font-medium text-[var(--color-neutral-800)]">What are you looking into?</label>
+            <select id="pathway" name="pathway" class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors bg-white">
+              {options.map((opt) => <option>{opt}</option>)}
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="message" class="text-sm font-medium text-[var(--color-neutral-800)]">A little about your situation</label>
+            <textarea id="message" name="message" rows="4" class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors resize-none" placeholder="Tell us briefly what you're hoping to achieve..."></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-full mt-6">Request Free Consultation</button>
+        <p class="mt-4 text-center text-xs text-[var(--color-neutral-500)]" data-demo-note>This is a demo form — no data is actually submitted.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector('[data-demo-form]');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const note = form.querySelector('[data-demo-note]');
+    if (note) note.textContent = "Thanks! (Demo only — this didn't actually send anywhere.)";
+  });
+</script>

@@ -1,0 +1,76 @@
+---
+import Page from '@layouts/Page.astro';
+import TeamSection from '@components/home/TeamSection.astro';
+import CtaSection from '@components/home/CtaSection.astro';
+
+const values = [
+  {
+    title: 'Clarity first',
+    desc: "We explain exactly where you stand, in plain language — no legal jargon, no vague reassurances.",
+  },
+  {
+    title: 'Licensed & regulated',
+    desc: 'Every case is handled by advisers licensed under the relevant professional body, with full accountability.',
+  },
+  {
+    title: 'One point of contact',
+    desc: "You work with the same adviser from your first call through to approval — not a rotating queue.",
+  },
+];
+
+const milestones = [
+  { year: '2008', label: 'Practice founded' },
+  { year: '2013', label: 'Business immigration division launched' },
+  { year: '2019', label: '2,000th case approved' },
+  { year: '2026', label: '4,200+ applications filed to date' },
+];
+---
+
+<Page
+  title="About"
+  description="Meet Meridian Immigration — licensed advisers helping people relocate, work, and settle abroad since 2008."
+>
+  <section class="relative overflow-hidden pt-16 pb-20 md:pt-24">
+    <div class="mesh-bg">
+      <div class="mesh-blob" style="width:480px;height:480px;background:var(--color-ink-500);top:-200px;right:-120px;"></div>
+    </div>
+    <div class="container relative z-10 reveal max-w-3xl">
+      <span class="eyebrow">About Meridian</span>
+      <h1 class="mt-5">Built by people who've navigated this system themselves.</h1>
+      <p class="mt-6 text-lg">
+        Meridian Immigration started with a simple frustration: immigration advice that was either too expensive, too slow, or too vague to actually act on. Since 2008, we've built a practice around the opposite — clear plans, honest timelines, and advisers who stay with your case from start to finish.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20">
+    <div class="container grid gap-6 md:grid-cols-3">
+      {values.map((v, i) => (
+        <div class="reveal card p-8" style={`transition-delay:${i * 80}ms`}>
+          <h3>{v.title}</h3>
+          <p class="mt-3 text-sm">{v.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="py-20 bg-[var(--color-cream-100)]">
+    <div class="container">
+      <div class="reveal max-w-2xl">
+        <span class="eyebrow">Our Story</span>
+        <h2 class="mt-5">Nearly two decades of casework.</h2>
+      </div>
+      <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {milestones.map((m, i) => (
+          <div class="reveal" style={`transition-delay:${i * 80}ms`}>
+            <p class="font-display text-3xl font-semibold text-[var(--color-ink-950)]">{m.year}</p>
+            <p class="mt-2 text-sm text-[var(--color-neutral-600)]">{m.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <TeamSection />
+  <CtaSection />
+</Page>

@@ -1,16 +1,25 @@
 ---
-// Root page — Astro i18n handles the redirect to /en/ via the config.
-// This file serves as a fallback for direct root access.
+import Page from '@layouts/Page.astro';
+import HeroSection from '@components/home/HeroSection.astro';
+import ServicesPreviewSection from '@components/home/ServicesPreviewSection.astro';
+import ProcessSection from '@components/home/ProcessSection.astro';
+import CorePrinciplesSection from '@components/home/CorePrinciplesSection.astro';
+import TeamSection from '@components/home/TeamSection.astro';
+import TestimonialsSection from '@components/home/TestimonialsSection.astro';
+import IntakeFormSection from '@components/home/IntakeFormSection.astro';
+import CtaSection from '@components/home/CtaSection.astro';
 ---
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="refresh" content="0; url=/en/" />
-    <title>Harmony Immigration</title>
-    <link rel="canonical" href="/en/" />
-  </head>
-  <body>
-    <p>Redirecting to <a href="/en/">Harmony Immigration</a>...</p>
-  </body>
-</html>
+
+<Page
+  title="Home"
+  description="Meridian Immigration helps individuals, families, and employers navigate visas, residence, and citizenship with clear, licensed guidance at every step."
+>
+  <HeroSection />
+  <ServicesPreviewSection />
+  <ProcessSection />
+  <CorePrinciplesSection />
+  <TeamSection />
+  <TestimonialsSection />
+  <IntakeFormSection />
+  <CtaSection />
+</Page>

@@ -1,0 +1,90 @@
+---
+import Page from '@layouts/Page.astro';
+import CtaSection from '@components/home/CtaSection.astro';
+import { getCollection, render } from 'astro:content';
+import Icon from '@components/global/Icon.astro';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map((service) => ({
+    params: { slug: service.data.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const { Content } = await render(service);
+
+const allServices = await getCollection('services');
+const related = allServices
+  .filter((s) => s.data.slug !== service.data.slug)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+---
+
+<Page
+  title={service.data.title}
+  description={service.data.shortDesc}
+>
+  <section class="relative overflow-hidden pt-16 pb-16 md:pt-24">
+    <div class="mesh-bg">
+      <div class="mesh-blob" style="width:440px;height:440px;background:var(--color-ink-500);top:-180px;right:-100px;"></div>
+    </div>
+    <div class="container relative z-10 reveal max-w-2xl">
+      <a href="/services" class="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-neutral-600)] hover:text-[var(--color-ink-950)] mb-6">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        All Services
+      </a>
+      <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--color-cream-200)] text-[var(--color-ink-800)]">
+        <Icon name={service.data.icon} class="w-7 h-7" />
+      </div>
+      <h1 class="mt-6">{service.data.title}</h1>
+      <p class="mt-5 text-lg">{service.data.shortDesc}</p>
+      <a href="/contact" class="btn btn-primary mt-8">Book a Free Consultation</a>
+    </div>
+  </section>
+
+  <section class="pb-20">
+    <div class="container grid gap-14 lg:grid-cols-[1.6fr_1fr]">
+      <div class="reveal prose-content">
+        <Content />
+      </div>
+
+      {service.data.faq.length > 0 && (
+        <div class="reveal">
+          <h3 class="mb-5">Frequently Asked</h3>
+          <div class="space-y-4">
+            {service.data.faq.map((item) => (
+              <div class="card p-6">
+                <p class="font-semibold text-[var(--color-ink-950)] text-sm">{item.question}</p>
+                <p class="mt-2 text-sm">{item.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="py-20 bg-[var(--color-cream-100)]">
+    <div class="container">
+      <div class="reveal max-w-xl">
+        <span class="eyebrow">Explore More</span>
+        <h2 class="mt-5">Other pathways to consider.</h2>
+      </div>
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {related.map((s, i) => (
+          <a href={`/services/${s.data.slug}`} class="card reveal p-7" style={`transition-delay:${i * 70}ms`}>
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--color-cream-200)] text-[var(--color-ink-800)]">
+              <Icon name={s.data.icon} class="w-5 h-5" />
+            </div>
+            <h4 class="mt-5">{s.data.title}</h4>
+            <p class="mt-2 text-sm">{s.data.shortDesc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</Page>

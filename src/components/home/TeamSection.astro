@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+
+const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
+
+const initials = (name: string) =>
+  name.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase();
+
+const avatarPalettes = [
+  'from-[var(--color-ink-700)] to-[var(--color-ink-500)]',
+  'from-[var(--color-flame-600)] to-[var(--color-flame-500)]',
+  'from-[var(--color-ink-900)] to-[var(--color-ink-600)]',
+];
+---
+
+<section class="py-24 md:py-32 bg-[var(--color-cream-100)]">
+  <div class="container">
+    <div class="reveal max-w-2xl">
+      <span class="eyebrow">Meet the Team</span>
+      <h2 class="mt-5">Advisers who've done this thousands of times.</h2>
+    </div>
+
+    <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {team.map((member, i) => (
+        <div class="reveal card overflow-hidden" style={`transition-delay:${i * 80}ms`}>
+          <div class={`flex aspect-[4/3] items-center justify-center bg-gradient-to-br ${avatarPalettes[i % avatarPalettes.length]}`}>
+            <span class="font-display text-5xl font-semibold text-white/90">{initials(member.data.name)}</span>
+          </div>
+          <div class="p-7">
+            <h3 class="text-xl">{member.data.name}</h3>
+            <p class="text-sm font-medium text-[var(--color-flame-600)] mt-1">{member.data.role}</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              {member.data.qualifications.map((q) => (
+                <span class="badge">{q}</span>
+              ))}
+            </div>
+            {member.data.languages.length > 0 && (
+              <p class="mt-4 text-xs text-[var(--color-neutral-500)]">
+                Speaks {member.data.languages.join(', ')}
+              </p>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

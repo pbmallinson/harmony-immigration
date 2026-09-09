@@ -1,0 +1,96 @@
+---
+import Page from '@layouts/Page.astro';
+import Icon from '@components/global/Icon.astro';
+
+const details = [
+  { label: 'Office', value: '120 Harbourview Boulevard, Suite 400', icon: 'map-pin' },
+  { label: 'Phone', value: '+1 (555) 014-2000', icon: 'phone' },
+  { label: 'Email', value: 'hello@meridian-immigration.com', icon: 'mail' },
+  { label: 'Hours', value: 'Mon – Fri, 9:00am – 5:30pm', icon: 'clock' },
+];
+
+const options = [
+  'Work Visa',
+  'Family & Partner Visa',
+  'Business & Investment',
+  'Residence & Citizenship',
+  'Student Visa',
+  'Visitor Visa',
+  'Not sure yet',
+];
+---
+
+<Page
+  title="Contact"
+  description="Book a free consultation with Meridian Immigration. Tell us about your situation and hear back within one business day."
+>
+  <section class="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32">
+    <div class="mesh-bg">
+      <div class="mesh-blob" style="width:480px;height:480px;background:var(--color-ink-500);top:-200px;right:-120px;"></div>
+    </div>
+
+    <div class="container relative z-10">
+      <div class="reveal max-w-2xl">
+        <span class="eyebrow">Get In Touch</span>
+        <h1 class="mt-5">Let's talk about your options.</h1>
+        <p class="mt-6 text-lg">
+          Fill out the form and one of our licensed advisers will respond within one business day — or call us directly during office hours.
+        </p>
+      </div>
+
+      <div class="mt-16 grid gap-10 lg:grid-cols-[1fr_1.3fr]">
+        <div class="reveal space-y-5">
+          {details.map((d) => (
+            <div class="card flex items-start gap-4 p-6">
+              <span class="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-[var(--color-cream-200)] text-[var(--color-ink-800)]">
+                <Icon name={d.icon} class="w-5 h-5" />
+              </span>
+              <div>
+                <p class="text-sm font-semibold text-[var(--color-ink-950)]">{d.label}</p>
+                <p class="text-sm text-[var(--color-neutral-600)] mt-0.5">{d.value}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <form class="reveal card p-8 md:p-10" style="transition-delay:100ms" data-demo-form>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="name" class="text-sm font-medium text-[var(--color-neutral-800)]">Full name</label>
+              <input id="name" name="name" type="text" required class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="Jane Doe" />
+            </div>
+            <div>
+              <label for="email" class="text-sm font-medium text-[var(--color-neutral-800)]">Email</label>
+              <input id="email" name="email" type="email" required class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="jane@email.com" />
+            </div>
+            <div>
+              <label for="phone" class="text-sm font-medium text-[var(--color-neutral-800)]">Phone (optional)</label>
+              <input id="phone" name="phone" type="tel" class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="+1 555 000 0000" />
+            </div>
+            <div>
+              <label for="pathway" class="text-sm font-medium text-[var(--color-neutral-800)]">What are you looking into?</label>
+              <select id="pathway" name="pathway" class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors bg-white">
+                {options.map((opt) => <option>{opt}</option>)}
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label for="message" class="text-sm font-medium text-[var(--color-neutral-800)]">Tell us about your situation</label>
+              <textarea id="message" name="message" rows="5" class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors resize-none" placeholder="Where are you now, where are you hoping to go, and what's your timeline?"></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary w-full mt-6">Send Message</button>
+          <p class="mt-4 text-center text-xs text-[var(--color-neutral-500)]" data-demo-note>This is a demo form — no data is actually submitted.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</Page>
+
+<script>
+  const form = document.querySelector('[data-demo-form]');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const note = form.querySelector('[data-demo-note]');
+    if (note) note.textContent = "Thanks! (Demo only — this didn't actually send anywhere.)";
+  });
+</script>
