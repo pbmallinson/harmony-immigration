@@ -1,8 +1,10 @@
 ---
 const stats = [
-  { value: '4,200+', label: 'Applications filed' },
-  { value: '97%', label: 'Approval rate' },
-  { value: '18', label: 'Years of practice' },
+  { value: '400+', label: 'People helped' },
+  { value: '99%', label: 'Approval rate' },
+  { value: '30+', label: 'Business approvals' },
+  { value: '7', label: 'Years of practice' },
+  { value: '5-star', label: 'Google review' },
 ];
 ---
 
@@ -15,23 +17,24 @@ const stats = [
   <div class="container relative z-10">
     <div class="grid items-center gap-16 lg:grid-cols-2">
       <div class="reveal">
-        <span class="eyebrow">Licensed Immigration Advisers</span>
-        <h1 class="mt-5">
-          Your path abroad,<br />
-          <span class="gradient-text">guided with clarity.</span>
+        <h1>
+          Your immigration<br />
+          plan can start with<br />
+          <span class="text-[var(--color-ink-500)]">one conversation.</span>
         </h1>
-        <p class="mt-6 max-w-lg text-lg">
-          Meridian Immigration helps individuals, families, and employers navigate visas, residence, and citizenship — with honest advice and a plan built around your goals.
+        <p class="mt-6 max-w-lg text-lg text-[var(--color-heading)]">
+          From visa strategy to settlement, we help make<br />
+          your move to New Zealand or Australia happen.
         </p>
         <div class="mt-9 flex flex-wrap gap-4">
-          <a href="/contact" class="btn btn-primary">Book a Free Consultation</a>
+          <a href="/contact" class="btn btn-primary">Book a Consultation</a>
           <a href="/services" class="btn btn-outline">Explore Services</a>
         </div>
 
-        <div class="mt-14 grid grid-cols-3 gap-6 max-w-md">
+        <div class="mt-14 grid grid-cols-3 gap-x-6 gap-y-8 max-w-xl">
           {stats.map((s) => (
             <div>
-              <p class="font-display text-2xl font-semibold text-[var(--color-ink-950)] md:text-3xl">{s.value}</p>
+              <p class="font-display text-2xl font-semibold text-[var(--color-heading)] md:text-3xl">{s.value}</p>
               <p class="mt-1 text-xs text-[var(--color-neutral-600)]">{s.label}</p>
             </div>
           ))}

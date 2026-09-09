@@ -3,33 +3,35 @@
 @import "tailwindcss";
 
 @theme {
-  /* Meridian Immigration — Brand Colors */
-  --color-cream-50: #fdfbf6;
-  --color-cream-100: #faf6ec;
-  --color-cream-200: #f2ead9;
-  --color-cream-300: #e6d9bf;
+  /* Meridian Immigration — Brand Colors (blue/turquoise variant) */
+  --color-cream-50: #ffffff;
+  --color-cream-100: #f2f9ff;
+  --color-cream-200: #cfe8ff;
+  --color-cream-300: #a9d4f7;
 
-  /* Primary — deep emerald */
-  --color-ink-950: #06251f;
-  --color-ink-900: #0b3a30;
-  --color-ink-800: #0f4d3f;
-  --color-ink-700: #14614f;
-  --color-ink-600: #1a7a63;
-  --color-ink-500: #229478;
+  --color-heading: #012c55;
 
-  /* Accent — warm terracotta */
-  --color-flame-500: #e2662d;
-  --color-flame-600: #cc5522;
-  --color-flame-700: #a8441a;
+  /* Primary — blue to turquoise */
+  --color-ink-950: #0c2c46;
+  --color-ink-900: #123b5c;
+  --color-ink-800: #4a90c2;
+  --color-ink-700: #14969c;
+  --color-ink-600: #19c5c6;
+  --color-ink-500: #2dfafe;
 
-  --color-neutral-50: #f9f8f6;
-  --color-neutral-100: #f0ede7;
-  --color-neutral-200: #e2ddd3;
-  --color-neutral-400: #a39d90;
-  --color-neutral-600: #6b6459;
-  --color-neutral-700: #4a4539;
-  --color-neutral-800: #322e26;
-  --color-neutral-900: #211e18;
+  /* Accent — mid blue */
+  --color-flame-500: #4a90c2;
+  --color-flame-600: #3f7aa5;
+  --color-flame-700: #35688c;
+
+  --color-neutral-50: #f7fafc;
+  --color-neutral-100: #edf2f7;
+  --color-neutral-200: #dce6ef;
+  --color-neutral-400: #93a5b8;
+  --color-neutral-600: #5b6b7a;
+  --color-neutral-700: #3e4c59;
+  --color-neutral-800: #29323c;
+  --color-neutral-900: #1a2027;
 
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-display: "Fraunces", Georgia, serif;
@@ -61,7 +63,7 @@
 
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    color: var(--color-ink-950);
+    color: var(--color-heading);
     letter-spacing: -0.01em;
   }
 
@@ -206,13 +208,6 @@
     transform: translateY(-6px);
     box-shadow: var(--shadow-md);
     border-color: transparent;
-  }
-
-  .gradient-text {
-    background: linear-gradient(120deg, var(--color-ink-700) 0%, var(--color-ink-500) 60%, var(--color-flame-500) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   .mesh-bg {
