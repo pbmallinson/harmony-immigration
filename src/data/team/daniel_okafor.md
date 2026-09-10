@@ -10,4 +10,4 @@ languages:
 order: 2
 ---
 
-Daniel leads Meridian's work visa and business immigration practice, working closely with employers on sponsorship and accreditation.
+Daniel leads Harmony's work visa and business immigration practice, working closely with employers on sponsorship and accreditation.

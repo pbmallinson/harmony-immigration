@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 const config = defineConfig({
-  site: 'https://www.meridian-immigration.com',
+  site: 'https://www.harmony-immigration.com',
   output: 'static',
 
   integrations: [mdx(), sitemap()],

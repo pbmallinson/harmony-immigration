@@ -10,4 +10,4 @@ languages:
 order: 1
 ---
 
-Amelia founded Meridian Immigration after a decade practicing immigration law, with a focus on making the process transparent for people who've never dealt with a visa application before.
+Amelia founded Harmony Immigration Services after a decade practicing immigration law, with a focus on making the process transparent for people who've never dealt with a visa application before.
