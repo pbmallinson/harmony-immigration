@@ -1,38 +1,58 @@
 ---
-import { getCollection } from 'astro:content';
-import Icon from '@components/global/Icon.astro';
-
-const allServices = await getCollection('services');
-const services = allServices
-  .filter((s) => s.data.featured)
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 6);
+const categories = [
+  {
+    label: 'Individuals',
+    tagline: 'Your next chapter',
+    desc: "When there's document to prepare and details<br />to get right, we’ll help you from start to finish.",
+    photo: '/images/individuals.jpg',
+  },
+  {
+    label: 'Families',
+    tagline: 'Together for good',
+    desc: 'When you have a plan and a lot of questions. We’ll help make sense of the immigration part.',
+    photo: '/images/families.jpg',
+  },
+  {
+    label: 'Businesses',
+    tagline: 'Grow without borders',
+    desc: 'Supporting businesses to hire foreign talents through accreditation and sponsorship.',
+    photo: '/images/businesses.jpg',
+  },
+];
 ---
 
 <section class="py-24 md:py-32">
   <div class="container">
-    <div class="reveal max-w-2xl">
-      <span class="eyebrow">What We Handle</span>
-      <h2 class="mt-5">Immigration pathways, <br class="hidden md:block" />handled end to end.</h2>
-      <p class="mt-5 text-lg">From a single work permit to a full family relocation, we cover the pathways that matter most.</p>
+    <div class="reveal max-w-2xl mx-auto text-center">
+      <h2>How We Can Help</h2>
+      <p class="mt-5 text-lg">From a single work permit to a full family relocation,<br />we cover the pathways that matter most.</p>
     </div>
 
-    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {services.map((service, i) => (
+    <div class="mt-14 grid gap-6 sm:grid-cols-3">
+      {categories.map((c, i) => (
         <a
-          href={`/services/${service.data.slug}`}
-          class="card reveal group flex flex-col p-8"
-          style={`transition-delay:${i * 60}ms`}
+          href="/services"
+          class="card reveal group relative aspect-[3/4] w-full overflow-hidden p-0"
+          style={`transition-delay:${i * 80}ms`}
         >
-          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--color-cream-200)] text-[var(--color-ink-800)]">
-            <Icon name={service.data.icon} class="w-6 h-6" />
+          <img
+            src={c.photo}
+            alt={c.label}
+            class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/0"></div>
+
+          <div class="absolute inset-x-0 bottom-0 flex flex-col items-start gap-3 p-8">
+            <div
+              class="inline-flex w-fit items-center rounded-xl border border-white/40 px-4 py-2 shadow-sm"
+              style="background: rgba(255,255,255,0.18); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);"
+            >
+              <span class="font-display text-sm font-semibold tracking-wide text-white">{c.label}</span>
+            </div>
+
+            <h3 class="text-white">{c.tagline}</h3>
+            <p class="text-sm text-white/80" set:html={c.desc} />
           </div>
-          <h3 class="mt-6">{service.data.title}</h3>
-          <p class="mt-2 text-sm flex-1">{service.data.shortDesc}</p>
-          <span class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-ink-800)] group-hover:gap-2.5 transition-all">
-            Learn more
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
         </a>
       ))}
     </div>
