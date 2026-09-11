@@ -2,18 +2,16 @@
 const stats = [
   { value: '400+', label: 'People helped' },
   { value: '99%', label: 'Approval rate' },
-  { value: '30+', label: 'Business approvals' },
   { value: '7 years', label: 'of practice' },
-  { value: '5-star', label: 'Google review' },
+  {
+    value: '5-star',
+    label: 'Google review',
+    href: 'https://www.google.com/search?q=harmony+immigration&rlz=1C1RXMK_enNZ948NZ948&oq=harmony+immigration&gs_lcrp=EgZjaHJvbWUqBwgAEAAYgAQyBwgAEAAYgAQyBwgBEAAYgAQyBwgCEAAYgAQyBwgDEAAYgAQyBwgEEAAYgAQyBwgFEAAYgAQyCggGEAAYgAQYtAcyBggHEAAYHjIGCAgQABgeMgYICRAAGB7SAQk5MDg1ajBqMTWoAgiwAgHxBd00l0aEMNvN8QXdNJdGhDDbzQ&sourceid=chrome&source=chrome.rb&ie=UTF-8#lrd=0x43747abc5e7073ef:0x701c5e396d8a8887,1,,,,',
+  },
 ];
 ---
 
-<section class="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32">
-  <div class="mesh-bg">
-    <div class="mesh-blob" style="width:520px;height:520px;background:var(--color-ink-500);top:-220px;right:-160px;"></div>
-    <div class="mesh-blob" style="width:420px;height:420px;background:var(--color-flame-500);bottom:-200px;left:-140px;opacity:0.3;"></div>
-  </div>
-
+<section class="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32 bg-white">
   <div class="container relative z-10">
     <div class="grid items-center gap-16 lg:grid-cols-2">
       <div class="reveal">
@@ -31,36 +29,31 @@ const stats = [
           <a href="/services" class="btn btn-outline">Explore Services</a>
         </div>
 
-        <div class="mt-14 grid grid-cols-3 gap-x-6 gap-y-8 max-w-xl">
+        <div class="mt-32 grid grid-cols-4 gap-x-4 gap-y-8">
           {stats.map((s) => (
-            <div>
-              <p class="font-display text-2xl font-semibold text-[var(--color-heading)] md:text-3xl">{s.value}</p>
-              <p class="mt-1 text-xs text-[var(--color-neutral-600)]">{s.label}</p>
-            </div>
+            s.href ? (
+              <a href={s.href} target="_blank" rel="noopener noreferrer" class="group block ml-8">
+                <p class="font-display text-2xl font-semibold text-[var(--color-heading)] transition-colors group-hover:text-[var(--color-flame-500)] md:text-3xl">{s.value}</p>
+                <p class="mt-1 text-xs text-[var(--color-neutral-600)] underline decoration-[var(--color-neutral-200)] underline-offset-2 group-hover:text-[var(--color-flame-500)]">{s.label}</p>
+              </a>
+            ) : (
+              <div>
+                <p class="font-display text-2xl font-semibold text-[var(--color-heading)] md:text-3xl">{s.value}</p>
+                <p class="mt-1 text-xs text-[var(--color-neutral-600)]">{s.label}</p>
+              </div>
+            )
           ))}
         </div>
       </div>
 
       <div class="reveal relative" style="transition-delay: 120ms;">
         <div class="relative rounded-[2rem] bg-white p-3 shadow-[var(--shadow-glow)]">
-          <div class="aspect-[4/5] w-full overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[var(--color-ink-800)] via-[var(--color-ink-600)] to-[var(--color-flame-600)] relative">
-            <div class="absolute inset-0 grain"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
-              <p class="font-display text-2xl leading-snug">"They made a confusing process feel completely manageable."</p>
-              <p class="mt-4 text-sm text-white/70">Amara O. — Work Visa client</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="absolute -left-6 -bottom-6 hidden md:block rounded-2xl bg-white p-5 shadow-[var(--shadow-md)] border border-[var(--color-neutral-100)]">
-          <div class="flex items-center gap-3">
-            <div class="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-ink-950)] text-white">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <div>
-              <p class="text-sm font-semibold text-[var(--color-ink-950)]">Case approved</p>
-              <p class="text-xs text-[var(--color-neutral-500)]">Residence Visa · 6 weeks</p>
-            </div>
+          <div class="aspect-[4/5] w-full overflow-hidden rounded-[1.5rem] relative">
+            <img
+              src="/images/hero-conversation.jpg"
+              alt="Two people talking during a consultation"
+              class="absolute inset-0 h-full w-full object-cover grayscale"
+            />
           </div>
         </div>
       </div>

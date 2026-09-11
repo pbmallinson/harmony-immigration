@@ -2,8 +2,8 @@
 const categories = [
   {
     label: 'Individuals',
-    tagline: 'Your next chapter',
-    desc: "When there's document to prepare and details<br />to get right, we’ll help you from start to finish.",
+    tagline: 'Visit, work or study',
+    desc: "Documents, details, deadlines. We've<br />got it covered from start to finish.",
     photo: '/images/individuals.jpg',
   },
   {
@@ -23,9 +23,9 @@ const categories = [
 
 <section class="py-24 md:py-32">
   <div class="container">
-    <div class="reveal max-w-2xl mx-auto text-center">
-      <h2>How We Can Help</h2>
-      <p class="mt-5 text-lg">From a single work permit to a full family relocation,<br />we cover the pathways that matter most.</p>
+    <div class="reveal max-w-3xl mx-auto text-center">
+      <h2>How we can help</h2>
+      <p class="mt-5 text-lg sm:whitespace-nowrap">Everyone has a different reason for relocating and their own questions too. We're here to answer them.</p>
     </div>
 
     <div class="mt-14 grid gap-6 sm:grid-cols-3">
@@ -38,7 +38,7 @@ const categories = [
           <img
             src={c.photo}
             alt={c.label}
-            class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            class="absolute inset-0 h-full w-full object-cover grayscale transition-transform duration-500 group-hover:scale-105"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/0"></div>
 
@@ -58,7 +58,14 @@ const categories = [
     </div>
 
     <div class="mt-12 text-center">
-      <a href="/services" class="btn btn-dark">View All Services</a>
+      <a href="/services" class="btn btn-primary">Explore More</a>
+    </div>
+
+    <div class="reveal mt-16 flex flex-col items-start gap-6 rounded-[var(--radius-xl)] bg-[var(--color-cream-200)] p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+      <p class="text-lg font-medium text-[var(--color-heading)] sm:whitespace-nowrap">
+        Not sure which visa is right for you because your situation doesn't fit into one category? That's normal.
+      </p>
+      <a href="/contact" class="btn btn-dark flex-none">Get Started</a>
     </div>
   </div>
 </section>
