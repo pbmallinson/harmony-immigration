@@ -210,6 +210,21 @@
     border-color: transparent;
   }
 
+  .card-deep-shadow:hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Stronger resting definition — border + shadow visible by default, more dramatic on hover */
+  .card-highlight {
+    border-color: var(--color-neutral-200);
+    box-shadow: var(--shadow-sm);
+  }
+  .card-highlight:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: color-mix(in srgb, var(--color-heading) 35%, transparent);
+  }
+
   .mesh-bg {
     position: absolute;
     inset: 0;

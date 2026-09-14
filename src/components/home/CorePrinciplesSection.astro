@@ -9,28 +9,38 @@ const principles = [
     size: 'large',
   },
   {
-    icon: 'scale',
-    title: 'Licensed & Accountable',
-    desc: 'Every case is handled by licensed advisers bound by a professional code of conduct.',
-  },
-  {
-    icon: 'clock',
-    title: 'Clear Timelines',
-    desc: 'You always know what stage your case is at and what happens next.',
+    icon: 'graduation-cap',
+    title: 'Experienced and qualified',
+    desc: 'Registered advisers with real, local immigration expertise.',
   },
   {
     icon: 'globe',
-    title: 'Global Experience',
-    desc: 'Cases handled across dozens of nationalities and visa categories.',
+    title: 'NZ and Australia specialists',
+    desc: 'We know the rules, the policies, and how they actually apply.',
+  },
+  {
+    icon: 'heart',
+    title: 'Personalised approach',
+    desc: 'Your plan is built around you, not a template.',
+  },
+  {
+    icon: 'scale',
+    title: 'Integrity and Transparency',
+    desc: 'Clear communication and honest advice at every step.',
+  },
+  {
+    icon: 'suitcase',
+    title: 'Beyond visas',
+    desc: 'Support that continues after the visa: settlement, career and future opportunities.',
   },
 ];
 ---
 
 <section class="py-24 md:py-32">
   <div class="container">
-    <div class="reveal max-w-2xl">
-      <span class="eyebrow">Why Harmony</span>
-      <h2 class="mt-5">Guidance you can actually trust.</h2>
+    <div class="reveal max-w-5xl mx-auto text-center">
+      <h2>Why choose Harmony</h2>
+      <p class="mt-5 text-lg lg:whitespace-nowrap">Immigration should open doors so we built this company to make that journey simpler for the people going through it.</p>
     </div>
 
     <div class="mt-14 grid gap-6 md:grid-cols-3">
@@ -55,7 +65,7 @@ const principles = [
       </div>
 
       {principles.slice(1).map((p, i) => (
-        <div class="reveal card p-8" style={`transition-delay:${(i + 1) * 80}ms`}>
+        <div class="reveal card card-highlight p-8" style={`transition-delay:${(i + 1) * 80}ms`}>
           <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--color-cream-200)] text-[var(--color-ink-800)]">
             <Icon name={p.icon} class="w-6 h-6" />
           </div>
