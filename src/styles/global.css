@@ -226,7 +226,7 @@
 
   /* Stronger resting definition — border + shadow visible by default, more dramatic on hover */
   .card-highlight {
-    border-color: #55BFC0;
+    border-color: var(--color-neutral-200);
     box-shadow: var(--shadow-sm);
   }
   .card-highlight:hover {

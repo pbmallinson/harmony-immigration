@@ -1,0 +1,52 @@
+---
+const supports = [
+  {
+    icon: '/images/icons-more-than-visa/job-ready.svg',
+    title: 'Job ready',
+    desc: 'CVs, employer introductions and<br class="hidden lg:inline" /> guidance to help you land a role.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⟶',
+  },
+  {
+    icon: '/images/icons-more-than-visa/english-prep.svg',
+    title: 'English prep',
+    desc: 'Exam and interview coaching, so<br class="hidden lg:inline" /> you walk in confident and ready.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⟶',
+  },
+  {
+    icon: '/images/icons-more-than-visa/certified-translation.svg',
+    title: 'Translation',
+    desc: 'Certified translation and interpreting<br class="hidden lg:inline" /> for official and personal needs.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⟶',
+  },
+  {
+    icon: '/images/icons-more-than-visa/settling-in.svg',
+    title: 'Settling in',
+    desc: 'Housing, banking, healthcare<br class="hidden lg:inline" /> and everyday life, sorted.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⟶',
+  },
+];
+---
+
+<section class="relative py-24 md:py-32" style="background: color-mix(in srgb, #79AFC1 80%, white);">
+  <div class="container relative">
+    <div class="reveal max-w-3xl mx-auto text-center">
+      <h2 class="text-[#123B57]">More than a visa</h2>
+      <p class="mt-5 text-lg text-[#123B57] sm:whitespace-nowrap">What extra support do you need alongside your visa?</p>
+    </div>
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {supports.map((s, i) => (
+        <div class="reveal card card-deep-shadow px-4 py-6" style={`transition-delay:${i * 80}ms`}>
+          <div class="flex h-12 w-12 items-center justify-center">
+            <img src={s.icon} alt="" class="w-12 h-12" />
+          </div>
+          <h3 class="mt-5 tracking-tight whitespace-nowrap">{s.title}</h3>
+          <p class="mt-2 text-sm" set:html={s.desc} />
+        </div>
+      ))}
+    </div>
+
+    <div class="reveal mt-16 mx-auto flex max-w-2xl flex-col items-start gap-6 rounded-[var(--radius-xl)] bg-[#123B57] p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+      <p class="text-lg font-medium text-white">
+        Not sure where to start?<br class="hidden lg:inline" /> We'll help you find the right next step.
+      </p>
+      <a href="/contact" class="btn btn-primary flex-none">Get in Touch</a>
+    </div>
+  </div>
+</section>

@@ -6,27 +6,27 @@ const principles = [
   {
     icon: '/images/icons-why-choose/local-expertise.svg',
     title: 'Local expertise',
-    desc: 'Advice from licensed professionals who understand immigration practical implications.',
+    desc: 'Advice from licensed professionals who<br class="hidden lg:inline" /> understand immigration practical implications.',
   },
   {
     icon: '/images/icons-why-choose/clear-communication.svg',
     title: 'Clear communication',
-    desc: 'We will keep you informed with clear<br />advice and straightforward timelines.',
+    desc: 'We will keep you informed with clear<br class="hidden lg:inline" /> advice and straightforward timelines.',
   },
   {
     icon: '/images/icons-why-choose/tailored-plan.svg',
     title: 'Tailored plan',
-    desc: 'We look at where you want to go in the future so we build the plan around you, not a template.',
+    desc: 'We look at where you want to go in the future so<br class="hidden lg:inline" /> we build the plan around you, not a template.',
   },
   {
     icon: '/images/icons-why-choose/complex-cases.svg',
     title: 'Complex cases',
-    desc: "When the obvious pathway isn't the right one, we look for a better way forward.",
+    desc: `When the obvious pathway isn't the right<br class="hidden lg:inline" /> one, we look for a better way forward.`,
   },
   {
     icon: '/images/icons-why-choose/upfront-costs.svg',
     title: 'Upfront costs',
-    desc: 'Clear pricing and a written agreement before you proceed, so you know exactly what to expect.',
+    desc: 'Clear pricing and a written agreement before you<br class="hidden lg:inline" /> proceed, so you know exactly what to expect.',
   },
 ];
 ---
@@ -44,7 +44,7 @@ const principles = [
       </div>
 
       {principles.slice(1).map((p, i) => (
-        <div class="reveal card card-highlight p-8" style={`transition-delay:${(i + 1) * 80}ms`}>
+        <div class={`reveal card card-highlight p-8 ${i < 2 ? 'self-start' : ''}`} style={`transition-delay:${(i + 1) * 80}ms`}>
           <div class="flex h-12 w-12 items-center justify-center">
             <img src={p.icon} alt="" class="w-12 h-12" />
           </div>
