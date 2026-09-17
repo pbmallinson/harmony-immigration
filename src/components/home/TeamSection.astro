@@ -1,45 +1,70 @@
 ---
-import { getCollection } from 'astro:content';
-
-const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
-
-const initials = (name: string) =>
-  name.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase();
-
-const avatarPalettes = [
-  'from-[var(--color-ink-700)] to-[var(--color-ink-500)]',
-  'from-[var(--color-flame-600)] to-[var(--color-flame-500)]',
-  'from-[var(--color-ink-900)] to-[var(--color-ink-600)]',
+const credentials = [
+  {
+    icon: '/images/icons-about/nz.svg',
+    title: 'NZ Licensed',
+    detail: 'Immigration Adviser',
+    code: 'LIA 202001046',
+  },
+  {
+    icon: '/images/icons-about/australia.svg',
+    title: 'Australia Registered',
+    detail: 'Migration Agent',
+    code: 'MARN 2418597',
+  },
+  {
+    icon: '/images/icons-about/certified.svg',
+    title: 'Certified',
+    titleSecondary: 'English translator',
+    detail: 'Hungarian interpreter',
+  },
+  {
+    icon: '/images/icons-about/education.svg',
+    title: 'PhD in Law',
+    detail: 'Formal legal education',
+  },
 ];
 ---
 
-<section class="py-24 md:py-32 bg-[var(--color-cream-100)]">
+<section class="overflow-hidden bg-white py-24 md:py-32">
   <div class="container">
-    <div class="reveal max-w-2xl">
-      <span class="eyebrow">Meet the Team</span>
-      <h2 class="mt-5">Advisers who've done this thousands of times.</h2>
+    <div class="reveal max-w-3xl mx-auto text-center">
+      <h2>Meet your adviser</h2>
+      <p class="mt-5 text-lg sm:whitespace-nowrap">Get to know the person behind the business and the experience she brings.</p>
     </div>
 
-    <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {team.map((member, i) => (
-        <div class="reveal card overflow-hidden" style={`transition-delay:${i * 80}ms`}>
-          <div class={`flex aspect-[4/3] items-center justify-center bg-gradient-to-br ${avatarPalettes[i % avatarPalettes.length]}`}>
-            <span class="font-display text-5xl font-semibold text-white/90">{initials(member.data.name)}</span>
-          </div>
-          <div class="p-7">
-            <h3 class="text-xl">{member.data.name}</h3>
-            <p class="text-sm font-medium text-[var(--color-flame-600)] mt-1">{member.data.role}</p>
-            <div class="mt-4 flex flex-wrap gap-2">
-              {member.data.qualifications.map((q) => (
-                <span class="badge">{q}</span>
-              ))}
-            </div>
-            {member.data.languages.length > 0 && (
-              <p class="mt-4 text-xs text-[var(--color-neutral-500)]">
-                Speaks {member.data.languages.join(', ')}
-              </p>
-            )}
-          </div>
+    <div class="mt-14 grid gap-12 lg:grid-cols-2 lg:gap-8">
+      <div class="reveal lg:ml-[216px] lg:mt-9 lg:max-w-[320px]">
+        <h3>Hello, I'm Edit.</h3>
+        <p class="mt-5">I made the move to New Zealand myself, so I know the immigration process from both sides. Today, I help individuals, families and businesses understand their options and work out what comes next with clear, practical advice.</p>
+        <p class="mt-24 text-[var(--color-heading)]">Want to ask something directly first?</p>
+        <a href="/contact#contact-form" class="btn btn-primary mt-3">Send a message</a>
+      </div>
+
+      <div class="reveal">
+        <img
+          src="/images/team/edit-green-circle-bw.png"
+          alt="Dr Edit Fellner-Andrejkovics"
+          class="mx-auto w-full max-w-sm"
+        />
+        <div class="mx-auto mt-5 w-full max-w-sm text-center">
+          <p class="font-display text-lg font-semibold text-[var(--color-heading)]">Dr Edit Fellner-Andrejkovics</p>
+          <p class="mt-1 text-sm text-[var(--color-heading)]">Licensed Immigration Adviser<br />and Registered Migration Agent</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative mt-16 grid grid-cols-2 gap-x-6 gap-y-10 lg:ml-[184px] lg:mr-[76px] lg:grid-cols-4 lg:gap-x-0">
+      <div class="pointer-events-none absolute top-1 bottom-1 hidden w-px bg-[#123B57]/25 lg:block" style="left: 232px;"></div>
+      <div class="pointer-events-none absolute top-1 bottom-1 hidden w-px bg-[#123B57]/25 lg:block" style="left: 476px;"></div>
+      <div class="pointer-events-none absolute top-1 bottom-1 hidden w-px bg-[#123B57]/25 lg:block" style="left: 716px;"></div>
+      {credentials.map((c) => (
+        <div class="reveal lg:px-8">
+          <img src={c.icon} alt="" class="h-12 w-12" />
+          <p class="mt-3 font-bold text-[var(--color-heading)]">{c.title}</p>
+          {c.titleSecondary && <p class="leading-snug text-[var(--color-heading)]">{c.titleSecondary}</p>}
+          {c.detail && <p class="mt-0.5 leading-snug text-[var(--color-heading)]">{c.detail}</p>}
+          {c.code && <p class="mt-0.5 leading-snug text-[var(--color-heading)]">{c.code}</p>}
         </div>
       ))}
     </div>
