@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('testimonials');
+const testimonials = all.slice(0, 6);
+
+const initials = (name: string) =>
+  name.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase();
+---
+
+<style>
+  .pop-reveal {
+    opacity: 0;
+    transform: translateY(48px) scale(0.94);
+    transition: opacity 0.8s cubic-bezier(.2,.8,.2,1), transform 0.8s cubic-bezier(.2,.8,.2,1);
+  }
+  .pop-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .offset-down {
+    margin-top: 2.5rem;
+  }
+  @media (max-width: 767px) {
+    .offset-down { margin-top: 0; }
+  }
+</style>
+
+<section class="bg-[var(--color-cream-100)] py-24 md:py-32">
+  <div class="container">
+    <div class="reveal max-w-2xl mx-auto text-center">
+      <span class="eyebrow">Client Stories</span>
+      <h2 class="mt-5">Real outcomes, in their own words.</h2>
+    </div>
+
+    <div class="mt-16 grid gap-6 md:grid-cols-3">
+      {testimonials.map((t, i) => (
+        <div
+          class:list={['pop-reveal', i % 3 === 1 ? 'offset-down' : '']}
+          style={`transition-delay:${i * 120}ms`}
+        >
+          <div class="card card-deep-shadow p-8 flex flex-col h-full">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#55BFC0">
+              <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-4v-10h9.999z"/>
+            </svg>
+            <div class="mt-4 flex gap-1 text-[#55BFC0]">
+              {Array.from({ length: t.data.rating }).map(() => (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              ))}
+            </div>
+            <p class="mt-5 flex-1 text-[var(--color-neutral-700)]">"{t.data.text}"</p>
+            <div class="mt-6 flex items-center gap-3 pt-5 border-t border-[var(--color-neutral-100)]">
+              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-ink-950)] text-xs font-semibold text-white">
+                {initials(t.data.name)}
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-[var(--color-ink-950)]">{t.data.name}</p>
+                <p class="text-xs text-[var(--color-neutral-500)]">{t.data.outcome ?? t.data.location}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const els = document.querySelectorAll('.pop-reveal');
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      }
+    },
+    { threshold: 0.15 }
+  );
+  els.forEach((el) => io.observe(el));
+</script>

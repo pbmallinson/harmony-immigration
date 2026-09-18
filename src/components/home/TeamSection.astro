@@ -55,9 +55,9 @@ const credentials = [
     </div>
 
     <div class="relative mt-16 grid grid-cols-2 gap-x-6 gap-y-10 lg:ml-[184px] lg:mr-[76px] lg:grid-cols-4 lg:gap-x-0">
-      <div class="pointer-events-none absolute top-1 bottom-1 hidden w-px bg-[#123B57]/25 lg:block" style="left: 232px;"></div>
-      <div class="pointer-events-none absolute top-1 bottom-1 hidden w-px bg-[#123B57]/25 lg:block" style="left: 476px;"></div>
-      <div class="pointer-events-none absolute top-1 bottom-1 hidden w-px bg-[#123B57]/25 lg:block" style="left: 716px;"></div>
+      <div class="pointer-events-none absolute top-1 bottom-1 hidden w-px bg-[#123B57]/25 lg:block" style="left: calc(25% - 35px);"></div>
+      <div class="pointer-events-none absolute top-1 bottom-1 hidden w-px bg-[#123B57]/25 lg:block" style="left: calc(50% - 35px);"></div>
+      <div class="pointer-events-none absolute top-1 bottom-1 hidden w-px bg-[#123B57]/25 lg:block" style="left: calc(75% - 35px);"></div>
       {credentials.map((c) => (
         <div class="reveal lg:px-8">
           <img src={c.icon} alt="" class="h-12 w-12" />

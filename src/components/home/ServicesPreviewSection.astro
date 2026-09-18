@@ -11,6 +11,7 @@ const categories = [
     tagline: 'Together for good',
     desc: 'When you have a plan and a lot of questions.<br class="hidden lg:inline" /> We’ll help make sense of the immigration part.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⟶',
     photo: '/images/families.jpg',
+    position: 'object-[50%_15%]',
   },
   {
     label: 'Businesses',
@@ -38,9 +39,9 @@ const categories = [
           <img
             src={c.photo}
             alt={c.label}
-            class="absolute inset-0 h-full w-full object-cover grayscale transition-transform duration-500 group-hover:scale-105"
+            class={`absolute inset-0 h-full w-full object-cover ${c.position ?? 'object-center'} transition-transform duration-500 group-hover:scale-105`}
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/0"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 to-black/0 to-50%"></div>
 
           <div class="absolute inset-x-0 bottom-0 flex flex-col items-start gap-3 p-6 sm:p-8 lg:px-5 lg:py-8">
             <div
