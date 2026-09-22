@@ -40,13 +40,13 @@ const principles = [
 
     <div class="mt-14 grid gap-6 md:grid-cols-3">
       <div class="reveal card md:col-span-2 md:row-span-2 border-none overflow-hidden p-0">
-        <img src="/images/why-choose-harmony.png" alt={principles[0].title} class="w-full h-full object-cover" />
+        <img src="/images/why-choose-harmony.png" alt={principles[0].title} class="w-full h-full object-cover object-bottom" />
       </div>
 
       {principles.slice(1).map((p, i) => (
-        <div class={`reveal card card-highlight p-8 ${i < 2 ? 'self-start' : ''}`} style={`transition-delay:${(i + 1) * 80}ms`}>
-          <div class="flex h-12 w-12 items-center justify-center">
-            <img src={p.icon} alt="" class="w-12 h-12" />
+        <div class={`reveal card card-highlight p-8 ${i < 2 ? 'self-start' : ''}`} style={`transition-delay:${(i + 1) * 80}ms; border: 0.7px solid rgba(148, 191, 205, 0.7);`}>
+          <div class="flex h-[52.8px] w-[52.8px] items-center justify-center">
+            <img src={p.icon} alt="" class="h-[52.8px] w-[52.8px]" />
           </div>
           <h3 class="mt-5">{p.title}</h3>
           <p class="mt-2 text-sm" set:html={p.desc} />

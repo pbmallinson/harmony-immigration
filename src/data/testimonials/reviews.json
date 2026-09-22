@@ -1,50 +1,443 @@
 [
   {
-    "id": "amara-osei",
-    "name": "Amara Osei",
-    "location": "Relocated from Ghana",
+    "id": "lilian-malandain",
+    "name": "Lilian Malandain",
     "rating": 5,
-    "text": "They made a confusing process feel completely manageable. Every question was answered within a day, and my work visa was approved faster than I expected.",
-    "outcome": "Work Visa client"
+    "text": "Amazing support and help to get my visa , I highly recommend 👌",
+    "outcome": "Accredited Employer Work Visa client"
   },
   {
-    "id": "liam-chen",
-    "name": "Liam Chen",
-    "location": "Relocated from Singapore",
+    "id": "zoltan-dr-katona",
+    "name": "Zoltan Dr. Katona",
     "rating": 5,
-    "text": "Honest from day one about what was and wasn't possible. That honesty saved us months of chasing the wrong pathway.",
-    "outcome": "Business Visa client"
+    "text": "Highly accurate and responsive service. I recommend it to everyone",
+    "outcome": "Subclass 600 Visa client"
   },
   {
-    "id": "priya-raj-nair",
-    "name": "Priya & Raj Nair",
-    "location": "Relocated from India",
+    "id": "mohammed-obed",
+    "name": "Mohammed Obed",
     "rating": 5,
-    "text": "Our partner visa application had already been declined once elsewhere. Harmony rebuilt our case from scratch and got it approved on the second attempt.",
-    "outcome": "Partner Visa clients"
+    "text": "Thank you a lot of cooperation and sincerity and punctuality I really highly recommend",
+    "outcome": "Permanent Residence Visa client"
   },
   {
-    "id": "marta-kowalski",
-    "name": "Marta Kowalski",
-    "location": "Relocated from Poland",
+    "id": "stella-veronica",
+    "name": "Stella Veronica",
     "rating": 5,
-    "text": "I appreciated getting a real answer to every email, not a generic template. It felt like they actually knew our file.",
+    "text": "I highly recommend Edit! Professional, reliable (!!!!) dedicated. I only recommend her! 👍👍👍❤️🙏",
+    "outcome": "Visitor Visa Extension client"
+  },
+  {
+    "id": "deborah-fasio",
+    "name": "Deborah Fasio",
+    "rating": 5,
+    "text": "Recommend Harmony,  Edit replied super fast and helped me with my doubts about the new points system.",
+    "outcome": "Consultation client"
+  },
+  {
+    "id": "csaba-timar",
+    "name": "Csaba Timár",
+    "rating": 5,
+    "text": "I can only say good things about Harmony Immigration NZ and I can recommend their service for everyone.",
+    "outcome": "Permanent Residence Visa client"
+  },
+  {
+    "id": "giseli-reis",
+    "name": "Giseli Reis",
+    "rating": 5,
+    "text": "I was very happy with Edit's work. She is always very professional and leaves us completely at ease with our applications.I just have to thank her. ❤️",
     "outcome": "Residence Visa client"
   },
   {
-    "id": "tomas-rivera",
-    "name": "Tomás Rivera",
-    "location": "Relocated from Mexico",
-    "rating": 4,
-    "text": "Straightforward, professional, and clear about timelines from the start. Our student visa came through with no complications.",
-    "outcome": "Student Visa client"
+    "id": "zsofia-lay",
+    "name": "Zsófia Lay",
+    "rating": 5,
+    "text": "Edit was incredibly helpful with my partnership visa. Thanks to her, the process was quick and smooth. It's evident that she truly cares about her clients.",
+    "outcome": "Partner Work Visa client"
   },
   {
-    "id": "grace-mbeki",
-    "name": "Grace Mbeki",
-    "location": "Relocated from Kenya",
+    "id": "linda-nemeth",
+    "name": "Linda Nemeth",
     "rating": 5,
-    "text": "After years of trying on our own, Harmony got our citizenship application over the line in under a year.",
-    "outcome": "Citizenship client"
+    "text": "Edit is always here to help and provides the utmost professional service ever! I and my team are so grateful to have such a help in all immigration matters! Thank you!",
+    "outcome": "Employer Consultation client"
+  },
+  {
+    "id": "mia-milon",
+    "name": "Mia Milon",
+    "rating": 5,
+    "text": "Hey Edit, I am extremely happy for your perfect guidelines and best work for my wife's application.You have the best experience for immigration. Thanks a million for you. Milon",
+    "outcome": "Accredited Employer Work Visa and Partner Work Visa client"
+  },
+  {
+    "id": "ben-jansen",
+    "name": "Ben Jansen",
+    "rating": 5,
+    "text": "Working with harmony immigration was a dream, Edit was very helpful and experienced in the process. We were well informed along the way and if we had any questions she was very happy to help.",
+    "outcome": "Employer Accreditation client"
+  },
+  {
+    "id": "eszter-liptak",
+    "name": "Eszter Liptak",
+    "rating": 5,
+    "text": "Edit is very kind and helpful. The most fantastic person I have ever met. She is by my side from the first minute to the last minute. I highly recommend her if your dream to move to New Zealand",
+    "outcome": "Consultation client"
+  },
+  {
+    "id": "michelle-s",
+    "name": "Michelle S",
+    "rating": 5,
+    "text": "Edit was recommended to me by a friend - I am glad I reached out to her! She is incredibly professional and kind, providing clarity on a very confusing process navigating residency. Thank you Edit!",
+    "outcome": "Consultation client"
+  },
+  {
+    "id": "istvan-heffner",
+    "name": "Istvan Heffner",
+    "rating": 5,
+    "text": "I can only say good things about Edit and the  Harmony Immigration NZ. She is an extremely kind and helpful person who is a top professional. I am forever grateful to her for our visa. Thanks Edit. :)",
+    "outcome": "Accredited Employer Work Visa client"
+  },
+  {
+    "id": "monica-lafon",
+    "name": "Monica Lafon",
+    "rating": 5,
+    "text": "Kia ora! Edit is amazing to work with! She is a great advisor and finds the time to talk and the translations are really quick! I would never apply to a student visa application without consulting her first!",
+    "outcome": "Consultation client"
+  },
+  {
+    "id": "alex-dobos",
+    "name": "Alex Dobos",
+    "rating": 5,
+    "text": "The best choice if you want to sleep well while your visa is being processed. Edit’s professionalism and knowledge are amazing, we needed urgent help, and she made the application process smooth and understandable. Absolutely recommended.",
+    "outcome": "Residence Visa and Permanent Residence Visa client"
+  },
+  {
+    "id": "davide-cfishing",
+    "name": "Davide CFishing",
+    "rating": 5,
+    "text": "Edit is a real superstar! She helped me with my partnership visa when I gave her only short notice, she immediately got everything ready for me. Every question from my side was an answered in no time!! I could not recommend her more! Thank you Edit 🙏",
+    "outcome": "Partner Work Visa client"
+  },
+  {
+    "id": "petra-pall",
+    "name": "Petra Pall",
+    "rating": 5,
+    "text": "Edit is simply the best! She provides clarity in the whole process. Her professionalism is outstanding and her kind and helpful nature brings peace of mind during this complex process. We are grateful to her for our visas and we highly recommend her!",
+    "outcome": "Fee Paying Student Visa client"
+  },
+  {
+    "id": "anna-suhajda",
+    "name": "Anna Suhajda",
+    "rating": 5,
+    "text": "I used Harmony Immigration for assistance in obtaining my visa in 2023, and I couldn't be more pleased with the service. From start to finish, Edit was professional, efficient, and went above and beyond to ensure a smooth process. I highly recommend them.",
+    "outcome": "Partner Work Visa client"
+  },
+  {
+    "id": "chentanamy-solon",
+    "name": "Chentanamy Solon",
+    "rating": 5,
+    "text": "We are grateful for the invaluable assistance and guidance of Edit, throughout my partnership open visa. Navigating immigration requirements can be overwhelming, but her clear advice and support gave us confidence every step of the way. Highly recommended!",
+    "outcome": "Partner Work Visa client"
+  },
+  {
+    "id": "emese-fodor",
+    "name": "Emese Fodor",
+    "rating": 5,
+    "text": "I am very grateful to Edit. Her work is conscientious, she pays attention to every little detail. She has great patience. She plans everything carefully. Communication with her is smooth. Her knowledge is outstanding, up-to-date. I recommend her wholeheartedly! 😀",
+    "outcome": "General Visitor, Partner Work and Partner Residence Visa, Employer Accreditation, Job Check client"
+  },
+  {
+    "id": "jasmine-hamill",
+    "name": "Jasmine Hamill",
+    "rating": 5,
+    "text": "I will recommend Edit to anyone and everyone applying for an NZ visa. A colleague recommended her to me and I'm so grateful for it. She made the visa application process easy to understand. She was patient, responsive and very thorough. I can't rate her highly enough.",
+    "outcome": "Consultation client"
+  },
+  {
+    "id": "kitti-angyal",
+    "name": "Kitti Angyal",
+    "rating": 5,
+    "text": "Edit is a very well informed advisor. She helped me and my boyfriend with our accredited employer work visa. She's been always very supportive and responsive during our ' struggles '. I would highly recommend her service. She's fast and reliable and kind hearted person.",
+    "outcome": "Accredited Employer Work Visa client"
+  },
+  {
+    "id": "david-kalmar",
+    "name": "Dávid Kalmár",
+    "rating": 5,
+    "text": "Hi guys, I got my residency thanks for the Harmony Immigration. It was a long journey for us, because during my process I changed my workplace, my family status changed, my son was born, I needed to provide some extra unusual documents and etc.. Edit  was there and always helped me.",
+    "outcome": "Accredited Employer Work Visa, Residence Visa and Permanent Residence Visa client"
+  },
+  {
+    "id": "bernadett-toth",
+    "name": "Bernadett Tòth",
+    "rating": 5,
+    "text": "Thank you Edit, for your excellent service. You have been incredibly helpful and patiently answered all our questions and concerns at all hours without ever getting annoyed. You made the entire process stress-free. I highly recommend Edit to anyone looking for a great migration agent.",
+    "outcome": "Consultation client"
+  },
+  {
+    "id": "nora",
+    "name": "Nóra",
+    "rating": 5,
+    "text": "We contacted Edit for a professional support for our partnership visa application. From the beginning she gave us clear instructions and kept us updated with the process. Communication was smooth and she put her all effort to get the best result. We are glad that we choose Harmony Immigration. Recommend.",
+    "outcome": "Work to Residence client"
+  },
+  {
+    "id": "erika-koncz",
+    "name": "Erika Koncz",
+    "rating": 5,
+    "text": "With the help of Editke, we got the settlement visa.  At 50 years old, it was our last chance to stay here.  With Editke's high level of knowledge and conscientious help, the settlement was successful.  If you need an up-to-date and knowledgeable immigration agent, I wholeheartedly recommend Harmony Immigration",
+    "outcome": "Residence Visa, Partner of a Worker Work Visa and Permanent Residence Visa client"
+  },
+  {
+    "id": "zita",
+    "name": "Zita",
+    "rating": 5,
+    "text": "It's very hard to leave your country, your family behind for the promise of something better. Sometimes you feel is not bearable but Edit is always standing next to you with her helpfulness, never-give-up attitude, heart-warming personality. The visa application went smoothly thanks to Edit professionalism. I highly recommend Edit to everyone.",
+    "outcome": "Accredited Employer Work Visa and Variation of Conditions client"
+  },
+  {
+    "id": "aniko-zolei",
+    "name": "Aniko Zolei",
+    "rating": 5,
+    "text": "Edit is a fantastically knowledgeable, infinitely patient, and inexhaustibly kind person. She is well-prepared and meticulous, there was no question she couldn't answer. With tremendous experience, she guided us through the maze of New Zealand administration and successfully obtained our complicated family visas in record time. We owe our new life to her!",
+    "outcome": "Skilled Migrant Category Visa client"
+  },
+  {
+    "id": "szanto-csilla",
+    "name": "Szántó Csilla",
+    "rating": 5,
+    "text": "Had a GREAT experience with Edit, She was always there for me whenever I had a question ( and I did have tons of questions) or whenever a problem occured, she sorted out straight away. Really nice and humble, a beautiful person, just what you need when you are stressed out of immigration stuff. I could and still can rely on her 100%! Highly recommend her!!!",
+    "outcome": "Skilled Migrant Category Visa client"
+  },
+  {
+    "id": "maria-katona-lazar",
+    "name": "Mária Katona-Lázár",
+    "rating": 5,
+    "text": "I highly recommend Harmony Immigration NZ to anyone looking for help with immigration matters in both Australia and New Zealand. Professional, reliable and efficient - I was supported throughout the process. They work with excellent expertise and commitment. All my questions were answered quickly and accurately and we moved forward smoothly. I am grateful for their help!",
+    "outcome": "Subclass 650 Visa client"
+  },
+  {
+    "id": "eva-timar",
+    "name": "Éva Timár",
+    "rating": 5,
+    "text": "Edit made my New Zealand residency process incredibly easy. She explained everything clearly, answered all my questions, and handled the paperwork quickly and professionally. Edit is warm, calm, and truly understands the immigration system. With her help, a long-held dream finally came true. I’m so grateful and would wholeheartedly recommend her to anyone on a similar journey!",
+    "outcome": "Permanent Residence Visa client"
+  },
+  {
+    "id": "mert-benekli",
+    "name": "Mert Benekli",
+    "rating": 5,
+    "text": "I highly recommend Edit to anyone applying for a New Zealand visa. She has been incredibly helpful and professional throughout my journey. Over the past three years, she assisted me with my AEWV extension, change of conditions, and residency application. Her guidance made every process much less stressful. I’m truly grateful for her support with these important milestones in my life.",
+    "outcome": "Skilled Migrant Category Visa client"
+  },
+  {
+    "id": "regina-brigitta-sinka",
+    "name": "Regina Brigitta Sinka",
+    "rating": 5,
+    "text": "I am extremely satisfied with the service I received and would highly recommend Edit to anyone needing immigration assistance. The whole process was handled quickly and professionally, with great attention to detail. Edit was always available, responsive, precise, and incredibly kind throughout the process. I truly appreciated her support and guidance and felt I was in very good hands.",
+    "outcome": "Permanent Residence client"
+  },
+  {
+    "id": "tibor-puskas",
+    "name": "Tibor Puskás",
+    "rating": 5,
+    "text": "Working with Edit was a great experience and a very nice surprise for me. She was very helpful, detailed, communicative and always gave me the right informations at the right time. The communication was very easy and she always responded very quickly when/if I had a question. Very friendly very supportive and positive person. I could give her just 5 stars but I would like give at least 6.",
+    "outcome": "Skilled Migrant Category Visa client"
+  },
+  {
+    "id": "henriett-trinfa",
+    "name": "Henriett Trinfa",
+    "rating": 5,
+    "text": "I recommend Edit from the bottom of my heart. :) infinitely empathetic, understanding, patient, helpful and of course professional. I could count on her even in the most difficult situations, she never and always held my hand, she kindly answered all my questions. I am unspeakably grateful to her for helping me achieve this dream! :) And if anyone asks, I will definitely recommend Edit to them! :)",
+    "outcome": "Accredited Employer Work Visa client"
+  },
+  {
+    "id": "aswath-narayanath",
+    "name": "Aswath Narayanath",
+    "rating": 5,
+    "text": "Highly recommend Edit and Harmony Immigration! Me and my partner worked with Edit for the second time, and this time she assisted us with our residency visa application. She guided us clearly through every step, provided all the necessary instructions, and handled the entire process with a great professionalism. Edit kept us updated, everything went smoothly and quickly. We’re very grateful for her help!",
+    "outcome": "Work to Residence Visa client"
+  },
+  {
+    "id": "reni-p",
+    "name": "Reni P",
+    "rating": 5,
+    "text": "I can’t thank Edit enough for helping me with my work visa. She is not only a very knowlegdeable advisor, but she is incredibly kind and helpful. She explained me every single detail, she always answered all my questions. I could always give her a call, when I was lost in the process. There is no challenge Edit cannot solve. I’m very grateful, that my friend introduced me to her and I will always ask her for help with my visa.",
+    "outcome": "Accredited Employer Work Visa client"
+  },
+  {
+    "id": "cheryl-chiu",
+    "name": "Cheryl Chiu",
+    "rating": 5,
+    "text": "Dr Edit supported both my employer and myself through the entire accredited employer work visa application process. She is knowledgeable, professional and meticulous, plus extremely patient answering all my questions. What struck me most is that she is trustworthy and empathetic. I faced stressful timelines and complicated processes, but Dr Edit was always responsive, reliable and caring. I highly recommend her and Harmony Immigration.",
+    "outcome": "Accredited Employer Work Visa client"
+  },
+  {
+    "id": "chugalug",
+    "name": "Chugalug",
+    "rating": 5,
+    "text": "After finding out permanent entry is not the same as permanent residence after a short trip, I was at a loss until I contacted Harmony. Due to financial issues I was helped pro bono and still got amazing help. I was always kept informed at each stage of trying to reinstate my visa status. Even managed to get a permanent visa so now I can look forward to being able to apply for citizenship at a later date. If your in a bind, give Harmony a call. Highly recommended.",
+    "outcome": "Permanent Residence client"
+  },
+  {
+    "id": "viktoria-ferencz",
+    "name": "Viktória Ferencz",
+    "rating": 5,
+    "text": "We worked together with Edit on my General Visitor Visa application recently. She provided efficient support during the whole process from reviewing all the documents and giving direction what I need to present till the communication with INZ in order to get my visa. The process went smooth thanks to her professional support and eventually accepted by INZ. Thank you very much for your efficient work Edit I am greateful for your service and the possibility working together.",
+    "outcome": "General Visitor Visa client"
+  },
+  {
+    "id": "lee",
+    "name": "Lee",
+    "rating": 5,
+    "text": "My partner just gained their residency in very large part thanks to the help from Harmony Immigration. The support and guidance recieved was very professional and delivered in a personal style that made my partner and I feel like we were real people that mattered not just a case number. There were some scary moments where the odds seemed stacked against us but at every stage we had Harmony Immigration to help us through those challenges. I cannot recommend Harmony Immigration enough.",
+    "outcome": "Partner's Residence client"
+  },
+  {
+    "id": "beauty-fields",
+    "name": "Beauty Fields",
+    "rating": 5,
+    "text": "I've been to 3 immigration agents over the years, I can say it clearly now, most of them are just form fillers. Edit is the kind of agent who actually thinks, she will let you know what is your best and shortest route according to your qualifications and abilities. She's very smart, definitely worth the money and will save you time, which is very precious in the immigration process. You don't want to be in New Zealand for 9 years struggling like I did. Go straight for the best. She's amazing!",
+    "outcome": "Skilled Migrant Category Visa client"
+  },
+  {
+    "id": "daniel-varga",
+    "name": "Dániel Varga",
+    "rating": 5,
+    "text": "I can’t be grateful enough for Harmony Immigration. Edit is not only a visa agent, she is a friend who really wanna help you, a living Mother Teresa. She is that type of advisor who will support you in each steps, stages of the application and nevet let your hand. I personally really hate to deal with things like these therefore I could let her do it and I trusted her in every moment to get the work visa. Thank you again and I truly believe that we will continue with the residency visa in the future!",
+    "outcome": "Accredited Employer Work Visa, Fee Paying Student Visa and Essential Skills Work Visa client"
+  },
+  {
+    "id": "seyna-diagne",
+    "name": "Seyna Diagne",
+    "rating": 5,
+    "text": "Harmony immigration is definitely the right name for your company, Edit. We could feel from the start that you are a trustworthy person. I never felt the need to rush you or bombard you with questions because your emails were always very clear and informative, clear instructions, it was easy to understand the situation at every stage and I knew that you would give me the updates as you received them yourself. I'm extremely glad I found you out of the millions of advisors! So thank you so much once again Edit!",
+    "outcome": "Partner Residence Visa client"
+  },
+  {
+    "id": "dayanna-curioso",
+    "name": "Dayanna Curioso",
+    "rating": 5,
+    "text": "I had a great experience with Harmony Immigration! Special thanks to Edit Andrejcovics. She were incredibly helpful throughout the entire visa application process. From explaining the requirements clearly to guiding me step-by-step with the paperwork, their support made everything so much easier and less stressful. She was professional, responsive, and always ready to answer my questions. Thanks to her assistance, I was able to get my visa without any issues. I highly recommend her to anyone needing help with visa applications!",
+    "outcome": "General Visitor Visa client"
+  },
+  {
+    "id": "csilla-michalik",
+    "name": "Csilla Michalik",
+    "rating": 5,
+    "text": "I don’t even know where to begin. Edit is not just a licensed immigration advisor—she is truly something extraordinary and rare in this world. Thank you so much, Edit, for your incredible hard work with my accreditation, job check, and AEWV application. The process was much quicker than I expected! Your unwavering support during these challenging times meant so much to me—I’ve never felt more supported. Edit is exactly the person you want by your side. You are amazing, and I am so grateful for your kindness and patience. Thank you!",
+    "outcome": "Accredited Employer Work Visa client"
+  },
+  {
+    "id": "timea-losonczi",
+    "name": "Tímea Losonczi",
+    "rating": 5,
+    "text": "Edit provided exceptional expertise, support and attention. Thanks to her vast experience, I was able to obtain my residency permit as quickly as possible. Edit does more than just handle the paperwork: she is also willing and empathetic in assisting with any other questions you may have about living abroad. She is much more than an immigration agent – she is a true mentor and coach, with whom I believe every dollar is a real investment in the future! Don't hesitate to choose her if you have long-term plans to move to New Zealand! :)",
+    "outcome": "Partner Residence Visa client"
+  },
+  {
+    "id": "laszlo-modla",
+    "name": "László Modla",
+    "rating": 5,
+    "text": "I am glad that I found Harmony Immigration and got to know Edit. I had almost given up on ever getting to New Zealand, as I had already had a rejected visa application. But Edit encouraged me not to give up and try again for the visitor visa and I succeeded! It is only thanks to her that I succeeded. I have never met such a kind, helpful, direct and absolutely professional person! She did not regret the time and energy invested in getting me the visitor visa. I can only recommend her to everyone If you need any kind of visa! Thank you again Edit for this great help!",
+    "outcome": "General Visitor Visa client"
+  },
+  {
+    "id": "zoltan-kormondi-1",
+    "name": "Zoltán Körmöndi",
+    "rating": 5,
+    "text": "Choosing the right immigration adviser can make all the difference. We know this from personal experience. When our family went through a very difficult period in our New Zealand journey, Edit Andrejkovics gave us something incredibly valuable: clear guidance, real expertise, and renewed hope. She did not just handle paperwork — she understood our situation, showed us real options, and helped us believe that we could find a way forward. Unfortunately, Google only allows 5 stars, because Edit deserves far more than that. We will always be grateful for her support, professionalism, and the human care she showed our family.",
+    "outcome": "Straight to Residence client"
+  },
+  {
+    "id": "zoltan-kormondi-2",
+    "name": "Zoltán Körmöndi",
+    "rating": 5,
+    "text": "Edit was a real lifesaver for us – she stepped in at the last minute, and without her we wouldn’t be here today. She held our hand throughout the process, answered all our questions quickly and patiently, and her communication was precise, clear, and reassuring in every situation. Her reliability and quality of service were impeccable, we couldn’t have imagined a more professional administration. In addition, the prices were more favorable than with our previous agent – yet we received a much higher standard of service. If anyone is looking for an immigration agent, we would only and exclusively recommend Edit. We are grateful to her for everything!",
+    "outcome": "Straight to Residence Visa client"
+  },
+  {
+    "id": "petrovits-olga",
+    "name": "Petrovits olga",
+    "rating": 5,
+    "text": "It will soon be two years since my family and I arrived in New Zealand, and during this time, we have experienced many beautiful yet challenging moments. Without the support of Harmony Immigration, this difficult period would have been much more overwhelming – they were always there to lend a helping hand, and thanks to their assistance, our stay became secure. I am incredibly grateful for their support, and I firmly believe that few immigration companies put as much energy and dedication into their work as they do. If anyone is looking for a truly professional team to assist with visas or immigration, I wholeheartedly recommend reaching out to Harmony Immigration.",
+    "outcome": "Partner Work Visa client"
+  },
+  {
+    "id": "rosalie-galang",
+    "name": "Rosalie Galang",
+    "rating": 5,
+    "text": "My partner and I would like to thank you, Ms Edit for your time, hardwork and support during our visa process. It was not an easy journey but you were there and didn’t give up on our case and helped us obtain my work visa-partnership. Since you took our case, we never had doubts on your works and how professional you are. Your positive attitude and understanding in our situation were some of the reasons why we stayed patient, positive and hopeful  during the visa process. We are so happy and grateful that you are our Adviser. Looking forward to work with you again in future. We will definitely recommend you to anyone looking for an Immigration Adviser. From the bottom of our hearts, thank you Ms Edit :)",
+    "outcome": "Partner Work Visa client"
+  },
+  {
+    "id": "csaba-csik",
+    "name": "Csaba Csík",
+    "rating": 5,
+    "text": "I had an excellent experience with Harmony Immigration in Auckland. From the very beginning, they were professional, responsive, and genuinely supportive throughout the entire process. What stood out most was their clear communication and ability to explain each step in a straightforward, reassuring way. Immigration processes can be complex and stressful, but they made everything feel structured and manageable. They were always available to answer questions, provided timely updates, and demonstrated strong expertise and attention to detail. I felt confident that my case was in very capable hands. I would highly recommend Harmony Immigration to anyone looking for reliable and trustworthy immigration advisor in New Zealand.",
+    "outcome": "Fee Paying Student Visa client"
+  },
+  {
+    "id": "serena-sopen",
+    "name": "Serena Sopen",
+    "rating": 5,
+    "text": "I would highly recommend Edit if you need an immigration service. She’s professional, encouraging, patient, and most importantly she has love in her heart that really understands you and wants to help you. In our RV application she brought us hope when I felt no hope, she guided me to prepare all the documents and we submitted! She helped me prepare the interview and also call immigration every week to update the status. When the biggest challenge came I almost gave up, she encouraged me to not and I still remember she kept telling me: let’s just try it. Because she didn’t give up on my case now we got our RV! We can’t say enough thank you to express our gratitude and appreciation, but still want to say it again here “THANK YOU EDIT!”",
+    "outcome": "Skilled Migrant Category Visa client"
+  },
+  {
+    "id": "zsuzsa-lenart",
+    "name": "Zsuzsa Lénárt",
+    "rating": 5,
+    "text": "We want to thank Harmony Immigration NZ from the bottom of our hearts for making our dream a reality. We contacted Edit from Harmony Immigration NZ literally at the last minute. She understood our difficult situation and offered an appointment immediately. We were given very clear direction on the entire process that awaited us. She was proactive and efficient, having worked faster than we could have imagined. Her kindness, patience and knowledge made the whole process smooth and easy (even when times were stressful); she was always on hand to chat, reassure us, and help out in any way she could. Thank you for the opportunity to be in the care of such a professional, highly experienced, and trusted immigration specialist. We will highly recommend you to every dream chaser! :)",
+    "outcome": "Fee Paying Student Visa and Straight to Residence Visa client"
+  },
+  {
+    "id": "janos-bognar",
+    "name": "János Bognár",
+    "rating": 5,
+    "text": "We are incredibly grateful to Edit and the entire team at Harmony Immigration for their outstanding support throughout our Permanent Residency application in New Zealand. From the very beginning, Edit was transparent, responsive, and highly professional. She kept us informed at every step, explained the process clearly, and always made time to answer our questions. Thanks to her expertise and dedication, the entire application process went smoothly and was far less stressful than we expected. Edit’s commitment and personal approach made us feel supported and confident the whole way through. We couldn’t have done it without her, and we highly recommend her to anyone navigating the complex immigration journey. Thank you, Edit — you’ve truly made a life-changing impact on our family!",
+    "outcome": "Permanent Residence Visa, Residence Visa, Critical Purpose Visitor Visa client"
+  },
+  {
+    "id": "anna-diossy",
+    "name": "Anna Diossy",
+    "rating": 5,
+    "text": "We’re very grateful for Edit’s support during our partner visa process. She guided us through everything with professionalism, and thanks to her help, we successfully received the visa in the end. There were times when things were a bit slower than we expected, but we understand how busy this line of work can be and since I applied for visas (working holiday and work visa) by myself before, I know how slow Immigration can be. We truly appreciated her knowledge and experience throughout the process. What stood out to us is that she has generally been available to answer our questions, and we feel confident that she would still be happy to help if anything comes up in the future. If everything goes well, we’ll definitely reach out to her again when we’re ready to apply for residency. Thank you again, Edit!",
+    "outcome": "Partner Work Visa client"
+  },
+  {
+    "id": "istvan-lukacs",
+    "name": "Istvan Lukacs",
+    "rating": 5,
+    "text": "Without Edit and her professional approach our family vacation would have been ruined and we would have lost a ton of money. She offered her help when everything seemed to slip away from us and with a slight modification we could still travel to Australia due to her. I think we were desperate, devastated, and instead of telling us off Edit offered her expertise without an agreement, a signed document, just out of human compassion. As I am sitting in the living room now by the Great Barrier Reef on the second day of our Australian vacation I cannot be more grateful for Edit for what she did and I am being indepted for her kindness and assistance forever. If my travel plans would bring me to this corner of the world again I would not do anything without consulting Edit (the proper way next time). Thank you so much!",
+    "outcome": "Subclass 650 Visitor Visa client"
+  },
+  {
+    "id": "iuliia-kertesz",
+    "name": "Iuliia Kertesz",
+    "rating": 5,
+    "text": "We had an excellent experience working with Edit from Harmony Immigration throughout our New Zealand visa journey. From the very beginning, Edit guided us step by step through the entire process of securing a student visa and family visas. She was incredibly knowledgeable, professional, and always available to answer our questions,  no matter how small or complex. Her attention to detail and genuine care is impressive!  Moving countries with a family can be overwhelming, but Edit made everything feel structured, clear, and manageable. Thanks to her support, we felt confident at every stage and avoided unnecessary stress. We are truly grateful for her dedication and highly recommend Harmony Immigration to anyone looking for reliable and supportive immigration guidance. Thank you again, Edit, for helping us start this new chapter in New Zealand!",
+    "outcome": "Fee Paying Student Visa client"
+  },
+  {
+    "id": "kajtor-tamas",
+    "name": "Kajtor Tamás",
+    "rating": 5,
+    "text": "If you are hunting for a professional to manage your immigration to New Zealand you are at the right place. You do not have to go elsewhere you will get professional support here from the very beginning till you arrive to the state of citizenship. They will help you with all the details from finding the right path and visa (that could be really achievable), through advisory services to complete every single steps in the process (that is not so easy as it is maybe promoted elsewhere), till translation services (as they are also prepareed and certified) and put together the necessary documents. Yes, you will also have to invest a lot from every point of views (time, efforts, evidence collection, money), but they will not let you alone in your journey and you will get all the necessary professional support you need. All in all, I highly recommend them.",
+    "outcome": "Partner Work Visa and Straight to Residence Visa client"
+  },
+  {
+    "id": "sharon-grigolon",
+    "name": "Sharon Grigolon",
+    "rating": 5,
+    "text": "I can’t recommend my immigration agent, Edit, highly enough. From start to finish, she’s been incredibly professional, knowledgeable, and genuinely supportive. She helped me with my visa extension, and I was amazed at how smoothly the process went and my visa was approved in just one week. What really stood out was her availability and responsiveness. Every question I had (no matter how small) was answered promptly and clearly, which made the whole process completely stress-free. She guided me step by step, explained everything in a way that was easy to understand, and made sure nothing was overlooked. Thanks to her expertise and dedication, I feel confident and optimistic about the (hopefully) next step, residency pathway. If you’re looking for an immigration agent who truly cares, is reliable, and delivers results, look no further. I’m extremely grateful for all the help and support.",
+    "outcome": "Accredited Employer Work Visa client"
+  },
+  {
+    "id": "attila-szocs",
+    "name": "Attila Szocs",
+    "rating": 5,
+    "text": "I would like to thank @Edit Andrejkovics, the immigration specialist at @Harmony Immigration, for the great help I received during my work visa application. 🙏 Edit gave me a lot of good advice from the very first minute, always encouraged me, and I trusted her completely. She is a very knowledgeable, conscientious, and fantastic professional who really puts her heart and soul into her work. I thank her for her perseverance, her help, and for being by my side throughout this long journey. And today, what I have been waiting for has finally arrived: my 5-year New Zealand work visa has been approved! 🎉 I am very happy and incredibly grateful. Thank you for everything, Edit! ❤️ There is no question for me that I would confidently recommend Edit to anyone looking for a professional and reliable immigration specialist. Her conscientiousness, vast knowledge, and attitude are unique to me. I wholeheartedly recommend him to anyone who wants to know their immigration case is in safe hands.",
+    "outcome": "Accredited Employer Work Visa client"
   }
 ]

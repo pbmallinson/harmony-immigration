@@ -1,19 +1,28 @@
 ---
 import { getCollection } from 'astro:content';
+import { initials } from '@lib/initials';
 
 const all = await getCollection('testimonials');
-const testimonials = all;
+// getCollection doesn't preserve the JSON file's array order, so sort explicitly:
+// shortest review first, longest last.
+const testimonials = all.sort((a, b) => a.data.text.length - b.data.text.length);
 const track = [...testimonials, ...testimonials];
 
-const initials = (name: string) =>
-  name.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase();
+// Keep the original scroll speed (6 cards per 45s) however many reviews there are.
+const marqueeSeconds = testimonials.length * 7.5;
+
+// Every card is the same fixed size (see the h-[320px] card below, tuned to fit Csaba Timár's
+// review, clamped to 3 lines). Anything longer than his review gets clipped with "Read more"
+// instead of stretching the card.
+const reference = testimonials.find((t) => t.data.name === 'Csaba Timár');
+const READ_MORE_THRESHOLD = reference ? reference.data.text.length : 103;
 ---
 
 <style>
   .marquee-track {
     display: flex;
     width: max-content;
-    animation: marquee-scroll 45s linear infinite;
+    animation: marquee-scroll var(--marquee-duration, 45s) linear infinite;
   }
   .marquee-viewport:hover .marquee-track,
   .marquee-viewport.is-paused .marquee-track {
@@ -23,15 +32,48 @@ const initials = (name: string) =>
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
+
+  /* Custom grab cursors with a dark outline baked in, so they stay visible on white cards
+     regardless of the OS cursor theme (the native grab/grabbing icon can render pure white). */
+  .marquee-viewport {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='white' stroke='%23123B57' stroke-width='1.6' stroke-linejoin='round'%3E%3Crect x='6' y='11' width='12' height='9' rx='3'/%3E%3Crect x='6.5' y='4' width='2.6' height='9' rx='1.3'/%3E%3Crect x='9.7' y='2.5' width='2.6' height='10.5' rx='1.3'/%3E%3Crect x='12.9' y='2.5' width='2.6' height='10.5' rx='1.3'/%3E%3Crect x='16.1' y='4' width='2.6' height='9' rx='1.3'/%3E%3C/g%3E%3C/svg%3E") 12 12, grab;
+  }
+  .marquee-viewport.is-dragging {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='white' stroke='%23123B57' stroke-width='1.6' stroke-linejoin='round'%3E%3Crect x='5' y='9' width='14' height='11' rx='4'/%3E%3Crect x='6.5' y='7' width='2.6' height='5' rx='1.3'/%3E%3Crect x='9.7' y='6' width='2.6' height='6' rx='1.3'/%3E%3Crect x='12.9' y='6' width='2.6' height='6' rx='1.3'/%3E%3Crect x='16.1' y='7' width='2.6' height='5' rx='1.3'/%3E%3C/g%3E%3C/svg%3E") 12 12, grabbing;
+  }
+
+  /* Modal: backdrop fades in first and a touch faster; the dialog itself follows a beat
+     behind with a slower, softer ease so it settles into place rather than snapping.
+     Stays out of the tab order and hit-testing while closed (visibility switches after
+     the closing transition finishes). */
+  [data-testimonial-modal] {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.45s ease, visibility 0s linear 0.6s;
+  }
+  [data-testimonial-modal].is-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.45s ease, visibility 0s linear 0s;
+  }
+  [data-modal-dialog] {
+    transform: scale(0.9) translateY(18px);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-testimonial-modal].is-open [data-modal-dialog] {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    transition-delay: 0.08s;
+  }
 </style>
 
-<section class="relative overflow-hidden bg-[var(--color-cream-100)] py-24 md:py-32">
+<section class="relative overflow-hidden bg-white py-24 md:py-32">
   <img
     src="/images/testimonials/section-bg.jpg"
     alt=""
-    class="absolute inset-0 h-full w-full object-cover object-center"
+    class="absolute inset-8 md:inset-16 h-[calc(100%-4rem)] w-[calc(100%-4rem)] object-cover object-bottom md:h-[calc(100%-8rem)] md:w-[calc(100%-8rem)]"
   />
-  <div class="absolute inset-0 bg-[var(--color-cream-100)]/85"></div>
 
   <div class="container relative z-10">
     <div class="reveal max-w-2xl mx-auto text-center">
@@ -40,27 +82,34 @@ const initials = (name: string) =>
     </div>
   </div>
 
-  <div class="reveal relative z-10 mt-10">
-    <div class="marquee-viewport relative overflow-hidden pt-6 pb-14" data-marquee-viewport>
-      <div class="marquee-track gap-6 px-3" data-marquee-track>
+  <div class="reveal relative z-10 mt-4">
+    <div class="marquee-viewport relative overflow-hidden pt-4 pb-[111px] touch-pan-y select-none" data-marquee-viewport>
+      <div class="marquee-track items-start gap-6 px-3" style={`--marquee-duration:${marqueeSeconds}s`} data-marquee-track>
         {track.map((t) => (
-          <div class="card card-deep-shadow flex w-[340px] shrink-0 flex-col p-8 sm:w-[380px]">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="#55BFC0">
-              <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-4v-10h9.999z"/>
-            </svg>
-            <div class="mt-4 flex gap-1 text-[#55BFC0]">
-              {Array.from({ length: t.data.rating }).map(() => (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              ))}
+          <div class="card card-deep-shadow flex h-[352px] w-[340px] shrink-0 flex-col p-8 sm:w-[380px]">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#DEEBF0]">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="#123B57">
+                <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-4v-10h9.999z"/>
+              </svg>
             </div>
-            <p class="mt-5 flex-1 text-[var(--color-neutral-700)]">"{t.data.text}"</p>
-            <div class="mt-6 flex items-center gap-3 pt-5 border-t border-[var(--color-neutral-100)]">
-              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-ink-950)] text-xs font-semibold text-white">
-                {initials(t.data.name)}
-              </div>
+            <p class="mt-5 h-[84px] shrink-0 line-clamp-[3] text-[var(--color-neutral-700)]">"{t.data.text}"</p>
+            {t.data.text.length > READ_MORE_THRESHOLD && (
+              <button
+                type="button"
+                class="mt-2 shrink-0 self-start text-sm font-semibold text-[#55BFC0] hover:underline"
+                data-read-more
+                data-name={t.data.name}
+                data-outcome={t.data.outcome ?? t.data.location}
+                data-initials={initials(t.data.name)}
+                data-text={t.data.text}
+              >
+                Read more
+              </button>
+            )}
+            <div class="mt-6 flex shrink-0 items-center gap-3 pt-5 border-t border-[#123B57]/20">
               <div>
-                <p class="text-sm font-semibold text-[var(--color-ink-950)]">{t.data.name}</p>
-                <p class="text-xs text-[var(--color-neutral-500)]">{t.data.outcome ?? t.data.location}</p>
+                <p class="text-[16px] font-semibold text-[var(--color-ink-950)]" style="-webkit-text-stroke: 0.5px var(--color-ink-950);">{t.data.name}</p>
+                <p class="text-[13px] text-[#123B57]/60">{t.data.outcome ?? t.data.location}</p>
               </div>
             </div>
           </div>
@@ -68,4 +117,187 @@ const initials = (name: string) =>
       </div>
     </div>
   </div>
+
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center p-4"
+    data-testimonial-modal
+  >
+    <div class="absolute inset-0 bg-[var(--color-ink-950)]/60" data-modal-backdrop></div>
+    <div
+      class="card relative z-10 max-h-[85vh] w-full max-w-lg overflow-y-auto p-8"
+      data-modal-dialog
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="testimonial-modal-name"
+    >
+      <button
+        type="button"
+        class="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-[var(--color-neutral-500)] hover:bg-[var(--color-neutral-100)]"
+        data-modal-close
+        aria-label="Close"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <p class="text-[var(--color-neutral-700)]" data-modal-text></p>
+      <div class="mt-6 flex items-center gap-3 pt-5 border-t border-[#123B57]/20">
+        <div
+          class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-ink-950)] text-xs font-semibold text-white"
+          data-modal-initials
+        >
+        </div>
+        <div>
+          <p id="testimonial-modal-name" class="text-[16px] font-semibold text-[var(--color-ink-950)]" style="-webkit-text-stroke: 0.5px var(--color-ink-950);" data-modal-name></p>
+          <p class="text-[13px] text-[#123B57]/60" data-modal-outcome></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
+<script>
+  const viewport = document.querySelector<HTMLElement>('[data-marquee-viewport]');
+  const track = document.querySelector<HTMLElement>('[data-marquee-track]');
+
+  if (viewport && track) {
+    // One full set of cards is exactly half the track (content is duplicated for the seamless loop).
+    let halfWidth = track.scrollWidth / 2;
+    window.addEventListener('resize', () => {
+      halfWidth = track.scrollWidth / 2;
+    });
+
+    const durationSeconds =
+      parseFloat(getComputedStyle(track).getPropertyValue('--marquee-duration')) || 45;
+    const autoSpeed = halfWidth / (durationSeconds * 1000); // px per ms, matches the original CSS pace
+
+    // Take over from the CSS keyframe animation now that JS is driving the scroll position.
+    // (If this script fails to run for any reason, the CSS animation still plays on its own.)
+    track.style.animation = 'none';
+
+    let position = 0;
+    let velocity = 0; // px per ms, used for the post-swipe momentum glide
+    let dragging = false;
+    let hoverPaused = false;
+    let modalOpen = false;
+    let startX = 0;
+    let startPosition = 0;
+    let lastMoveX = 0;
+    let lastMoveTime = 0;
+
+    const wrap = (n: number) => (halfWidth > 0 ? ((n % halfWidth) + halfWidth) % halfWidth : 0);
+    const render = () => {
+      track.style.transform = `translateX(${-position}px)`;
+    };
+
+    let lastFrame = performance.now();
+    const frame = (now: number) => {
+      const dt = now - lastFrame;
+      lastFrame = now;
+
+      if (!dragging) {
+        if (Math.abs(velocity) > 0.01) {
+          // Swipe momentum: keep coasting in the flick direction, slowing down each frame.
+          position += velocity * dt;
+          velocity *= Math.pow(0.94, dt / 16.67);
+          if (Math.abs(velocity) < 0.01) velocity = 0;
+        } else if (!hoverPaused && !modalOpen) {
+          position += autoSpeed * dt;
+        }
+      }
+
+      position = wrap(position);
+      render();
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+
+    viewport.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      // Let clicks on "Read more" (or anything else interactive) through untouched —
+      // don't hijack the gesture into a drag, or the button's click never fires.
+      if ((e.target as HTMLElement).closest('button, a')) return;
+      dragging = true;
+      velocity = 0;
+      startX = e.clientX;
+      startPosition = position;
+      lastMoveX = e.clientX;
+      lastMoveTime = performance.now();
+      viewport.setPointerCapture(e.pointerId);
+      viewport.classList.add('is-dragging');
+    });
+
+    viewport.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      position = wrap(startPosition - dx);
+      render();
+
+      const now = performance.now();
+      const dt = now - lastMoveTime;
+      if (dt > 0) velocity = -(e.clientX - lastMoveX) / dt;
+      lastMoveX = e.clientX;
+      lastMoveTime = now;
+    });
+
+    const endDrag = () => {
+      if (!dragging) return;
+      dragging = false;
+      viewport.classList.remove('is-dragging');
+      // Cap the flick speed so a fast swipe can't send the cards flying unreasonably fast.
+      const maxSpeed = autoSpeed * 40;
+      velocity = Math.max(-maxSpeed, Math.min(maxSpeed, velocity));
+    };
+    viewport.addEventListener('pointerup', endDrag);
+    viewport.addEventListener('pointercancel', endDrag);
+
+    // Keep the existing hover-to-pause behaviour, now driven by JS instead of the CSS animation.
+    // Plain mouse events (not pointerenter/leave) so this can't get stuck once a drag has
+    // called setPointerCapture — captured pointer events don't reliably fire enter/leave.
+    viewport.addEventListener('mouseenter', () => {
+      hoverPaused = true;
+    });
+    viewport.addEventListener('mouseleave', () => {
+      hoverPaused = false;
+    });
+
+    // "Read more" -> modal with the full review. One shared modal, populated from
+    // whichever card's button was clicked (event delegation, since cards are duplicated).
+    const modal = document.querySelector<HTMLElement>('[data-testimonial-modal]');
+    const modalText = modal?.querySelector<HTMLElement>('[data-modal-text]');
+    const modalName = modal?.querySelector<HTMLElement>('[data-modal-name]');
+    const modalOutcome = modal?.querySelector<HTMLElement>('[data-modal-outcome]');
+    const modalInitials = modal?.querySelector<HTMLElement>('[data-modal-initials]');
+    const modalClose = modal?.querySelector<HTMLElement>('[data-modal-close]');
+
+    let lastFocused: HTMLElement | null = null;
+
+    const openModal = (button: HTMLElement) => {
+      if (!modal || !modalText || !modalName || !modalOutcome || !modalInitials) return;
+      modalText.textContent = `"${button.dataset.text ?? ''}"`;
+      modalName.textContent = button.dataset.name ?? '';
+      modalOutcome.textContent = button.dataset.outcome ?? '';
+      modalInitials.textContent = button.dataset.initials ?? '';
+
+      lastFocused = button;
+      modalOpen = true;
+      modal.classList.add('is-open');
+      modalClose?.focus();
+    };
+
+    const closeModal = () => {
+      if (!modal) return;
+      modalOpen = false;
+      modal.classList.remove('is-open');
+      lastFocused?.focus();
+    };
+
+    track.addEventListener('click', (e) => {
+      const button = (e.target as HTMLElement).closest<HTMLElement>('[data-read-more]');
+      if (button) openModal(button);
+    });
+    modalClose?.addEventListener('click', closeModal);
+    modal?.querySelector('[data-modal-backdrop]')?.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modalOpen) closeModal();
+    });
+  }
+</script>

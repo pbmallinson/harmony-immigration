@@ -1,8 +1,10 @@
-<svg width="176" height="176" viewBox="0 0 176 176" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle fill="#E4F1F2" cx="88" cy="88" r="87" stroke="#E4F1F2" stroke-width="2"/>
+<svg width="193.6" height="193.6" viewBox="0 0 193.6 193.6" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle fill="#C9E1EA" cx="96.8" cy="96.8" r="95.7" stroke="#C9E1EA" stroke-width="2"/>
+<g transform="translate(8.8,8.8)">
 <path d="M132.058 65.0616L101.064 35H49.5446C48.1393 35 47 36.1393 47 37.5446V138.487C47 139.892 48.1393 141.031 49.5446 141.031H129.513C130.919 141.031 132.058 139.892 132.058 138.487V65.0616ZM101.064 35V62.517C101.064 63.9224 102.204 65.0616 103.609 65.0616H132.058" stroke="#123B57" stroke-width="5.5"/>
 <path d="M66.5754 76.9336H113.183" stroke="#123B57" stroke-width="5.5"/>
 <path d="M66.5754 91.4023H113.183" stroke="#123B57" stroke-width="5.5"/>
 <path d="M66.5754 105.379H113.183" stroke="#123B57" stroke-width="5.5"/>
 <path d="M66.5754 119.352H95.938" stroke="#123B57" stroke-width="5.5"/>
+</g>
 </svg>
