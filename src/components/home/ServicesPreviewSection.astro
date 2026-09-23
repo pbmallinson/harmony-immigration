@@ -3,21 +3,24 @@ const categories = [
   {
     label: 'Individuals',
     tagline: 'Visit, work or study',
-    desc: "Documents, details, deadlines.<br class=\"hidden lg:inline\" /> We've got it covered from start to finish.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⟶",
+    desc: "Documents, details, deadlines.<br class=\"hidden lg:inline\" /> We've got it covered from start to finish.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style=\"font-size:1.4em; -webkit-text-stroke: 0.6px currentColor;\">⟶</strong>",
     photo: '/images/individuals.jpg',
+    maskOpacity: 0.1,
   },
   {
     label: 'Families',
     tagline: 'Together for good',
-    desc: 'When you have a plan and a lot of questions.<br class="hidden lg:inline" /> We’ll help make sense of the immigration part.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⟶',
+    desc: 'When you have a plan and a lot of questions.<br class="hidden lg:inline" /> We’ll help make sense of the immigration part.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="font-size:1.4em; -webkit-text-stroke: 0.6px currentColor;">⟶</strong>',
     photo: '/images/families.jpg',
     position: 'object-[50%_15%]',
+    maskOpacity: 0.2,
   },
   {
     label: 'Businesses',
     tagline: 'Grow without borders',
-    desc: 'Supporting businesses to hire foreign<br class="hidden lg:inline" /> talents through accreditation and sponsorship.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⟶',
+    desc: 'Supporting businesses to hire foreign<br class="hidden lg:inline" /> talents through accreditation and sponsorship.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="font-size:1.4em; -webkit-text-stroke: 0.6px currentColor;">⟶</strong>',
     photo: '/images/businesses.jpg',
+    maskOpacity: 0.1,
   },
 ];
 ---
@@ -41,6 +44,7 @@ const categories = [
             alt={c.label}
             class={`absolute inset-0 h-full w-full object-cover ${c.position ?? 'object-center'} transition-transform duration-500 group-hover:scale-105`}
           />
+          <div class="pointer-events-none absolute inset-0 bg-white" style={`opacity: ${c.maskOpacity};`}></div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/85 to-black/0 to-50%"></div>
 
           <div class="absolute inset-x-0 bottom-0 flex flex-col items-start gap-3 p-6 sm:p-8 lg:px-5 lg:py-8">
@@ -58,12 +62,8 @@ const categories = [
       ))}
     </div>
 
-    <div class="mt-12 text-center">
-      <a href="/services" class="btn" style="background:#123B57; border-color:#123B57; color:white;">Explore More</a>
-    </div>
-
-    <div class="reveal mt-16 flex flex-col items-start gap-6 rounded-[var(--radius-xl)] bg-[#123B57] p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
-      <p class="text-lg font-medium text-white sm:whitespace-nowrap">
+    <div class="reveal mx-auto mt-16 flex max-w-6xl flex-col items-start gap-6 rounded-[var(--radius-xl)] bg-[#123B57] p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+      <p class="text-lg font-medium text-white whitespace-nowrap">
         Not sure which visa is right for you because your situation doesn't fit into one category? That's normal.
       </p>
       <a href="/contact" class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">Get Started</a>

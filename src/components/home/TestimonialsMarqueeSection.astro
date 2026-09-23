@@ -11,11 +11,11 @@ const track = [...testimonials, ...testimonials];
 // Keep the original scroll speed (6 cards per 45s) however many reviews there are.
 const marqueeSeconds = testimonials.length * 7.5;
 
-// Every card is the same fixed size (see the h-[320px] card below, tuned to fit Csaba Timár's
-// review, clamped to 3 lines). Anything longer than his review gets clipped with "Read more"
-// instead of stretching the card.
-const reference = testimonials.find((t) => t.data.name === 'Csaba Timár');
-const READ_MORE_THRESHOLD = reference ? reference.data.text.length : 103;
+// Every card is the same fixed size (see the h-[324px] card below, tuned to fit Zoltan Dr.
+// Katona's review, clamped to 2 lines). Anything longer than his review gets clipped with
+// "Read more" instead of stretching the card.
+const reference = testimonials.find((t) => t.data.name === 'Zoltan Dr. Katona');
+const READ_MORE_THRESHOLD = reference ? reference.data.text.length : 66;
 ---
 
 <style>
@@ -72,27 +72,36 @@ const READ_MORE_THRESHOLD = reference ? reference.data.text.length : 103;
   <img
     src="/images/testimonials/section-bg.jpg"
     alt=""
-    class="absolute inset-8 md:inset-16 h-[calc(100%-4rem)] w-[calc(100%-4rem)] object-cover object-bottom md:h-[calc(100%-8rem)] md:w-[calc(100%-8rem)]"
+    class="absolute inset-8 md:inset-16 h-[calc(100%-4rem)] w-[calc(100%-4rem)] object-cover [object-position:50%_0%] md:h-[calc(100%-8rem)] md:w-[calc(100%-8rem)]"
+    style="transform: translateY(80px);"
   />
+  <div
+    class="pointer-events-none absolute inset-x-8 md:inset-x-16 bottom-8 md:bottom-16 top-[calc(2rem-100px)] md:top-[calc(4rem-100px)] w-[calc(100%-4rem)] md:w-[calc(100%-8rem)]"
+    style="background: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 56.1%);"
+  ></div>
 
   <div class="container relative z-10">
-    <div class="reveal max-w-2xl mx-auto text-center">
+    <div class="reveal max-w-2xl mx-auto text-center" style="margin-top: 50px;">
       <h2>What clients say</h2>
       <p class="mt-5 text-lg">A few words from people we've had the pleasure of helping.</p>
     </div>
   </div>
 
-  <div class="reveal relative z-10 mt-4">
+  <div class="reveal relative z-10 mt-4" style="margin-top: calc(1rem + 40px);">
     <div class="marquee-viewport relative overflow-hidden pt-4 pb-[111px] touch-pan-y select-none" data-marquee-viewport>
-      <div class="marquee-track items-start gap-6 px-3" style={`--marquee-duration:${marqueeSeconds}s`} data-marquee-track>
+      <div class="marquee-track items-start gap-12 px-3" style={`--marquee-duration:${marqueeSeconds}s`} data-marquee-track>
         {track.map((t) => (
-          <div class="card card-deep-shadow flex h-[352px] w-[340px] shrink-0 flex-col p-8 sm:w-[380px]">
+          <div class="card card-deep-shadow relative flex h-[324px] w-[340px] shrink-0 flex-col p-8 sm:w-[380px]">
+            <div
+              class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-1/2 rounded-t-[var(--radius-xl)]"
+              style="background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%);"
+            ></div>
             <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#DEEBF0]">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="#123B57">
                 <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-4v-10h9.999z"/>
               </svg>
             </div>
-            <p class="mt-5 h-[84px] shrink-0 line-clamp-[3] text-[var(--color-neutral-700)]">"{t.data.text}"</p>
+            <p class="mt-5 h-[56px] shrink-0 line-clamp-[2] text-[var(--color-neutral-700)]">"{t.data.text}"</p>
             {t.data.text.length > READ_MORE_THRESHOLD && (
               <button
                 type="button"
@@ -106,7 +115,7 @@ const READ_MORE_THRESHOLD = reference ? reference.data.text.length : 103;
                 Read more
               </button>
             )}
-            <div class="mt-6 flex shrink-0 items-center gap-3 pt-5 border-t border-[#123B57]/20">
+            <div class="mt-6 flex shrink-0 items-center gap-3 pt-5 border-t border-[#123B57]/15">
               <div>
                 <p class="text-[16px] font-semibold text-[var(--color-ink-950)]" style="-webkit-text-stroke: 0.5px var(--color-ink-950);">{t.data.name}</p>
                 <p class="text-[13px] text-[#123B57]/60">{t.data.outcome ?? t.data.location}</p>

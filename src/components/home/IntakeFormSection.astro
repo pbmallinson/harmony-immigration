@@ -8,59 +8,69 @@ const options = [
   'Visitor Visa',
   'Not sure yet',
 ];
+
+const checklist = [
+  { icon: '/images/icons-intake/conversation.svg', text: 'No obligation, this is how we start the conversation.' },
+  { icon: '/images/icons-intake/clock.svg', text: "You'll get a reply from us<br />within one business day" },
+  { icon: '/images/icons-intake/padlock.svg', text: 'Everything you tell us here<br />stays completely private.' },
+];
 ---
 
-<section class="py-24 md:py-32 bg-[var(--color-cream-100)]">
-  <div class="container">
-    <div class="grid gap-14 lg:grid-cols-2 items-start">
-      <div class="reveal">
-        <span class="eyebrow">Get Started</span>
-        <h2 class="mt-5">Tell us where you're headed.</h2>
-        <p class="mt-5 text-lg max-w-md">
-          Share a few details and one of our advisers will get back to you within one business day with next steps.
-        </p>
+<style>
+  /* Soft blurred glow around the form at rest, instead of a crisp border. */
+  [data-demo-form] {
+    box-shadow: 0 0 14px 3px rgba(1, 44, 85, 0.175);
+  }
+  /* Stronger hover lift/shadow just for this form, beyond the shared .card default. */
+  [data-demo-form]:hover {
+    transform: translateY(-14px);
+    box-shadow: 0 32px 60px -16px rgba(18, 59, 87, 0.35), 0 10px 24px -8px rgba(18, 59, 87, 0.2);
+  }
+</style>
 
-        <div class="mt-10 space-y-5">
-          <div class="flex gap-4">
-            <div class="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-[var(--color-ink-950)] text-white text-sm font-semibold">✓</div>
-            <p class="text-sm pt-2">No obligation — the initial review is completely free</p>
-          </div>
-          <div class="flex gap-4">
-            <div class="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-[var(--color-ink-950)] text-white text-sm font-semibold">✓</div>
-            <p class="text-sm pt-2">Response within one business day</p>
-          </div>
-          <div class="flex gap-4">
-            <div class="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-[var(--color-ink-950)] text-white text-sm font-semibold">✓</div>
-            <p class="text-sm pt-2">Your information is kept confidential</p>
-          </div>
+<section class="py-24 md:py-32 bg-[#E4F1F2]/70">
+  <div class="container">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <h2>Tell us where you're headed.</h2>
+      <p class="mt-5 text-lg sm:whitespace-nowrap">
+        You don't need everything figured out to start. We'll help you see what's really possible.
+      </p>
+    </div>
+
+    <div class="reveal mx-auto mt-24 grid max-w-3xl gap-8 sm:grid-cols-3">
+      {checklist.map((item) => (
+        <div class="flex flex-col items-center text-center">
+          <img src={item.icon} alt="" class="h-[52.8px] w-[52.8px]" />
+          <p class="mt-4 text-sm max-w-[220px]" set:html={item.text} />
+        </div>
+      ))}
+    </div>
+
+    <form class="reveal card mx-auto mt-14 max-w-2xl p-8 md:p-10" style="transition-delay:100ms;" data-demo-form>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <label for="name" class="text-sm font-medium text-[var(--color-neutral-800)]">Full name</label>
+          <input id="name" name="name" type="text" required class="mt-2 w-full rounded-lg border border-[#94BFCD] bg-white px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="Jane Doe" />
+        </div>
+        <div class="sm:col-span-1">
+          <label for="email" class="text-sm font-medium text-[var(--color-neutral-800)]">Email</label>
+          <input id="email" name="email" type="email" required class="mt-2 w-full rounded-lg border border-[#94BFCD] bg-white px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="jane@email.com" />
+        </div>
+        <div class="sm:col-span-2">
+          <label for="pathway" class="text-sm font-medium text-[var(--color-neutral-800)]">What can we help with?</label>
+          <select id="pathway" name="pathway" class="mt-2 w-full rounded-lg border border-[#94BFCD] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors bg-white">
+            {options.map((opt) => <option>{opt}</option>)}
+          </select>
+        </div>
+        <div class="sm:col-span-2">
+          <label for="message" class="text-sm font-medium text-[var(--color-neutral-800)]">Tell about your situation</label>
+          <textarea id="message" name="message" rows="4" class="mt-2 w-full rounded-lg border border-[#94BFCD] bg-white px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors resize-none" placeholder="Tell us briefly what you're hoping to achieve..."></textarea>
         </div>
       </div>
-
-      <form class="reveal card p-8 md:p-10" style="transition-delay:100ms" data-demo-form>
-        <div class="grid gap-5 sm:grid-cols-2">
-          <div class="sm:col-span-1">
-            <label for="name" class="text-sm font-medium text-[var(--color-neutral-800)]">Full name</label>
-            <input id="name" name="name" type="text" required class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="Jane Doe" />
-          </div>
-          <div class="sm:col-span-1">
-            <label for="email" class="text-sm font-medium text-[var(--color-neutral-800)]">Email</label>
-            <input id="email" name="email" type="email" required class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="jane@email.com" />
-          </div>
-          <div class="sm:col-span-2">
-            <label for="pathway" class="text-sm font-medium text-[var(--color-neutral-800)]">What are you looking into?</label>
-            <select id="pathway" name="pathway" class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors bg-white">
-              {options.map((opt) => <option>{opt}</option>)}
-            </select>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="message" class="text-sm font-medium text-[var(--color-neutral-800)]">A little about your situation</label>
-            <textarea id="message" name="message" rows="4" class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors resize-none" placeholder="Tell us briefly what you're hoping to achieve..."></textarea>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary w-full mt-6">Request Free Consultation</button>
-        <p class="mt-4 text-center text-xs text-[var(--color-neutral-500)]" data-demo-note>This is a demo form — no data is actually submitted.</p>
-      </form>
-    </div>
+      <div class="mt-6 flex justify-center">
+        <button type="submit" class="btn" style="background:#55BFC0; border-color:#55BFC0; color:#00152A;">Send inquiry</button>
+      </div>
+    </form>
   </div>
 </section>
 
