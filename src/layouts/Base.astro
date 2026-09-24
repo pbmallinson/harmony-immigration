@@ -72,10 +72,9 @@ const schemas = [
       const io = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              io.unobserve(entry.target);
-            }
+            // Toggle every time, both scrolling down into view and back up out of it,
+            // so the animation replays instead of firing only once per page load.
+            entry.target.classList.toggle('is-visible', entry.isIntersecting);
           }
         },
         { threshold: 0.12 }

@@ -3,12 +3,12 @@ const supports = [
   {
     icon: '/images/icons-more-than-visa/job-ready.svg',
     title: 'Job ready',
-    desc: 'CVs, employer introductions and<br class="hidden lg:inline" /> guidance to help you land a role.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="font-size:1.4em; -webkit-text-stroke: 0.6px currentColor;">⟶</strong>',
+    desc: 'CVs, employer connection<br class="hidden lg:inline" /> to help you land a role.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="font-size:1.4em; -webkit-text-stroke: 0.6px currentColor;">⟶</strong>',
   },
   {
     icon: '/images/icons-more-than-visa/english-prep.svg',
     title: 'English prep',
-    desc: 'Exam and interview coaching, so<br class="hidden lg:inline" /> you walk in confident and ready.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="font-size:1.4em; -webkit-text-stroke: 0.6px currentColor;">⟶</strong>',
+    desc: 'Exam and interview coaching, so<br class="hidden lg:inline" /> you walk in confident.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="font-size:1.4em; -webkit-text-stroke: 0.6px currentColor;">⟶</strong>',
   },
   {
     icon: '/images/icons-more-than-visa/certified-translation.svg',
@@ -32,7 +32,7 @@ const supports = [
 
     <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {supports.map((s, i) => (
-        <div class="reveal card card-deep-shadow px-4 py-6" style={`transition-delay:${i * 80}ms`}>
+        <div class="reveal card card-deep-shadow px-4 py-6" style={`transition-delay:${i * 80}ms; border: 0.7px solid rgba(148, 191, 205, 0.6);`}>
           <div class="flex h-[52.8px] w-[52.8px] items-center justify-center">
             <img src={s.icon} alt="" class="h-[52.8px] w-[52.8px]" />
           </div>
