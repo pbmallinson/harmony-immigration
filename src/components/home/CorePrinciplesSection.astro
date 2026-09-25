@@ -6,52 +6,149 @@ const principles = [
   {
     icon: '/images/icons-why-choose/local-expertise.svg',
     title: 'Local expertise',
-    desc: 'Advice from licensed professionals who<br class="hidden lg:inline" /> understand immigration practical implications.',
+    desc: 'Advice from licensed professionals who<br />understand immigration practical implications.',
   },
   {
-    icon: '/images/icons-why-choose/clear-communication.svg',
-    title: 'Clear communication',
-    desc: 'We will keep you informed with clear<br class="hidden lg:inline" /> advice and straightforward timelines.',
+    icon: '/images/icons-why-choose/nz-australia.svg',
+    title: 'New Zealand & Australia',
+    desc: 'You can explore your options across both<br />countries, instead of looking at just one.',
   },
   {
     icon: '/images/icons-why-choose/tailored-plan.svg',
     title: 'Tailored plan',
-    desc: 'We look at where you want to go in the future so<br class="hidden lg:inline" /> we build the plan around you, not a template.',
+    desc: 'We look at where you want to go in the future<br />so we build the plan around you, not a template.',
   },
   {
     icon: '/images/icons-why-choose/complex-cases.svg',
     title: 'Complex cases',
-    desc: `When the obvious pathway isn't the right<br class="hidden lg:inline" /> one, we look for a better way forward.`,
+    desc: `When the obvious pathway isn't the right<br />one, we look for a better way forward.`,
+  },
+  {
+    icon: '/images/icons-why-choose/clear-communication.svg',
+    title: 'Clear communication',
+    desc: 'We will keep you informed with clear<br />advice and straightforward timelines.',
   },
   {
     icon: '/images/icons-why-choose/upfront-costs.svg',
     title: 'Upfront costs',
-    desc: 'Clear pricing and a written agreement before you<br class="hidden lg:inline" /> proceed, so you know exactly what to expect.',
+    desc: 'Clear pricing and a written agreement before<br />you proceed, so you know exactly what to expect.',
   },
 ];
+
+const group1 = principles.slice(1, 4);
+const group2 = principles.slice(4, 7);
 ---
 
 <section class="py-24 md:py-32">
   <div class="container">
-    <div class="reveal max-w-5xl mx-auto text-center">
-      <h2>Why choose Harmony</h2>
-      <p class="mt-5 text-lg lg:whitespace-nowrap">Immigration should open doors so we built this company to make that journey simpler for the people going through it.</p>
-    </div>
-
-    <div class="mt-14 grid gap-6 md:grid-cols-3">
-      <div class="reveal card md:col-span-2 md:row-span-2 border-none overflow-hidden p-0">
-        <img src="/images/why-choose-harmony.png" alt={principles[0].title} class="w-full h-full object-cover object-bottom" />
-      </div>
-
-      {principles.slice(1).map((p, i) => (
-        <div class={`reveal card card-highlight p-8 ${i < 2 ? 'self-start' : ''}`} style={`transition-delay:${(i + 1) * 80}ms; border: 0.7px solid rgba(148, 191, 205, 0.7);`}>
-          <div class="flex h-[52.8px] w-[52.8px] items-center justify-center">
-            <img src={p.icon} alt="" class="h-[52.8px] w-[52.8px]" />
-          </div>
-          <h3 class="mt-5">{p.title}</h3>
-          <p class="mt-2 text-sm" set:html={p.desc} />
+    <div data-why-choose-stage>
+      <div class="md:sticky md:top-[120px]" data-why-choose-pin>
+        <div class="reveal max-w-5xl mx-auto text-center">
+          <h2>Why choose Harmony</h2>
+          <p class="mt-5 text-lg lg:whitespace-nowrap">Immigration should open doors so we built this company to make that journey simpler for the people going through it.</p>
         </div>
-      ))}
+
+        <div class="mt-14 grid gap-6 md:grid-cols-[1.45fr_1fr] md:items-start md:gap-16">
+          <div class="reveal card relative border-none overflow-hidden p-0 md:h-[500px]">
+            <img src="/images/why-choose-harmony.png" alt={principles[0].title} class="h-[70vh] max-h-[640px] w-full object-cover object-bottom md:h-[560px]" />
+            <div class="pointer-events-none absolute inset-0 bg-white" style="opacity: 0.07;"></div>
+          </div>
+
+          <div class="md:h-[500px] md:overflow-hidden" data-why-choose-window>
+            <div class="flex flex-col gap-[380px]" data-why-choose-track>
+              <div class="flex flex-col gap-8 md:mt-28">
+                {group1.map((p) => (
+                  <div class="reveal flex items-start gap-4">
+                    <div class="flex h-[52.8px] w-[52.8px] shrink-0 items-center justify-center">
+                      <img src={p.icon} alt="" class="h-[52.8px] w-[52.8px]" />
+                    </div>
+                    <div class="text-left">
+                      <h3 class="whitespace-nowrap">{p.title}</h3>
+                      <p class="mt-2 text-sm" set:html={p.desc} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div class="flex flex-col gap-8">
+                {group2.map((p) => (
+                  <div class="reveal flex items-start gap-4">
+                    <div class="flex h-[52.8px] w-[52.8px] shrink-0 items-center justify-center">
+                      <img src={p.icon} alt="" class="h-[52.8px] w-[52.8px]" />
+                    </div>
+                    <div class="text-left">
+                      <h3 class="whitespace-nowrap">{p.title}</h3>
+                      <p class="mt-2 text-sm" set:html={p.desc} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  function initWhyChooseReel() {
+    const stage = document.querySelector('[data-why-choose-stage]');
+    const pin = document.querySelector('[data-why-choose-pin]');
+    const windowEl = document.querySelector('[data-why-choose-window]');
+    const track = document.querySelector('[data-why-choose-track]');
+    if (
+      !(stage instanceof HTMLElement) ||
+      !(pin instanceof HTMLElement) ||
+      !(windowEl instanceof HTMLElement) ||
+      !(track instanceof HTMLElement)
+    ) return;
+
+    const PIN_TOP_OFFSET = 120; // must match the md:top-[120px] class on [data-why-choose-pin]
+
+    // The reel should travel exactly far enough that group 2 ends up sitting
+    // where group 1 started — not an arbitrary "fill the window" distance.
+    // Since both groups live in the same track, their relative gap is
+    // unaffected by the track's own current transform, so this is safe to
+    // recompute fresh on every call (and self-corrects against any late
+    // layout shift, same as the rest of this logic).
+    function currentMaxOffset() {
+      const g1 = track.children[0];
+      const g2 = track.children[1];
+      if (g1 && g2) {
+        return Math.max(0, g2.getBoundingClientRect().top - g1.getBoundingClientRect().top);
+      }
+      return Math.max(0, track.scrollHeight - windowEl.offsetHeight);
+    }
+
+    function syncStageHeight(maxOffset) {
+      const needed = pin.offsetHeight + maxOffset;
+      if (Math.abs((parseFloat(stage.style.height) || 0) - needed) > 0.5) {
+        stage.style.height = `${needed}px`;
+      }
+    }
+
+    function update() {
+      if (window.innerWidth < 768) {
+        stage.style.height = '';
+        track.style.transform = '';
+        return;
+      }
+      const maxOffset = currentMaxOffset();
+      syncStageHeight(maxOffset);
+      const rect = stage.getBoundingClientRect();
+      // Progress is how far we've scrolled PAST the point the pin engaged
+      // (when rect.top == PIN_TOP_OFFSET), not the raw rect.top itself —
+      // otherwise the reel falls short by exactly the top offset and the
+      // section releases before the last group is fully shown.
+      const progress = Math.max(0, Math.min(PIN_TOP_OFFSET - rect.top, maxOffset));
+      track.style.transform = `translateY(-${progress}px)`;
+    }
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+  }
+
+  initWhyChooseReel();
+</script>
