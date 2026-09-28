@@ -11,10 +11,10 @@ faq:
   - question: What happens after I graduate?
     answer: Many countries offer a post-study work visa that lets graduates gain local work experience, which can also open a pathway to longer-term residence.
   - question: Do I need proof of funds?
-    answer: Yes — nearly all student visa categories require evidence you can cover tuition and living costs for the duration of your study.
+    answer: Yes, nearly all student visa categories require evidence you can cover tuition and living costs for the duration of your study.
 ---
 
-Choosing the right course, institution, and visa category sets the foundation for everything that follows — including whether you can work part-time and what happens after graduation.
+Choosing the right course, institution, and visa category sets the foundation for everything that follows, including whether you can work part-time and what happens after graduation.
 
 ## What's included
 

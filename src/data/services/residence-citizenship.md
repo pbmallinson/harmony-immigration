@@ -7,14 +7,14 @@ featured: true
 slug: residence-citizenship
 faq:
   - question: How long do I need to live in the country before applying for residence?
-    answer: Minimum stay and physical presence requirements vary by pathway — we confirm your exact eligibility date as part of the assessment.
+    answer: Minimum stay and physical presence requirements vary by pathway. We confirm your exact eligibility date as part of the assessment.
   - question: Is a English/language test required?
     answer: Some residence and citizenship pathways require a recognised language test; we'll tell you upfront if this applies to your case.
   - question: Can I hold dual citizenship?
-    answer: This depends on both your country of origin and destination — we check both sides before recommending you proceed.
+    answer: This depends on both your country of origin and destination. We check both sides before recommending you proceed.
 ---
 
-Residence and citizenship applications are usually the final step of a longer journey — and the one with the least room for error, since a knockback here can affect status you already hold.
+Residence and citizenship applications are usually the final step of a longer journey, and the one with the least room for error, since a knockback here can affect status you already hold.
 
 ## What's included
 

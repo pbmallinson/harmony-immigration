@@ -6,15 +6,17 @@ order: 1
 featured: true
 slug: work-visas
 faq:
-  - question: How long does a work visa application take?
-    answer: Most standard work visa applications are processed within 6 to 12 weeks once fully documented, though timelines vary by category and country.
+  - question: How long does a work visa take?
+    answer: It depends on the visa and the country, and processing times change. We'll give you a realistic estimate once we know your situation.
   - question: Do I need a job offer before applying?
-    answer: For most employer-sponsored categories, yes — a confirmed job offer from an accredited employer is required before we can lodge the application.
+    answer: For the employer-sponsored visas, yes. Working holiday and post-study visas don't need one.
   - question: Can my family come with me?
-    answer: Many work visa categories allow you to include a partner and dependent children as part of the same application.
+    answer: Often, yes. How it works depends on the country and visa, and we'll explain the options for your family.
 ---
 
-Relocating for work involves more than filling out a form — it means proving the right combination of employer sponsorship, occupation eligibility, and personal circumstances line up with the rules in force today.
+## Who this is for
+
+Skilled professionals with a confirmed or pending job offer, employers looking to sponsor overseas talent, and workers on an existing visa who need to renew, vary conditions, or transition to a different category.
 
 ## What's included
 
@@ -23,7 +25,3 @@ Relocating for work involves more than filling out a form — it means proving t
 - Full application preparation and document checklist
 - Direct liaison with immigration authorities on your behalf
 - Guidance on visa conditions, renewals, and pathways to residence
-
-## Who this is for
-
-Skilled professionals with a confirmed or pending job offer, employers looking to sponsor overseas talent, and workers on an existing visa who need to renew, vary conditions, or transition to a different category.

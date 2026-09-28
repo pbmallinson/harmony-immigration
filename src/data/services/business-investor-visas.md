@@ -7,9 +7,9 @@ featured: true
 slug: business-investor-visas
 faq:
   - question: What's the minimum investment required?
-    answer: Investment thresholds vary widely by category and country — we assess your specific situation and match it against current thresholds during your consultation.
+    answer: Investment thresholds vary widely by category and country. We assess your specific situation and match it against current thresholds during your consultation.
   - question: Can I bring an existing business with me?
-    answer: Several categories are designed for entrepreneurs relaunching or scaling an existing business in a new country — we can advise on the best-fit structure.
+    answer: Several categories are designed for entrepreneurs relaunching or scaling an existing business in a new country. We can advise on the best-fit structure.
   - question: Does this lead to permanent residence?
     answer: Many business and investor pathways include a route to residence after meeting job-creation, investment, or operating-period milestones.
 ---

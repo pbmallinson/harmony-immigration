@@ -180,7 +180,7 @@
   .btn-outline {
     background: transparent;
     color: var(--color-heading);
-    border: 2px solid #79AFC1;
+    border: 2px solid #123B57;
   }
   .btn-outline:hover {
     border-color: var(--color-neutral-200);
@@ -257,8 +257,8 @@
   .prose-content p { margin-bottom: 1.25rem; }
   .prose-content h2 { margin-top: 2.5rem; margin-bottom: 1rem; }
   .prose-content h3 { margin-top: 1.75rem; margin-bottom: 0.75rem; }
-  .prose-content ul, .prose-content ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
-  .prose-content li { margin-bottom: 0.5rem; }
+  .prose-content ul, .prose-content ol { margin-bottom: 1.5rem; padding-left: 1.5rem; list-style-type: disc; list-style-position: outside; }
+  .prose-content li { margin-bottom: 0.5rem; display: list-item; }
   .prose-content li::marker { color: var(--color-flame-500); }
   .prose-content strong { font-weight: 700; color: var(--color-neutral-900); }
   .prose-content a { color: var(--color-ink-700); text-decoration: underline; font-weight: 600; }

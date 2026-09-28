@@ -9,12 +9,12 @@ faq:
   - question: How long can I stay on a visitor visa?
     answer: Stay periods typically range from a few weeks up to several months depending on the country and visa subclass, and multi-entry options are often available.
   - question: Can a visitor visa be extended?
-    answer: Extensions are possible in many jurisdictions under specific circumstances — we can advise whether your situation qualifies.
+    answer: Extensions are possible in many jurisdictions under specific circumstances. We can advise whether your situation qualifies.
   - question: Can I convert a visitor visa into another visa type?
-    answer: In some cases, yes — certain visitor visas allow an onshore transition to a work, student, or partner visa if you become eligible.
+    answer: In some cases, yes. Certain visitor visas allow an onshore transition to a work, student, or partner visa if you become eligible.
 ---
 
-Even a short visit has rules — proof of return intent, sufficient funds, and the right supporting documents make the difference between a smooth approval and a delay.
+Even a short visit has rules: proof of return intent, sufficient funds, and the right supporting documents make the difference between a smooth approval and a delay.
 
 ## What's included
 
