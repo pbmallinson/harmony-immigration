@@ -63,18 +63,6 @@ const workVisasChecklist = [
   'We deal with the immigration authorities for you.',
   'We stay with you after approval, through conditions, renewals and next steps.',
 ];
-
-const otherServiceLabels: Record<string, string> = {
-  'work-visas': 'Work',
-  'student-visas': 'Study',
-  'visitor-visas': 'Visit',
-  'residence-citizenship': 'Stay',
-  'family-partner-visas': 'Families',
-  'business-investor-visas': 'Businesses',
-};
-const otherServices = allServices
-  .filter((s) => s.data.slug !== service.data.slug)
-  .sort((a, b) => a.data.order - b.data.order);
 ---
 
 <Page
@@ -136,13 +124,17 @@ const otherServices = allServices
 
         <div class="reveal mx-auto mt-10 flex max-w-[942px] flex-col items-start gap-6 rounded-[var(--radius-xl)] bg-[#123B57] p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
           <div>
-            <p class="text-lg whitespace-nowrap text-white"><span class="font-semibold">None of these?</span> Some work situations don't match a standard visa.</p>
-            <p class="mt-2 whitespace-nowrap text-white">Tell us yours and we'll point you in the right direction.</p>
+            <p class="text-lg whitespace-nowrap text-white"><span class="font-semibold">None of these?</span> <span class="text-white/80">Some work situations don't match a standard visa.</span></p>
+            <p class="mt-2 text-lg whitespace-nowrap text-white/80">Tell us yours and we'll point you in the right direction.</p>
           </div>
           <a href="/contact" class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">Send a message</a>
         </div>
+      </div>
+    </section>
 
-        <div class="mt-28 grid gap-14 lg:grid-cols-2">
+    <section class="bg-white pt-28 pb-20">
+      <div class="container">
+        <div class="grid gap-14 lg:grid-cols-2">
           <div class="reveal">
             <h2>What we do</h2>
             <ul class="mt-6 space-y-4">
@@ -158,7 +150,7 @@ const otherServices = allServices
             <h2>Common questions</h2>
             <div class="mt-6 space-y-4">
               {service.data.faq.map((item) => (
-                <div class="card p-6" style="border: 0.7px solid rgba(148, 191, 205, 0.6);">
+                <div class="card bg-[#E4F1F2] p-6" style="border: 0.7px solid rgba(148, 191, 205, 0.6);">
                   <p class="font-semibold text-[var(--color-ink-950)] text-sm">{item.question}</p>
                   <p class="mt-2 text-sm">{item.answer}</p>
                 </div>
@@ -166,16 +158,6 @@ const otherServices = allServices
             </div>
           </div>
         </div>
-
-        <p class="reveal mt-16 text-center text-sm text-[var(--color-neutral-600)]">
-          Looking for something else?{' '}
-          {otherServices.map((s, i) => (
-            <>
-              <a href={`/services/${s.data.slug}`} class="underline hover:text-[var(--color-ink-950)]">{otherServiceLabels[s.data.slug] ?? s.data.title}</a>
-              {i < otherServices.length - 1 ? ' · ' : ''}
-            </>
-          ))}
-        </p>
       </div>
     </section>
   ) : (
@@ -226,12 +208,13 @@ const otherServices = allServices
   {isWorkVisas ? (
     <section class="pt-16 pb-24 bg-white md:pb-32">
       <div class="container">
-        <div class="reveal mx-auto flex max-w-[942px] flex-col items-start gap-6 rounded-[var(--radius-xl)] bg-[#123B57] p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
-          <div>
-            <p class="text-lg font-semibold text-white whitespace-nowrap">Not sure which of these fits your situation?</p>
-            <p class="mt-2 text-white/80 whitespace-nowrap">Send us a few details and we'll point you in the right direction.</p>
+        <div class="reveal mx-auto w-fit rounded-[var(--radius-xl)] bg-[#C9E1EA] p-8 sm:p-10">
+          <div class="flex flex-wrap items-center gap-4">
+            <p class="mr-4 text-lg font-semibold text-[#123B57] whitespace-nowrap">Looking for something else?</p>
+            {['Family & Couples', 'Study', 'Visit', 'Stay', 'Businesses'].map((label) => (
+              <button type="button" class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:#123B57;">{label}</button>
+            ))}
           </div>
-          <a href="/contact" class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">Send a message</a>
         </div>
       </div>
     </section>
