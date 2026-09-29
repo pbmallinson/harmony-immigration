@@ -21,90 +21,268 @@ const related = allServices
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 3);
 
-const isWorkVisas = service.data.slug === 'work-visas';
-const heroTitle = isWorkVisas ? 'Working in New Zealand or Australia' : service.data.title;
-const heroDesc = isWorkVisas ? 'Start with whichever feels closest to your situation.' : service.data.shortDesc;
+const serviceLabels: Record<string, string> = {
+  'work-visas': 'Work',
+  'student-visas': 'Study',
+  'visitor-visas': 'Visit',
+  'residence-citizenship': 'Stay',
+  'family-partner-visas': 'Family & Couples',
+  'business-investor-visas': 'Businesses',
+};
 
-const workVisasCards = [
-  {
-    title: 'I have a job offer',
-    visas: [
-      { country: 'NZ', name: 'Accredited Employer Work Visa', desc: 'For workers sponsored by an accredited employer.' },
-      { country: 'AU', name: 'Skills in Demand visa (482)', desc: 'For workers sponsored by an Australian employer.' },
+const customServicesData: Record<string, {
+  heroTitleLines: string[];
+  heroDesc: string;
+  cards: { title: string; visas: { country: string; name: string; desc: string }[] }[];
+  noneOfTheseBold: string;
+  noneOfTheseLight?: string;
+  noneOfTheseSecondLine?: string;
+  checklist: string[];
+  linkRowOrder: string[];
+  bottomStripHeading: string;
+  bottomStripText: string;
+}> = {
+  'work-visas': {
+    heroTitleLines: ['Work visas'],
+    heroDesc: 'Start with whichever feels closest to your situation.',
+    cards: [
+      {
+        title: 'I have a job offer',
+        visas: [
+          { country: 'NZ', name: 'Accredited Employer Work Visa', desc: 'For workers sponsored by an accredited employer.' },
+          { country: 'AU', name: 'Skills in Demand visa (482)', desc: 'For workers sponsored by an Australian employer.' },
+        ],
+      },
+      {
+        title: "I've just finished studying",
+        visas: [
+          { country: 'NZ', name: 'Post Study Work Visa', desc: 'For recent graduates of New Zealand study.' },
+          { country: 'AU', name: 'Temporary Graduate visa (485)', desc: 'For recent graduates of Australian study.' },
+        ],
+      },
+      {
+        title: 'I want to travel and work',
+        visas: [
+          { country: 'NZ', name: 'Working Holiday visas', desc: 'Travel and work for a set period.' },
+          { country: 'AU', name: 'Working Holiday (417) and Work and Holiday (462)', desc: 'Travel and work for a set period.' },
+        ],
+      },
+      {
+        title: "I'm coming for a specific role or event",
+        visas: [
+          { country: 'NZ', name: 'Specific Purpose Work Visa', desc: 'For a defined role, event or purpose.' },
+          { country: 'AU', name: 'Short Stay Specialist visa (400)', desc: 'Short, highly specialised work.' },
+          { country: 'AU', name: 'Temporary Activity visa (408)', desc: 'Specific short-term work.' },
+        ],
+      },
     ],
-  },
-  {
-    title: "I've just finished studying",
-    visas: [
-      { country: 'NZ', name: 'Post Study Work Visa', desc: 'For recent graduates of New Zealand study.' },
-      { country: 'AU', name: 'Temporary Graduate visa (485)', desc: 'For recent graduates of Australian study.' },
+    noneOfTheseBold: 'None of these?',
+    noneOfTheseLight: "Some work situations don't match a standard visa.",
+    noneOfTheseSecondLine: "Tell us yours and we'll point you in the right direction.",
+    checklist: [
+      'Finding the right visa for your situation.',
+      "Handling sponsorship or accreditation, where it's needed.",
+      'Application prep and direct communication with Immigration.',
+      'Supporting you after approval, including renewals and settling.',
     ],
+    linkRowOrder: ['family-partner-visas', 'student-visas', 'visitor-visas', 'residence-citizenship', 'business-investor-visas'],
+    bottomStripHeading: 'Looking for something else?',
+    bottomStripText: 'Explore other visa pathways to find the option that fits your situation.',
   },
-  {
-    title: 'I want to travel and work',
-    visas: [
-      { country: 'NZ', name: 'Working Holiday visas', desc: 'Travel and work for a set period.' },
-      { country: 'AU', name: 'Working Holiday (417) and Work and Holiday (462)', desc: 'Travel and work for a set period.' },
+  'student-visas': {
+    heroTitleLines: ['Study visas'],
+    heroDesc: "Every student's path is a little different. Find yours below.",
+    cards: [
+      {
+        title: "I'm starting a course",
+        visas: [
+          { country: 'NZ', name: 'Fee Paying Student Visa', desc: 'For a confirmed place at an approved institution.' },
+          { country: 'AU', name: 'Student visa (500)', desc: 'For a confirmed place at an approved institution.' },
+        ],
+      },
+      {
+        title: 'I want to study more than one course',
+        visas: [
+          { country: 'NZ', name: 'Pathway Student Visa', desc: 'Covers up to three consecutive courses on one visa.' },
+        ],
+      },
+      {
+        title: "I'm bringing my child or coming to support them",
+        visas: [
+          { country: 'NZ', name: 'Dependent Child Student Visa', desc: 'For school-age children of visa holders.' },
+          { country: 'AU', name: 'Student Guardian visa (590)', desc: 'For a parent or guardian of a student under 18.' },
+        ],
+      },
+      {
+        title: "I'm coming on a exchange programme",
+        visas: [
+          { country: 'NZ', name: 'Exchange Student Visa', desc: 'For students on a formal arrangement between two schools.' },
+        ],
+      },
     ],
-  },
-  {
-    title: "I'm coming for a specific role or event",
-    visas: [
-      { country: 'NZ', name: 'Specific Purpose Work Visa', desc: 'For a defined role, event or purpose.' },
-      { country: 'AU', name: 'Short Stay Specialist visa (400)', desc: 'Short, highly specialised work.' },
-      { country: 'AU', name: 'Temporary Activity visa (408)', desc: 'Specific short-term work.' },
+    noneOfTheseBold: 'Not every study plan fits neatly into one visa.',
+    noneOfTheseSecondLine: "Tell us what you're hoping to do and we'll help you work it out.",
+    checklist: [
+      'Finding the right study visa for your situation.',
+      'Checking your course and provider meet visa requirements.',
+      'Preparing your application and speaking with immigration on your behalf.',
+      'Staying with you through the course, and into what comes after.',
     ],
+    linkRowOrder: ['work-visas', 'visitor-visas', 'residence-citizenship', 'family-partner-visas', 'business-investor-visas'],
+    bottomStripHeading: 'Not studying or looking a little further ahead?',
+    bottomStripText: "Here's where else to look.",
   },
-];
+  'visitor-visas': {
+    heroTitleLines: ['Visitor visas'],
+    heroDesc: 'Here for family, friends or a holiday? Find your visa below.',
+    cards: [
+      {
+        title: "I'm on holiday or visiting loved ones",
+        visas: [
+          { country: 'NZ', name: 'Visitor Visa', desc: 'For tourism, family visits or a short stay.' },
+          { country: 'AU', name: 'Visitor visa (600)', desc: 'For tourism and family visits on any passport.' },
+          { country: 'AU', name: 'ETA (601) or eVisitor (651)', desc: 'A faster, cheaper alternative to the 600, but only for certain passports.' },
+        ],
+      },
+      {
+        title: "My passport doesn't need a visa.",
+        visas: [
+          { country: 'NZ', name: 'NZeTA', desc: "Required before travel, even though it isn't a visa." },
+          { country: 'AU', name: 'ETA (601) or eVisitor (651)', desc: 'Depends on your passport, not your travel purpose.' },
+        ],
+      },
+      {
+        title: "I'm coming for business, not to work",
+        visas: [
+          { country: 'NZ', name: 'Business Visitor Visa', desc: 'For meetings, conferences or exploring business opportunities, not paid work.' },
+          { country: 'AU', name: 'Visitor visa (600), Business stream or ETA/eVisitor if your passport qualifies', desc: 'Covers the same non-work business activity.' },
+        ],
+      },
+    ],
+    noneOfTheseBold: "Not sure which one's yours?",
+    noneOfTheseSecondLine: 'Visitor visas often come down to your passport as much as your plans.',
+    checklist: [
+      "Finding your passport's eligible visitor option.",
+      "Telling you plainly what you can and can't do on it, like paid work.",
+      'Letting you know before you travel if something needs fixing first.',
+      'Preparing your application or your NZeTA or ETA, and handling any questions from immigration.',
+    ],
+    linkRowOrder: ['work-visas', 'student-visas', 'residence-citizenship', 'family-partner-visas', 'business-investor-visas'],
+    bottomStripHeading: 'Here for something more than a visit?',
+    bottomStripText: "Here's where else to look.",
+  },
+  'residence-citizenship': {
+    heroTitleLines: ['Stay permanently'],
+    heroDesc: 'Some pathways get you there straight away, others\ntake a little longer. Either way, they all start here.',
+    cards: [
+      {
+        title: 'My occupation is in high demand',
+        visas: [
+          { country: 'NZ', name: 'Straight to Residence Visa', desc: 'Tier 1 Green List roles for residence, no waiting.' },
+          { country: 'AU', name: 'Skilled Independent visa (189)', desc: 'Points-tested, no sponsorship needed.' },
+        ],
+      },
+      {
+        title: 'My employer supports my residence',
+        visas: [
+          { country: 'NZ', name: 'Work to Residence Visa', desc: 'Tier 2 roles or high enough pay, after 2 years in the job.' },
+          { country: 'AU', name: 'Employer Nomination Scheme (186)', desc: 'Permanent residence through your employer.' },
+        ],
+      },
+      {
+        title: 'Skilled but not on the fast-track list',
+        visas: [
+          { country: 'NZ', name: 'Skilled Migrant Category Resident Visa', desc: 'The general points-based pathway.' },
+          { country: 'AU', name: 'Skilled Nominated visa (190)', desc: 'Points-tested, with state or territory nomination.' },
+        ],
+      },
+      {
+        title: "I'm open to living regionally",
+        visas: [
+          { country: 'AU', name: 'Skilled Work Regional visa (491)', desc: 'A provisional visa, leads to permanent residence after time spent working in a regional area.' },
+        ],
+      },
+    ],
+    noneOfTheseBold: 'Not sure where you fit?',
+    noneOfTheseSecondLine: "Tell us what you do and we'll tell you honestly which door is open.",
+    checklist: [
+      'Checking whether your occupation qualifies for a faster residence pathway.',
+      "Explaining honestly how long your route is likely to take, not just whether it's possible.",
+      'Preparing your application and handling communication with immigration.',
+      "Keeping an eye on list and policy changes that could affect your case while it's underway.",
+    ],
+    linkRowOrder: ['work-visas', 'student-visas', 'visitor-visas', 'family-partner-visas', 'business-investor-visas'],
+    bottomStripHeading: 'Here about something other than staying permanently?',
+    bottomStripText: "Here's where else to look.",
+  },
+};
 
-const workVisasChecklist = [
-  'Finding the right visa for your situation.',
-  "Handling sponsorship or accreditation, where it's needed.",
-  'Application prep and direct communication with Immigration.',
-  'Supporting you after approval, including renewals and settling.',
-];
+const customData = customServicesData[service.data.slug];
+const isCustomLayout = !!customData;
+const heroTitle = customData ? customData.heroTitleLines.join(' ') : service.data.title;
+const heroDesc = customData ? customData.heroDesc : service.data.shortDesc;
 ---
 
 <Page
   title={service.data.title}
   description={service.data.shortDesc}
 >
-  <section class="relative overflow-hidden pt-16 pb-16 md:pt-24" style={isWorkVisas ? 'background: white;' : ''}>
-    {!isWorkVisas && (
+  <section class={`relative overflow-hidden pb-16 ${isCustomLayout ? 'pt-[94px] md:pt-[126px]' : 'pt-16 md:pt-24'}`} style={isCustomLayout ? 'background: white;' : ''}>
+    {!isCustomLayout && (
       <div class="mesh-bg">
         <div class="mesh-blob" style="width:440px;height:440px;background:var(--color-ink-500);top:-180px;right:-100px;"></div>
       </div>
     )}
-    {isWorkVisas && (
+    {isCustomLayout && (
       <div class="absolute inset-0 bg-cover bg-bottom" style="background-image: url('/images/work-visas-banner.png');"></div>
     )}
-    <div class={`container relative z-10 reveal ${isWorkVisas ? 'pl-[53px] -mt-[50px]' : 'max-w-2xl'}`}>
-      {!isWorkVisas && (
+    <div class={`container relative z-10 reveal ${isCustomLayout ? 'pl-[53px] -mt-[50px]' : 'max-w-2xl'}`}>
+      {!isCustomLayout && (
         <a href="/services" class="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-neutral-600)] hover:text-[var(--color-ink-950)] mb-6">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           All Services
         </a>
       )}
-      {!isWorkVisas && (
+      {isCustomLayout && (
+        <a href="/services" class="inline-flex items-center gap-1.5 text-sm font-semibold mb-6" style="color:#55BFC0;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Back to pathways
+        </a>
+      )}
+      {!isCustomLayout && (
         <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--color-cream-200)] text-[var(--color-ink-800)]">
           <Icon name={service.data.icon} class="w-7 h-7" />
         </div>
       )}
-      <h1 class={`mt-6 ${isWorkVisas ? 'text-4xl sm:text-5xl' : ''}`}>
-        {isWorkVisas ? (<>Working in<br />New Zealand or Australia</>) : heroTitle}
+      <h1 class={`mt-6 ${isCustomLayout ? 'text-4xl sm:text-5xl' : ''}`}>
+        {customData
+          ? customData.heroTitleLines.map((line, i) => (
+              <>
+                {i > 0 && <br />}
+                {line}
+              </>
+            ))
+          : heroTitle}
       </h1>
-      <p class="mt-5 text-lg">{heroDesc}</p>
-      {!isWorkVisas && (
+      <p class="mt-5 text-lg">
+        {heroDesc.split('\n').map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line}
+          </>
+        ))}
+      </p>
+      {!isCustomLayout && (
         <a href="/contact" class="btn btn-primary mt-8">Book a Consultation</a>
       )}
     </div>
   </section>
 
-  {isWorkVisas ? (
+  {customData ? (
     <section class="pb-20 pt-px" style="background: white;">
       <div class="container">
         <div class="relative z-10 mt-[47px] grid gap-6 sm:grid-cols-2">
-          {workVisasCards.map((card, i) => (
+          {customData.cards.map((card, i) => (
             <div class="card card-deep-shadow reveal flex flex-col bg-white p-7" style={`transition-delay:${i * 70}ms; border: 0.7px solid rgba(18, 59, 87, 0.4);`}>
               <h3 class="w-[calc(100%-65px)] border-b border-[rgba(18,59,87,0.2)] pb-4">{card.title}</h3>
               <div class="flex-1">
@@ -129,8 +307,13 @@ const workVisasChecklist = [
 
         <div class="reveal mx-auto mt-[80px] flex max-w-[972px] flex-col items-start gap-6 rounded-[var(--radius-xl)] bg-[#123B57] p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
           <div>
-            <p class="text-lg whitespace-nowrap text-white"><span class="font-semibold">None of these?</span> <span class="text-white/80">Some work situations don't match a standard visa.</span></p>
-            <p class="mt-2 text-lg whitespace-nowrap text-white/80">Tell us yours and we'll point you in the right direction.</p>
+            <p class="text-lg whitespace-nowrap text-white">
+              <span class="font-semibold">{customData.noneOfTheseBold}</span>
+              {customData.noneOfTheseLight && <span class="text-white/80"> {customData.noneOfTheseLight}</span>}
+            </p>
+            {customData.noneOfTheseSecondLine && (
+              <p class="mt-2 text-lg whitespace-nowrap text-white/80">{customData.noneOfTheseSecondLine}</p>
+            )}
           </div>
           <a href="/contact" class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">Send a message</a>
         </div>
@@ -143,7 +326,7 @@ const workVisasChecklist = [
           <div class="reveal">
             <h2>What we do</h2>
             <ul class="mt-6 space-y-4">
-              {workVisasChecklist.map((item) => (
+              {customData.checklist.map((item) => (
                 <li class="flex items-start gap-3">
                   <svg class="mt-1 h-4 w-4 shrink-0 text-[var(--color-flame-500)]" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   <span class="text-[#123B57]">{item}</span>
@@ -213,17 +396,17 @@ const workVisasChecklist = [
     </>
   )}
 
-  {isWorkVisas ? (
+  {customData ? (
     <section class="pt-16 pb-0 -mb-[4px] bg-white md:mb-0 md:pb-[28px]">
       <div class="reveal w-full overflow-hidden bg-cover bg-right py-10" style="background-image: url('/images/coastal-path.png');">
         <div class="container flex flex-col gap-6">
           <div>
-            <p class="text-lg font-semibold text-[#123B57]">Looking for something else?</p>
-            <p class="mt-2 text-[#123B57]">Explore other visa pathways to find the option that fits your situation.</p>
+            <p class="text-lg font-semibold text-[#123B57]">{customData.bottomStripHeading}</p>
+            <p class="mt-2 text-[#123B57]">{customData.bottomStripText}</p>
           </div>
           <div class="flex flex-wrap gap-3">
-            {['Family & Couples', 'Study', 'Visit', 'Stay', 'Businesses'].map((label) => (
-              <button type="button" class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">{label}</button>
+            {customData.linkRowOrder.map((slug) => (
+              <a href={`/services/${slug}`} class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">{serviceLabels[slug]}</a>
             ))}
           </div>
         </div>

@@ -6,12 +6,14 @@ order: 4
 featured: true
 slug: residence-citizenship
 faq:
-  - question: How long do I need to live in the country before applying for residence?
-    answer: Minimum stay and physical presence requirements vary by pathway. We confirm your exact eligibility date as part of the assessment.
-  - question: Is a English/language test required?
-    answer: Some residence and citizenship pathways require a recognised language test; we'll tell you upfront if this applies to your case.
-  - question: Can I hold dual citizenship?
-    answer: This depends on both your country of origin and destination. We check both sides before recommending you proceed.
+  - question: What's the difference between Tier 1 and Tier 2 on the Green List?
+    answer: Tier 1 lets you apply for residence straight away, once you have a qualifying job offer. Tier 2 means working in the role for 24 months first. Which tier your occupation falls under can change, so we'll check the current list for you.
+  - question: Is the 491 visa permanent residence?
+    answer: Not immediately. It's provisional, meaning you live and work in the visa's conditions for a period first, and permanent residence follows through a separate application after that.
+  - question: What if my occupation isn't on the Green List?
+    answer: You may still qualify through the general Skilled Migrant Category in New Zealand, or a points-tested visa in Australia. Being off the Green List doesn't mean there's no pathway, it usually just means a different one.
+  - question: Can my partner and children be included in my residence application?
+    answer: Often, yes, most residence pathways allow you to include a partner and dependent children. The exact requirements depend on the visa, so we'll confirm what applies to your family.
 ---
 
 Residence and citizenship applications are usually the final step of a longer journey, and the one with the least room for error, since a knockback here can affect status you already hold.
