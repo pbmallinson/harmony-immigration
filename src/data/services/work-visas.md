@@ -9,9 +9,11 @@ faq:
   - question: How long does a work visa take?
     answer: It depends on the visa and the country, and processing times change. We'll give you a realistic estimate once we know your situation.
   - question: Do I need a job offer before applying?
-    answer: For the employer-sponsored visas, yes. Working holiday and post-study visas don't need one.
+    answer: For most work visas, yes. Working holiday visas are the exception, and don't need one.
   - question: Can my family come with me?
-    answer: Often, yes. How it works depends on the country and visa, and we'll explain the options for your family.
+    answer: Sometimes. It depends on your income and the visa, since family work rights often come with their own thresholds. We'll check this for your specific situation.
+  - question: Can I switch from a work visa to residence later?
+    answer: Often, yes. Several work visas lead toward a residence pathway over time and we can map that out with you from the start.
 ---
 
 ## Who this is for

@@ -23,7 +23,7 @@ const related = allServices
 
 const isWorkVisas = service.data.slug === 'work-visas';
 const heroTitle = isWorkVisas ? 'Working in New Zealand or Australia' : service.data.title;
-const heroDesc = isWorkVisas ? 'Pick the situation closest to yours.' : service.data.shortDesc;
+const heroDesc = isWorkVisas ? 'Start with whichever feels closest to your situation.' : service.data.shortDesc;
 
 const workVisasCards = [
   {
@@ -58,10 +58,10 @@ const workVisasCards = [
 ];
 
 const workVisasChecklist = [
-  'We check which visa fits your situation.',
-  'We prepare your application and documents.',
-  'We deal with the immigration authorities for you.',
-  'We stay with you after approval, through conditions, renewals and next steps.',
+  'Finding the right visa for your situation.',
+  "Handling sponsorship or accreditation, where it's needed.",
+  'Application prep and direct communication with Immigration.',
+  'Supporting you after approval, including renewals and settling.',
 ];
 ---
 
@@ -69,13 +69,16 @@ const workVisasChecklist = [
   title={service.data.title}
   description={service.data.shortDesc}
 >
-  <section class="relative overflow-hidden pt-16 pb-16 md:pt-24" style={isWorkVisas ? 'background: #ECF5F5;' : ''}>
+  <section class="relative overflow-hidden pt-16 pb-16 md:pt-24" style={isWorkVisas ? 'background: white;' : ''}>
     {!isWorkVisas && (
       <div class="mesh-bg">
         <div class="mesh-blob" style="width:440px;height:440px;background:var(--color-ink-500);top:-180px;right:-100px;"></div>
       </div>
     )}
-    <div class={`container relative z-10 reveal ${isWorkVisas ? 'max-w-4xl mx-auto text-center' : 'max-w-2xl'}`}>
+    {isWorkVisas && (
+      <div class="absolute inset-0 bg-cover bg-bottom" style="background-image: url('/images/work-visas-banner.png');"></div>
+    )}
+    <div class={`container relative z-10 reveal ${isWorkVisas ? 'pl-[53px] -mt-[50px]' : 'max-w-2xl'}`}>
       {!isWorkVisas && (
         <a href="/services" class="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-neutral-600)] hover:text-[var(--color-ink-950)] mb-6">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -87,7 +90,9 @@ const workVisasChecklist = [
           <Icon name={service.data.icon} class="w-7 h-7" />
         </div>
       )}
-      <h1 class={`mt-6 ${isWorkVisas ? 'text-4xl sm:text-5xl lg:whitespace-nowrap' : ''}`}>{heroTitle}</h1>
+      <h1 class={`mt-6 ${isWorkVisas ? 'text-4xl sm:text-5xl' : ''}`}>
+        {isWorkVisas ? (<>Working in<br />New Zealand or Australia</>) : heroTitle}
+      </h1>
       <p class="mt-5 text-lg">{heroDesc}</p>
       {!isWorkVisas && (
         <a href="/contact" class="btn btn-primary mt-8">Book a Consultation</a>
@@ -96,11 +101,11 @@ const workVisasChecklist = [
   </section>
 
   {isWorkVisas ? (
-    <section class="pb-20" style="background: #ECF5F5;">
+    <section class="pb-20 pt-px" style="background: white;">
       <div class="container">
-        <div class="grid gap-6 sm:grid-cols-2">
+        <div class="relative z-10 mt-[47px] grid gap-6 sm:grid-cols-2">
           {workVisasCards.map((card, i) => (
-            <div class="card card-deep-shadow reveal flex flex-col p-7" style={`transition-delay:${i * 70}ms; border: 0.7px solid rgba(18, 59, 87, 0.4);`}>
+            <div class="card card-deep-shadow reveal flex flex-col bg-white p-7" style={`transition-delay:${i * 70}ms; border: 0.7px solid rgba(18, 59, 87, 0.4);`}>
               <h3 class="w-[calc(100%-65px)] border-b border-[rgba(18,59,87,0.2)] pb-4">{card.title}</h3>
               <div class="flex-1">
                 {card.visas.map((visa, vi) => (
@@ -117,12 +122,12 @@ const workVisasChecklist = [
                   </div>
                 ))}
               </div>
-              <button type="button" class="btn mt-6 self-start" style="background:#C9E1EA; border-color:#C9E1EA; color:#123B57;">Check eligibility</button>
+              <button type="button" class="btn btn-lift mt-6 self-start" style="background:#55BFC0; border-color:#55BFC0; color:white;">Check eligibility</button>
             </div>
           ))}
         </div>
 
-        <div class="reveal mx-auto mt-10 flex max-w-[942px] flex-col items-start gap-6 rounded-[var(--radius-xl)] bg-[#123B57] p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+        <div class="reveal mx-auto mt-[80px] flex max-w-[972px] flex-col items-start gap-6 rounded-[var(--radius-xl)] bg-[#123B57] p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
           <div>
             <p class="text-lg whitespace-nowrap text-white"><span class="font-semibold">None of these?</span> <span class="text-white/80">Some work situations don't match a standard visa.</span></p>
             <p class="mt-2 text-lg whitespace-nowrap text-white/80">Tell us yours and we'll point you in the right direction.</p>
@@ -134,7 +139,7 @@ const workVisasChecklist = [
 
     <section class="bg-white pt-28 pb-20">
       <div class="container">
-        <div class="grid gap-14 lg:grid-cols-2">
+        <div class="grid gap-14 lg:grid-cols-2 lg:gap-40">
           <div class="reveal">
             <h2>What we do</h2>
             <ul class="mt-6 space-y-4">
@@ -150,10 +155,13 @@ const workVisasChecklist = [
             <h2>Common questions</h2>
             <div class="mt-6 space-y-4">
               {service.data.faq.map((item) => (
-                <div class="card bg-[#E4F1F2] p-6" style="border: 0.7px solid rgba(148, 191, 205, 0.6);">
-                  <p class="font-semibold text-[var(--color-ink-950)] text-sm">{item.question}</p>
-                  <p class="mt-2 text-sm">{item.answer}</p>
-                </div>
+                <details class="faq-details">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-[#123B57]">
+                    {item.question}
+                    <span class="faq-icon shrink-0 text-2xl leading-none text-[#123B57]">+</span>
+                  </summary>
+                  <p class="mt-2 italic text-[#123B57]">{item.answer}</p>
+                </details>
               ))}
             </div>
           </div>
@@ -206,13 +214,16 @@ const workVisasChecklist = [
   )}
 
   {isWorkVisas ? (
-    <section class="pt-16 pb-24 bg-white md:pb-32">
-      <div class="container">
-        <div class="reveal mx-auto w-fit rounded-[var(--radius-xl)] bg-[#C9E1EA] p-8 sm:p-10">
-          <div class="flex flex-wrap items-center gap-4">
-            <p class="mr-4 text-lg font-semibold text-[#123B57] whitespace-nowrap">Looking for something else?</p>
+    <section class="pt-16 pb-0 -mb-[4px] bg-white md:mb-0 md:pb-[28px]">
+      <div class="reveal w-full overflow-hidden bg-cover bg-right py-10" style="background-image: url('/images/coastal-path.png');">
+        <div class="container flex flex-col gap-6">
+          <div>
+            <p class="text-lg font-semibold text-[#123B57]">Looking for something else?</p>
+            <p class="mt-2 text-[#123B57]">Explore other visa pathways to find the option that fits your situation.</p>
+          </div>
+          <div class="flex flex-wrap gap-3">
             {['Family & Couples', 'Study', 'Visit', 'Stay', 'Businesses'].map((label) => (
-              <button type="button" class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:#123B57;">{label}</button>
+              <button type="button" class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">{label}</button>
             ))}
           </div>
         </div>
@@ -222,3 +233,18 @@ const workVisasChecklist = [
     <CtaSection />
   )}
 </Page>
+
+<style>
+  .faq-details summary {
+    list-style: none;
+  }
+  .faq-details summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-details .faq-icon {
+    transition: transform 0.2s ease;
+  }
+  .faq-details[open] .faq-icon {
+    transform: rotate(45deg);
+  }
+</style>
