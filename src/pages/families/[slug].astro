@@ -1,0 +1,374 @@
+---
+import Page from '@layouts/Page.astro';
+
+const linkLabels: Record<string, string> = {
+  partner: 'Partner',
+  children: 'Children',
+  parents: 'Parents',
+  'other-family': 'Other family',
+  individuals: 'Individuals',
+  businesses: 'Businesses',
+};
+const linkHrefs: Record<string, string> = {
+  partner: '/families/partner',
+  children: '/families/children',
+  parents: '/families/parents',
+  'other-family': '/families/other-family',
+  individuals: '/services',
+  businesses: '/services',
+};
+
+const familyPagesData: Record<string, {
+  heroTitle: string;
+  heroDesc: string;
+  cards: { title: string; visas: { country: string; name: string; desc: string }[] }[];
+  noneOfTheseBold: string;
+  noneOfTheseSecondLine?: string;
+  checklist: string[];
+  faq: { question: string; answer: string }[];
+  linkRowOrder: string[];
+  bottomStripHeading: string;
+  bottomStripText?: string;
+}> = {
+  partner: {
+    heroTitle: 'Partner visas',
+    heroDesc: "Some couples are ready to build a life here. Others\njust want to be close for now. Start with what's true for you.",
+    cards: [
+      {
+        title: 'My partner is a citizen or resident',
+        visas: [
+          { country: 'NZ', name: 'Partner of a New Zealander Resident Visa', desc: 'For partners living together at least 12 months.' },
+          { country: 'AU', name: 'Partner visa (820/801)', desc: "If you're already in Australia." },
+          { country: 'AU', name: 'Partner visa (309/100)', desc: 'If applying from overseas.' },
+        ],
+      },
+      {
+        title: 'My partner is a NZ citizen or resident and I want to visit or work temporarily.',
+        visas: [
+          { country: 'NZ', name: 'Partner of a New Zealander Work Visa', desc: "Lets you work, doesn't include children on the same application." },
+          { country: 'NZ', name: 'Partner of a New Zealander Visitor Visa', desc: 'No work rights, but children can be included.' },
+        ],
+      },
+      {
+        title: 'My partner has a work visa, not residence.',
+        visas: [
+          { country: 'NZ', name: 'Partner of a Worker Visitor Visa', desc: "Depends on whether you want to work while you're here." },
+        ],
+      },
+      {
+        title: 'My partner is studying',
+        visas: [
+          { country: 'NZ', name: 'Partner of a Student Work Visa', desc: "Both depend on your partner's course level." },
+          { country: 'NZ', name: 'Partner of a Student Visitor Visa', desc: "Both depend on your partner's course level." },
+        ],
+      },
+      {
+        title: "We're planning to marry, but haven't yet",
+        visas: [
+          { country: 'AU', name: 'Prospective Marriage visa (300)', desc: 'For couples intending to marry in Australia.' },
+        ],
+      },
+    ],
+    noneOfTheseBold: "Relationships don't always fit a tidy timeline.",
+    noneOfTheseSecondLine: "Tell us honestly where things stand and we'll tell you what actually applies.",
+    checklist: [
+      'Checking which partner visa matches your relationship status.',
+      'Helping you build the right evidence a genuine relationship application needs.',
+      'Preparing the application and speaking with immigration on your behalf.',
+      "Staying with you through to residence, if permanence is where you're headed.",
+    ],
+    faq: [
+      {
+        question: "We're not married. Does that matter?",
+        answer: 'Not usually, a genuine de facto relationship qualifies for most partner visas. Marriage only matters specifically for the Prospective Marriage visa itself.',
+      },
+      {
+        question: 'How long do we need to have lived together first?',
+        answer: "For New Zealand's Partner of a New Zealander Resident Visa, at least 12 months in a genuine, stable relationship. Other partner visas have different requirements, we'll check what applies to your situation.",
+      },
+      {
+        question: 'Can my children come with me?',
+        answer: "Sometimes. Visitor-based partner visas often allow it, work-based ones usually don't, and your children may need their own application. We'll work out what fits your family.",
+      },
+      {
+        question: 'What if immigration asks for more evidence of our relationship?',
+        answer: "It's common, and it doesn't mean anything's wrong. Relationship evidence requests are routine, especially for newer relationships. We'll help you respond properly, so it doesn't stall or weaken your case.",
+      },
+    ],
+    linkRowOrder: ['children', 'parents', 'other-family', 'individuals', 'businesses'],
+    bottomStripHeading: 'Looking for Children, Parents or Other family instead?',
+    bottomStripText: "Here's where else to look.",
+  },
+  children: {
+    heroTitle: 'Visas for children',
+    heroDesc: "Children usually follow a parent's\npath, but not always the same way.",
+    cards: [
+      {
+        title: 'My children are joining me',
+        visas: [
+          { country: 'NZ', name: 'Dependent Child Resident Visa', desc: 'For children of a resident or work-to-residence visa holder.' },
+          { country: 'AU', name: 'Child visa', desc: "Whether you're applying from outside Australia or already here." },
+        ],
+      },
+      {
+        title: 'My children are coming to study',
+        visas: [
+          { country: 'NZ', name: 'Dependent Child Student Visa', desc: 'For school-age children of visa holders.' },
+        ],
+      },
+      {
+        title: 'My children are visiting while I work here',
+        visas: [
+          { country: 'NZ', name: 'Child of a Worker Visitor Visa', desc: 'For children visiting a parent on a work visa.' },
+        ],
+      },
+      {
+        title: 'We adopted or are adopting from overseas',
+        visas: [
+          { country: 'AU', name: 'Adoption visa (102)', desc: "For a child you've adopted or are in the\nprocess of adopting outside Australia." },
+        ],
+      },
+      {
+        title: "My partner's residence application is pending",
+        visas: [
+          { country: 'AU', name: 'Dependent Child visa (445)', desc: "Lets your child stay while a parent's Partner visa is processed." },
+        ],
+      },
+    ],
+    noneOfTheseBold: "A child's situation usually follows someone else's.",
+    noneOfTheseSecondLine: "Tell us both your circumstances and we'll work out what applies.",
+    checklist: [
+      "Working out which visa fits your child, based on your own status and their situation.",
+      'Preparing the application and speaking with immigration on your behalf.',
+      "Keep your child's status while renewing your visa.",
+      'Gathering the right evidence, birth certificates, custody documents, or adoption records, whatever the visa calls for.',
+    ],
+    faq: [
+      {
+        question: 'Is there an age limit for dependent children?',
+        answer: "Yes, most dependent-child visas set a maximum age, commonly under 24 and unmarried, and the exact limit depends on the visa. We'll confirm the limit for yours.",
+      },
+      {
+        question: "Can my child study while they're here on a visitor visa?",
+        answer: "Often for a limited period, but not indefinitely, longer study usually needs its own student visa. We'll check what your child's current visa allows.",
+      },
+      {
+        question: "What if I don't have full custody?",
+        answer: "It's still often possible, but the evidence required is different, and we'll be upfront if a custody situation needs extra documentation before we can move forward.",
+      },
+      {
+        question: "What happens to my child's visa if mine changes?",
+        answer: "It depends on the visas involved, sometimes a child's status is tied closely to yours, sometimes it isn't. We'll check this whenever your own circumstances shift.",
+      },
+    ],
+    linkRowOrder: ['partner', 'parents', 'other-family', 'individuals', 'businesses'],
+    bottomStripHeading: 'Looking for Partner, Parents or Other family instead?',
+    bottomStripText: "Here's where else to look.",
+  },
+  parents: {
+    heroTitle: 'Parent visas',
+    heroDesc: "These routes often come down to a choice\nbetween time and cost. We'll help you weigh it honestly.",
+    cards: [
+      {
+        title: 'I have time and want a low cost route',
+        visas: [
+          { country: 'NZ', name: 'Parent Resident Visa', desc: 'Lower fee, longer wait, sometimes years.' },
+          { country: 'AU', name: 'Parent visa (103) or Aged Parent visa (804)', desc: 'Lower fee, longer wait, sometimes years.' },
+        ],
+      },
+      {
+        title: 'I want them here faster and can pay more',
+        visas: [
+          { country: 'AU', name: 'Contributory Parent (143) or Contributory Aged Parent (864)', desc: 'Higher fee, much faster processing.' },
+        ],
+      },
+      {
+        title: 'I want a temporary option while the permanent application is decided',
+        visas: [
+          { country: 'AU', name: 'Contributory Parent Temporary (173)', desc: 'Lets your parent be here sooner, ahead of the permanent outcome.' },
+          { country: 'AU', name: 'Contributory Aged Parent Temporary (884)', desc: 'Lets your parent be here sooner, ahead of the permanent outcome.' },
+        ],
+      },
+      {
+        title: 'My parents are only visiting',
+        visas: [
+          { country: 'NZ', name: 'Parent Boost Visitor Visa', desc: 'No residence, but quicker and cheaper than any permanent route.' },
+          { country: 'AU', name: 'Sponsored Parent (Temporary) visa (870)', desc: 'No residence, but quicker and cheaper than any permanent route.' },
+        ],
+      },
+    ],
+    noneOfTheseBold: 'Lot of trade-offs to think about?',
+    noneOfTheseSecondLine: "Tell us what matters to you and we'll lay out what that actually means.",
+    checklist: [
+      'Explaining plainly what each route costs and how long it tends to take.',
+      'Checking whether the Balance of Family Test or other requirements apply to you.',
+      'Preparing the application and speaking with immigration on your behalf.',
+      'Staying in touch through what can be a very long wait.',
+    ],
+    faq: [
+      {
+        question: 'Why do parent visas take so long?',
+        answer: "Non-contributory routes in both countries have long queues, sometimes years. Contributory routes cost more but move faster. We'll set realistic expectations from the start, not after you've committed to one.",
+      },
+      {
+        question: "What's the Balance of Family Test?",
+        answer: "An Australian requirement that at least half your children live in Australia, or more of them live there than in any other single country. It applies to most parent visa categories, and we'll check it against your family before recommending a route.",
+      },
+      {
+        question: 'Is there a way to have my parents here while we wait?',
+        answer: 'Yes, the temporary contributory visas (173, 884) or the Sponsored Parent visa (870) can bring them here sooner, even if the permanent outcome is still years away.',
+      },
+      {
+        question: 'Will my parents have access to healthcare here?',
+        answer: "It depends on the visa. Temporary visas like Sponsored Parent (870) usually require private health insurance for the full stay, since they don't include public healthcare access. Contributory visas can include Medicare in Australia once granted. We'll explain what your parents will and won't be covered for before you commit to a route.",
+      },
+    ],
+    linkRowOrder: ['partner', 'children', 'other-family', 'individuals', 'businesses'],
+    bottomStripHeading: 'Looking for Partner, Children or Other family instead?',
+    bottomStripText: "Here's where else to look.",
+  },
+};
+
+export async function getStaticPaths() {
+  return ['partner', 'children', 'parents'].map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const data = familyPagesData[slug as string];
+---
+
+<Page
+  title={data.heroTitle}
+  description={data.heroDesc}
+>
+  <section class="relative overflow-hidden pb-16 pt-[94px] md:pt-[126px]" style="background: white;">
+    <div class="absolute inset-0 bg-cover bg-bottom" style="background-image: url('/images/work-visas-banner.png');"></div>
+    <div class="container relative z-10 reveal pl-[53px] -mt-[50px]">
+      <a href="/families" class="inline-flex items-center gap-1.5 text-sm font-semibold mb-6" style="color:#55BFC0;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back to Families
+      </a>
+      <h1 class="mt-6 text-4xl sm:text-5xl">{data.heroTitle}</h1>
+      <p class="mt-5 text-lg">
+        {data.heroDesc.split('\n').map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line}
+          </>
+        ))}
+      </p>
+    </div>
+  </section>
+
+  <section class="pb-20 pt-px" style="background: white;">
+    <div class="container">
+      <div class="relative z-10 mt-[47px] grid gap-6 sm:grid-cols-2">
+        {data.cards.map((card, i) => (
+          <div class="card card-deep-shadow reveal flex flex-col p-7" style={`transition-delay:${i * 70}ms; border: 0.7px solid rgba(18, 59, 87, 0.4);`}>
+            <h3 class="w-[calc(100%-65px)] border-b border-[rgba(18,59,87,0.2)] pb-4">{card.title}</h3>
+            <div class="flex-1">
+              {card.visas.map((visa, vi) => (
+                <div class={`flex w-[calc(100%-65px)] items-start gap-3 py-4 ${vi > 0 ? 'border-t border-[rgba(18,59,87,0.2)]' : ''}`}>
+                  <img
+                    src={visa.country === 'NZ' ? '/images/icons-about/nz-navy.svg' : '/images/icons-about/australia-navy.svg'}
+                    alt={visa.country === 'NZ' ? 'New Zealand' : 'Australia'}
+                    class="h-12 w-12 shrink-0"
+                  />
+                  <div>
+                    <p class="font-semibold text-[var(--color-ink-950)]">{visa.name}</p>
+                    <p class="mt-0.5">
+                      {visa.desc.split('\n').map((line, li) => (
+                        <>
+                          {li > 0 && <br />}
+                          {line}
+                        </>
+                      ))}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button type="button" class="btn btn-lift mt-6 self-start" style="background:#55BFC0; border-color:#55BFC0; color:white;">Check eligibility</button>
+          </div>
+        ))}
+      </div>
+
+      <div class="reveal mx-auto mt-[80px] flex max-w-[972px] flex-col items-start gap-6 rounded-[var(--radius-xl)] bg-[#123B57] p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+        <div>
+          <p class="text-lg whitespace-nowrap text-white">
+            <span class="font-semibold">{data.noneOfTheseBold}</span>
+          </p>
+          {data.noneOfTheseSecondLine && (
+            <p class="mt-2 text-lg whitespace-nowrap text-white/80">{data.noneOfTheseSecondLine}</p>
+          )}
+        </div>
+        <a href="/contact" class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">Send a message</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white pt-28 pb-20">
+    <div class="container">
+      <div class="grid gap-14 lg:grid-cols-2 lg:gap-40">
+        <div class="reveal">
+          <h2>What we do</h2>
+          <ul class="mt-6 space-y-4">
+            {data.checklist.map((item) => (
+              <li class="flex items-start gap-3">
+                <svg class="mt-1 h-4 w-4 shrink-0 text-[var(--color-flame-500)]" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="text-[#123B57]">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="reveal">
+          <h2>Common questions</h2>
+          <div class="mt-6 space-y-4">
+            {data.faq.map((item) => (
+              <details class="faq-details">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-[#123B57]">
+                  {item.question}
+                  <span class="faq-icon shrink-0 text-2xl leading-none text-[#123B57]">+</span>
+                </summary>
+                <p class="mt-2 italic text-[#123B57]">{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-16 pb-0 -mb-[4px] bg-white md:mb-0 md:pb-[28px]">
+    <div class="reveal w-full overflow-hidden bg-cover bg-right py-10" style="background-image: url('/images/coastal-path.png');">
+      <div class="container flex flex-col gap-6">
+        <div>
+          <p class="text-lg font-semibold text-[#123B57]">{data.bottomStripHeading}</p>
+          {data.bottomStripText && (
+            <p class="mt-2 text-[#123B57]">{data.bottomStripText}</p>
+          )}
+        </div>
+        <div class="flex flex-wrap gap-3">
+          {data.linkRowOrder.map((key) => (
+            <a href={linkHrefs[key]} class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">{linkLabels[key] ?? key}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Page>
+
+<style>
+  .faq-details summary {
+    list-style: none;
+  }
+  .faq-details summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-details .faq-icon {
+    transition: transform 0.2s ease;
+  }
+  .faq-details[open] .faq-icon {
+    transform: rotate(45deg);
+  }
+</style>

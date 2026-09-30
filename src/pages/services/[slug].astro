@@ -32,6 +32,8 @@ const serviceLabels: Record<string, string> = {
 
 const customServicesData: Record<string, {
   heroTitleLines: string[];
+  bannerImage?: string;
+  bannerPosition?: string;
   heroDesc: string;
   cards: { title: string; visas: { country: string; name: string; desc: string }[] }[];
   noneOfTheseBold: string;
@@ -44,6 +46,8 @@ const customServicesData: Record<string, {
 }> = {
   'work-visas': {
     heroTitleLines: ['Work visas'],
+    bannerImage: '/images/work-visas-banner-v2.png',
+    bannerPosition: 'bottom',
     heroDesc: 'Start with whichever feels closest to your situation.',
     cards: [
       {
@@ -91,6 +95,8 @@ const customServicesData: Record<string, {
   },
   'student-visas': {
     heroTitleLines: ['Study visas'],
+    bannerImage: '/images/student-visas-banner-v2.png',
+    bannerPosition: 'top',
     heroDesc: "Every student's path is a little different. Find yours below.",
     cards: [
       {
@@ -134,6 +140,8 @@ const customServicesData: Record<string, {
   },
   'visitor-visas': {
     heroTitleLines: ['Visitor visas'],
+    bannerImage: '/images/visitor-visas-banner-v8.png',
+    bannerPosition: '-28px',
     heroDesc: 'Here for family, friends or a holiday? Find your visa below.',
     cards: [
       {
@@ -172,7 +180,9 @@ const customServicesData: Record<string, {
     bottomStripText: "Here's where else to look.",
   },
   'residence-citizenship': {
-    heroTitleLines: ['Stay permanently'],
+    heroTitleLines: ['Skilled visas'],
+    bannerImage: '/images/residence-citizenship-banner-v2.png',
+    bannerPosition: '-13px',
     heroDesc: 'Some pathways get you there straight away, others\ntake a little longer. Either way, they all start here.',
     cards: [
       {
@@ -234,7 +244,7 @@ const heroDesc = customData ? customData.heroDesc : service.data.shortDesc;
       </div>
     )}
     {isCustomLayout && (
-      <div class="absolute inset-0 bg-cover bg-bottom" style="background-image: url('/images/work-visas-banner.png');"></div>
+      <div class="absolute inset-0 bg-cover" style={`background-image: url('${customData?.bannerImage ?? '/images/work-visas-banner.png'}'); background-position: center ${customData?.bannerPosition ?? 'bottom'};`}></div>
     )}
     <div class={`container relative z-10 reveal ${isCustomLayout ? 'pl-[53px] -mt-[50px]' : 'max-w-2xl'}`}>
       {!isCustomLayout && (

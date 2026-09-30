@@ -5,6 +5,7 @@ const categories = [
     tagline: 'Visit, work or study',
     desc: "Documents, details, deadlines.<br class=\"hidden lg:inline\" /> We've got it covered from start to finish.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style=\"font-size:1.4em; -webkit-text-stroke: 0.6px currentColor;\">⟶</strong>",
     photo: '/images/individuals.jpg',
+    href: '/services',
     maskOpacity: 0.08,
   },
   {
@@ -13,6 +14,7 @@ const categories = [
     desc: 'When you have a plan and a lot of questions.<br class="hidden lg:inline" /> We’ll help make sense of the immigration part.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="font-size:1.4em; -webkit-text-stroke: 0.6px currentColor;">⟶</strong>',
     photo: '/images/families.jpg',
     position: 'object-[50%_15%]',
+    href: '/families',
     maskOpacity: 0.08,
   },
   {
@@ -20,6 +22,7 @@ const categories = [
     tagline: 'Grow without borders',
     desc: 'Supporting businesses to hire foreign<br class="hidden lg:inline" /> talents through accreditation and sponsorship.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="font-size:1.4em; -webkit-text-stroke: 0.6px currentColor;">⟶</strong>',
     photo: '/images/businesses.jpg',
+    href: '/services',
     maskOpacity: 0.08,
   },
 ];
@@ -28,14 +31,14 @@ const categories = [
 <section id="how-we-can-help" class="py-24 md:py-32">
   <div class="container">
     <div class="reveal max-w-3xl mx-auto text-center">
-      <h2>How we can help</h2>
-      <p class="mt-5 text-lg sm:whitespace-nowrap">Everyone has a different reason for relocating and their own questions too. We're here to answer them.</p>
+      <h2>Find the right visa</h2>
+      <p class="mt-5 text-lg sm:whitespace-nowrap">Everyone's situation is different and so is the visa that fits it. Tell us yours and we'll help you find it.</p>
     </div>
 
     <div class="mt-14 grid gap-6 sm:grid-cols-3">
       {categories.map((c, i) => (
         <a
-          href="/services"
+          href={c.href}
           class="card reveal group relative aspect-[3/4] w-full overflow-hidden p-0"
           style={`transition-delay:${i * 80}ms`}
         >
