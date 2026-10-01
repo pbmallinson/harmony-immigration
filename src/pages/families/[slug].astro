@@ -5,7 +5,6 @@ const linkLabels: Record<string, string> = {
   partner: 'Partner',
   children: 'Children',
   parents: 'Parents',
-  'other-family': 'Other family',
   individuals: 'Individuals',
   businesses: 'Businesses',
 };
@@ -13,7 +12,6 @@ const linkHrefs: Record<string, string> = {
   partner: '/families/partner',
   children: '/families/children',
   parents: '/families/parents',
-  'other-family': '/families/other-family',
   individuals: '/services',
   businesses: '/services',
 };
@@ -21,6 +19,8 @@ const linkHrefs: Record<string, string> = {
 const familyPagesData: Record<string, {
   heroTitle: string;
   heroDesc: string;
+  bannerImage?: string;
+  bannerPosition?: string;
   cards: { title: string; visas: { country: string; name: string; desc: string }[] }[];
   noneOfTheseBold: string;
   noneOfTheseSecondLine?: string;
@@ -32,6 +32,8 @@ const familyPagesData: Record<string, {
 }> = {
   partner: {
     heroTitle: 'Partner visas',
+    bannerImage: '/images/partner-visas-banner-v2.png',
+    bannerPosition: '-7px',
     heroDesc: "Some couples are ready to build a life here. Others\njust want to be close for now. Start with what's true for you.",
     cards: [
       {
@@ -43,16 +45,16 @@ const familyPagesData: Record<string, {
         ],
       },
       {
-        title: 'My partner is a NZ citizen or resident and I want to visit or work temporarily.',
+        title: 'My partner is a NZ citizen or\nresident and I want to visit or work',
         visas: [
-          { country: 'NZ', name: 'Partner of a New Zealander Work Visa', desc: "Lets you work, doesn't include children on the same application." },
+          { country: 'NZ', name: 'Partner of a New Zealander Work Visa', desc: "Lets you work but doesn't include children\non the same application." },
           { country: 'NZ', name: 'Partner of a New Zealander Visitor Visa', desc: 'No work rights, but children can be included.' },
         ],
       },
       {
-        title: 'My partner has a work visa, not residence.',
+        title: 'Partner on a work visa, not resident',
         visas: [
-          { country: 'NZ', name: 'Partner of a Worker Visitor Visa', desc: "Depends on whether you want to work while you're here." },
+          { country: 'NZ', name: 'Partner of a Worker Visitor Visa', desc: "Depends on whether you want to work." },
         ],
       },
       {
@@ -63,7 +65,7 @@ const familyPagesData: Record<string, {
         ],
       },
       {
-        title: "We're planning to marry, but haven't yet",
+        title: "Planning to marry, but haven't yet",
         visas: [
           { country: 'AU', name: 'Prospective Marriage visa (300)', desc: 'For couples intending to marry in Australia.' },
         ],
@@ -73,9 +75,9 @@ const familyPagesData: Record<string, {
     noneOfTheseSecondLine: "Tell us honestly where things stand and we'll tell you what actually applies.",
     checklist: [
       'Checking which partner visa matches your relationship status.',
-      'Helping you build the right evidence a genuine relationship application needs.',
-      'Preparing the application and speaking with immigration on your behalf.',
-      "Staying with you through to residence, if permanence is where you're headed.",
+      'Building the right evidence for a genuine relationship application.',
+      'Preparing your application and liaising with Immigration.',
+      "Staying with you through to residence, if that's your goal.",
     ],
     faq: [
       {
@@ -95,8 +97,8 @@ const familyPagesData: Record<string, {
         answer: "It's common, and it doesn't mean anything's wrong. Relationship evidence requests are routine, especially for newer relationships. We'll help you respond properly, so it doesn't stall or weaken your case.",
       },
     ],
-    linkRowOrder: ['children', 'parents', 'other-family', 'individuals', 'businesses'],
-    bottomStripHeading: 'Looking for Children, Parents or Other family instead?',
+    linkRowOrder: ['children', 'parents', 'individuals', 'businesses'],
+    bottomStripHeading: 'Looking for Children, Parent or other visa categories?',
     bottomStripText: "Here's where else to look.",
   },
   children: {
@@ -161,8 +163,8 @@ const familyPagesData: Record<string, {
         answer: "It depends on the visas involved, sometimes a child's status is tied closely to yours, sometimes it isn't. We'll check this whenever your own circumstances shift.",
       },
     ],
-    linkRowOrder: ['partner', 'parents', 'other-family', 'individuals', 'businesses'],
-    bottomStripHeading: 'Looking for Partner, Parents or Other family instead?',
+    linkRowOrder: ['partner', 'parents', 'individuals', 'businesses'],
+    bottomStripHeading: 'Looking for Partner, Parent or other visa categories?',
     bottomStripText: "Here's where else to look.",
   },
   parents: {
@@ -177,33 +179,33 @@ const familyPagesData: Record<string, {
         ],
       },
       {
-        title: 'I want them here faster and can pay more',
+        title: 'I want my parents here faster and can pay more',
         visas: [
-          { country: 'AU', name: 'Contributory Parent (143) or Contributory Aged Parent (864)', desc: 'Higher fee, much faster processing.' },
+          { country: 'AU', name: 'Contributory Parent (143) or\nContributory Aged Parent (864)', desc: 'Higher fee, much faster processing.' },
         ],
       },
       {
         title: 'I want a temporary option while the permanent application is decided',
         visas: [
-          { country: 'AU', name: 'Contributory Parent Temporary (173)', desc: 'Lets your parent be here sooner, ahead of the permanent outcome.' },
-          { country: 'AU', name: 'Contributory Aged Parent Temporary (884)', desc: 'Lets your parent be here sooner, ahead of the permanent outcome.' },
+          { country: 'AU', name: 'Contributory Parent Temporary (173)', desc: '' },
+          { country: 'AU', name: 'Contributory Aged Parent Temporary (884)', desc: 'Both options let your parent be there with\nyou sooner, ahead of the permanent outcome.' },
         ],
       },
       {
         title: 'My parents are only visiting',
         visas: [
-          { country: 'NZ', name: 'Parent Boost Visitor Visa', desc: 'No residence, but quicker and cheaper than any permanent route.' },
-          { country: 'AU', name: 'Sponsored Parent (Temporary) visa (870)', desc: 'No residence, but quicker and cheaper than any permanent route.' },
+          { country: 'NZ', name: 'Parent Boost Visitor Visa', desc: 'No residence, but quicker and\ncheaper than any permanent route.' },
+          { country: 'AU', name: 'Sponsored Parent (Temporary) visa (870)', desc: 'No residence, but quicker and\ncheaper than any permanent route.' },
         ],
       },
     ],
     noneOfTheseBold: 'Lot of trade-offs to think about?',
     noneOfTheseSecondLine: "Tell us what matters to you and we'll lay out what that actually means.",
     checklist: [
-      'Explaining plainly what each route costs and how long it tends to take.',
-      'Checking whether the Balance of Family Test or other requirements apply to you.',
-      'Preparing the application and speaking with immigration on your behalf.',
+      'Tell you what each route costs and how long it tends to take.',
+      'Preparing the application and speaking with immigration.',
       'Staying in touch through what can be a very long wait.',
+      'Checking whether the Balance of Family Test or other requirements apply to you.',
     ],
     faq: [
       {
@@ -223,8 +225,8 @@ const familyPagesData: Record<string, {
         answer: "It depends on the visa. Temporary visas like Sponsored Parent (870) usually require private health insurance for the full stay, since they don't include public healthcare access. Contributory visas can include Medicare in Australia once granted. We'll explain what your parents will and won't be covered for before you commit to a route.",
       },
     ],
-    linkRowOrder: ['partner', 'children', 'other-family', 'individuals', 'businesses'],
-    bottomStripHeading: 'Looking for Partner, Children or Other family instead?',
+    linkRowOrder: ['partner', 'children', 'individuals', 'businesses'],
+    bottomStripHeading: 'Looking for Partner, Children or other visa categories?',
     bottomStripText: "Here's where else to look.",
   },
 };
@@ -242,7 +244,7 @@ const data = familyPagesData[slug as string];
   description={data.heroDesc}
 >
   <section class="relative overflow-hidden pb-16 pt-[94px] md:pt-[126px]" style="background: white;">
-    <div class="absolute inset-0 bg-cover bg-bottom" style="background-image: url('/images/work-visas-banner.png');"></div>
+    <div class="absolute inset-0 bg-cover" style={`background-image: url('${data.bannerImage ?? '/images/work-visas-banner.png'}'); background-position: center ${data.bannerPosition ?? 'bottom'};`}></div>
     <div class="container relative z-10 reveal pl-[53px] -mt-[50px]">
       <a href="/families" class="inline-flex items-center gap-1.5 text-sm font-semibold mb-6" style="color:#55BFC0;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -265,17 +267,25 @@ const data = familyPagesData[slug as string];
       <div class="relative z-10 mt-[47px] grid gap-6 sm:grid-cols-2">
         {data.cards.map((card, i) => (
           <div class="card card-deep-shadow reveal flex flex-col p-7" style={`transition-delay:${i * 70}ms; border: 0.7px solid rgba(18, 59, 87, 0.4);`}>
-            <h3 class="w-[calc(100%-65px)] border-b border-[rgba(18,59,87,0.2)] pb-4">{card.title}</h3>
+            <h3 class="w-[calc(100%-65px)] border-b border-[rgba(18,59,87,0.2)] pb-4">
+              {card.title.split('\n').map((line, li) => (
+                <>{li > 0 && <br />}{line}</>
+              ))}
+            </h3>
             <div class="flex-1">
               {card.visas.map((visa, vi) => (
-                <div class={`flex w-[calc(100%-65px)] items-start gap-3 py-4 ${vi > 0 ? 'border-t border-[rgba(18,59,87,0.2)]' : ''}`}>
+                <div class={`flex w-[calc(100%-65px)] ${visa.desc ? 'items-start' : 'items-center'} gap-3 py-4 ${vi > 0 ? 'border-t border-[rgba(18,59,87,0.2)]' : ''}`}>
                   <img
                     src={visa.country === 'NZ' ? '/images/icons-about/nz-navy.svg' : '/images/icons-about/australia-navy.svg'}
                     alt={visa.country === 'NZ' ? 'New Zealand' : 'Australia'}
                     class="h-12 w-12 shrink-0"
                   />
                   <div>
-                    <p class="font-semibold text-[var(--color-ink-950)]">{visa.name}</p>
+                    <p class="font-semibold text-[var(--color-ink-950)]">
+                      {visa.name.split('\n').map((line, li) => (
+                        <>{li > 0 && <br />}{line}</>
+                      ))}
+                    </p>
                     <p class="mt-0.5">
                       {visa.desc.split('\n').map((line, li) => (
                         <>

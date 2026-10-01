@@ -1,0 +1,243 @@
+---
+import Page from '@layouts/Page.astro';
+
+const linkLabels: Record<string, string> = {
+  hiring: 'Hiring',
+  entrepreneurs: 'Entrepreneurs',
+  'employer-support': 'Maintain',
+  accreditation: 'Accreditation',
+  individuals: 'Individuals',
+  families: 'Families',
+};
+const linkHrefs: Record<string, string> = {
+  hiring: '/businesses/hiring',
+  entrepreneurs: '/businesses/entrepreneurs',
+  'employer-support': '/businesses/employer-support',
+  accreditation: '/businesses/accreditation',
+  individuals: '/services',
+  families: '/families',
+};
+
+const businessPagesData: Record<string, {
+  heroTitle: string;
+  heroDesc: string;
+  bannerImage?: string;
+  bannerPosition?: string;
+  cards: { title: string; visas: { country: string; name: string; desc: string }[] }[];
+  noneOfTheseBold: string;
+  noneOfTheseSecondLine?: string;
+  checklist: string[];
+  faq: { question: string; answer: string }[];
+  linkRowOrder: string[];
+  bottomStripHeading: string;
+  bottomStripText?: string;
+}> = {
+  accreditation: {
+    heroTitle: 'Get approved to\nhire from overseas',
+    bannerImage: '/images/partner-visas-banner-v2.png',
+    bannerPosition: '-7px',
+    heroDesc: "Business approval comes before any worker sponsorship.",
+    cards: [
+      {
+        title: 'We want to hire a handful of workers',
+        visas: [
+          { country: 'NZ', name: 'Standard accreditation', desc: 'For up to 5 AEWV workers at a time.' },
+          { country: 'AU', name: 'Standard Business Sponsorship', desc: 'The base approval every sponsoring employer needs.' },
+        ],
+      },
+      {
+        title: 'We hire overseas staff regularly',
+        visas: [
+          { country: 'NZ', name: 'High-volume accreditation', desc: 'For 6 or more AEWV workers at a time.' },
+          { country: 'AU', name: 'Accredited Sponsor status', desc: 'For businesses with a strong compliance record,\nfaster processing on future nominations.' },
+        ],
+      },
+      {
+        title: "We're labour-hire or staffing agency",
+        visas: [
+          { country: 'NZ', name: 'Triangular employment accreditation', desc: 'For labour hire and similar arrangements.' },
+        ],
+      },
+    ],
+    noneOfTheseBold: 'Want to hire or your business scaling up fast?',
+    noneOfTheseSecondLine: "Talk to us and we'll tell you which approval fits you.",
+    checklist: [
+      'Working out which accreditation or sponsorship level actually fits your business.',
+      'Preparing the application and the evidence Immigration or Home Affairs will ask for.',
+      'Handling communication with immigration authorities on your behalf.',
+      "Making sure you understand what you're signing up to, accreditation comes with ongoing obligations, not just a one-off approval.",
+    ],
+    faq: [
+      {
+        question: 'How long does accreditation or sponsorship last?',
+        answer: "In New Zealand, initial accreditation runs 12 months, with renewals typically valid for 24. In Australia, Standard Business Sponsorship is valid for 5 years. We'll walk you through what renewal looks like for your business.",
+      },
+      {
+        question: 'What happens if we lose accreditation or sponsorship?',
+        answer: "Both countries can suspend or revoke it for breaches of the conditions attached, which also puts any workers you've sponsored at risk. We'll make sure you understand your ongoing obligations before you commit, not after something goes wrong.",
+      },
+      {
+        question: "Do we need accreditation to keep employing someone we've already sponsored?",
+        answer: "Not always, in New Zealand, accreditation is only required to support new AEWV applications, not to continue employing someone already on one. We'll confirm what applies to your situation.",
+      },
+      {
+        question: 'How much does accreditation or sponsorship cost, and how long does approval take?',
+        answer: "It depends on the type and country, New Zealand's accreditation fees and processing times vary by category, and Australia's sponsorship fee and timeline differ again. We'll give you exact figures for your situation rather than a general estimate that might already be out of date.",
+      },
+    ],
+    linkRowOrder: ['hiring', 'entrepreneurs', 'employer-support', 'individuals', 'families'],
+    bottomStripHeading: 'Looking for hiring, investing or ongoing support instead?',
+  },
+};
+
+export async function getStaticPaths() {
+  return ['accreditation'].map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const data = businessPagesData[slug as string];
+---
+
+<Page
+  title={data.heroTitle}
+  description={data.heroDesc}
+>
+  <section class="relative overflow-hidden pb-16 pt-[94px] md:pt-[126px]" style="background: white;">
+    <div class="absolute inset-0 bg-cover" style={`background-image: url('${data.bannerImage ?? '/images/work-visas-banner.png'}'); background-position: center ${data.bannerPosition ?? 'bottom'};`}></div>
+    <div class="container relative z-10 reveal pl-[53px] -mt-[50px]">
+      <a href="/businesses" class="inline-flex items-center gap-1.5 text-sm font-semibold mb-6" style="color:#55BFC0;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back to Businesses
+      </a>
+      <h1 class="mt-6 text-4xl sm:text-5xl">
+        {data.heroTitle.split('\n').map((line, i) => (
+          <>{i > 0 && <br />}{line}</>
+        ))}
+      </h1>
+      <p class="mt-5 text-lg">
+        {data.heroDesc.split('\n').map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line}
+          </>
+        ))}
+      </p>
+    </div>
+  </section>
+
+  <section class="pb-20 pt-px" style="background: white;">
+    <div class="container">
+      <div class="relative z-10 mt-[47px] grid gap-6 sm:grid-cols-2">
+        {data.cards.map((card, i) => (
+          <div class="card card-deep-shadow reveal flex flex-col p-7" style={`transition-delay:${i * 70}ms; border: 0.7px solid rgba(18, 59, 87, 0.4);`}>
+            <h3 class="w-[calc(100%-65px)] border-b border-[rgba(18,59,87,0.2)] pb-4">
+              {card.title.split('\n').map((line, li) => (
+                <>{li > 0 && <br />}{line}</>
+              ))}
+            </h3>
+            <div class="flex-1">
+              {card.visas.map((visa, vi) => (
+                <div class={`flex w-[calc(100%-65px)] items-start gap-3 py-4 ${vi > 0 ? 'border-t border-[rgba(18,59,87,0.2)]' : ''}`}>
+                  <img
+                    src={visa.country === 'NZ' ? '/images/icons-about/nz-navy.svg' : '/images/icons-about/australia-navy.svg'}
+                    alt={visa.country === 'NZ' ? 'New Zealand' : 'Australia'}
+                    class="h-12 w-12 shrink-0"
+                  />
+                  <div>
+                    <p class="font-semibold text-[var(--color-ink-950)]">{visa.name}</p>
+                    <p class="mt-0.5">
+                      {visa.desc.split('\n').map((line, li) => (
+                        <>
+                          {li > 0 && <br />}
+                          {line}
+                        </>
+                      ))}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button type="button" class="btn btn-lift mt-6 self-start" style="background:#55BFC0; border-color:#55BFC0; color:white;">Check eligibility</button>
+          </div>
+        ))}
+      </div>
+
+      <div class="reveal mx-auto mt-[80px] flex max-w-[972px] flex-col items-start gap-6 rounded-[var(--radius-xl)] bg-[#123B57] p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+        <div>
+          <p class="text-lg whitespace-nowrap text-white">
+            <span class="font-semibold">{data.noneOfTheseBold}</span>
+          </p>
+          {data.noneOfTheseSecondLine && (
+            <p class="mt-2 text-lg whitespace-nowrap text-white/80">{data.noneOfTheseSecondLine}</p>
+          )}
+        </div>
+        <a href="/contact" class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">Send a message</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white pt-28 pb-20">
+    <div class="container">
+      <div class="grid gap-14 lg:grid-cols-2 lg:gap-40">
+        <div class="reveal">
+          <h2>What we do</h2>
+          <ul class="mt-6 space-y-4">
+            {data.checklist.map((item) => (
+              <li class="flex items-start gap-3">
+                <svg class="mt-1 h-4 w-4 shrink-0 text-[var(--color-flame-500)]" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="text-[#123B57]">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="reveal">
+          <h2>Common questions</h2>
+          <div class="mt-6 space-y-4">
+            {data.faq.map((item) => (
+              <details class="faq-details">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-[#123B57]">
+                  {item.question}
+                  <span class="faq-icon shrink-0 text-2xl leading-none text-[#123B57]">+</span>
+                </summary>
+                <p class="mt-2 italic text-[#123B57]">{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-16 pb-0 -mb-[4px] bg-white md:mb-0 md:pb-[28px]">
+    <div class="reveal w-full overflow-hidden bg-cover bg-right py-10" style="background-image: url('/images/coastal-path.png');">
+      <div class="container flex flex-col gap-6">
+        <div>
+          <p class="text-lg font-semibold text-[#123B57]">{data.bottomStripHeading}</p>
+          {data.bottomStripText && (
+            <p class="mt-2 text-[#123B57]">{data.bottomStripText}</p>
+          )}
+        </div>
+        <div class="flex flex-wrap gap-3">
+          {data.linkRowOrder.map((key) => (
+            <a href={linkHrefs[key]} class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">{linkLabels[key] ?? key}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Page>
+
+<style>
+  .faq-details summary {
+    list-style: none;
+  }
+  .faq-details summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-details .faq-icon {
+    transition: transform 0.2s ease;
+  }
+  .faq-details[open] .faq-icon {
+    transform: rotate(45deg);
+  }
+</style>

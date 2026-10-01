@@ -1,0 +1,76 @@
+---
+import Page from '@layouts/Page.astro';
+
+const arrow = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="font-size:1.4em; -webkit-text-stroke: 0.6px currentColor;">⟶</strong>';
+
+const businessCards = [
+  {
+    label: 'Accreditation',
+    slug: 'accreditation',
+    icon: '/images/icons-more-than-visa/job-ready.svg',
+    desc: `The first step to becoming an approved employer.${arrow}`,
+  },
+  {
+    label: 'Hiring',
+    slug: 'hiring',
+    icon: '/images/icons-more-than-visa/visiting.svg',
+    desc: `Employers who wish to bring staff from overseas.${arrow}`,
+  },
+  {
+    label: 'Maintain',
+    slug: 'employer-support',
+    icon: '/images/icons-more-than-visa/settling-in.svg',
+    desc: `Renewals, keeping accreditation<br class="hidden lg:inline" /> current and compliance.${arrow}`,
+  },
+  {
+    label: 'Entrepreneurs',
+    slug: 'entrepreneurs',
+    icon: '/images/icons-more-than-visa/move-permanently.svg',
+    desc: `Bring your capital to invest, buy<br class="hidden lg:inline" /> or run a business, not staff.${arrow}`,
+  },
+];
+---
+
+<Page
+  title="Businesses"
+  description="Explore Harmony Immigration Services' business pathways: employer accreditation, hiring overseas staff, entrepreneur and investor visas, and ongoing employer support."
+>
+  <section class="relative overflow-hidden pt-16 pb-32 md:pt-24">
+    <div class="container relative z-10 reveal">
+      <a href="/#how-we-can-help" class="inline-flex items-center gap-1.5 text-sm font-semibold mb-6" style="color:#55BFC0;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Home
+      </a>
+    </div>
+    <div class="container relative z-10 reveal mx-auto max-w-[942px] text-center">
+      <h1 class="md:whitespace-nowrap">Where should your business start?</h1>
+      <p class="mt-6 text-lg md:whitespace-nowrap">Build a team or a business, where you start depends on where you already are.</p>
+    </div>
+  </section>
+
+  <section class="pb-24 md:pb-32">
+    <div class="container">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {businessCards.map((card, i) => (
+          <a href={`/businesses/${card.slug}`} class="reveal card card-deep-shadow px-4 py-6" style={`transition-delay:${i * 80}ms; border: 0.7px solid rgba(148, 191, 205, 0.6);`}>
+            <div class="flex items-center gap-3">
+              <div class="flex h-[52.8px] w-[52.8px] shrink-0 items-center justify-center">
+                <img src={card.icon} alt="" class="h-[52.8px] w-[52.8px]" />
+              </div>
+              <h3 class="tracking-tight whitespace-nowrap">{card.label}</h3>
+            </div>
+            <p class="mt-2 text-sm" set:html={card.desc} />
+          </a>
+        ))}
+      </div>
+
+      <div class="reveal mx-auto mt-16 flex max-w-[942px] flex-col items-start gap-6 rounded-[var(--radius-xl)] bg-[#123B57] p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+        <div>
+          <p class="text-lg font-semibold text-white whitespace-nowrap">Not sure where to start?</p>
+          <p class="mt-2 text-lg text-white/80 whitespace-nowrap">Tell us where things stand and we'll plan your next step.</p>
+        </div>
+        <a href="/contact" class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">Send a message</a>
+      </div>
+    </div>
+  </section>
+</Page>
