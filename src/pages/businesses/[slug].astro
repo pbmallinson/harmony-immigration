@@ -88,10 +88,196 @@ const businessPagesData: Record<string, {
     linkRowOrder: ['hiring', 'entrepreneurs', 'employer-support', 'individuals', 'families'],
     bottomStripHeading: 'Looking for hiring, investing or ongoing support instead?',
   },
+  hiring: {
+    heroTitle: 'Hire the right overseas talent',
+    bannerImage: '/images/partner-visas-banner-v2.png',
+    bannerPosition: '-7px',
+    heroDesc: 'Once your business is approved, this is where you actually sponsor someone.',
+    cards: [
+      {
+        title: 'We need a skilled worker for an ongoing job',
+        visas: [
+          { country: 'NZ', name: 'Accredited Employer Work Visa', desc: 'Through a Job Check for the specific role.' },
+          { country: 'AU', name: 'Skills in Demand visa (482)', desc: 'For workers sponsored by an Australian employer.' },
+        ],
+      },
+      {
+        title: 'We want to sponsor someone toward permanent residence',
+        visas: [
+          { country: 'NZ', name: 'Work to Residence Visa', desc: 'For Tier 2 Green List roles, or jobs paid at least twice the median wage.' },
+          { country: 'AU', name: 'Employer Nomination Scheme (186)', desc: 'Permanent residence through your employer.' },
+        ],
+      },
+      {
+        title: "We're hiring for a regional location in Australia",
+        visas: [
+          { country: 'AU', name: 'Skilled Employer Sponsored Regional visa (494)', desc: 'A provisional visa for regionally based employer-sponsored roles for permanent residence.' },
+        ],
+      },
+      {
+        title: 'We need seasonal workers for horticulture or viticulture',
+        visas: [
+          { country: 'NZ', name: 'Recognised Seasonal Employer (RSE) scheme', desc: 'Horticulture employers recruiting seasonal workers.' },
+          { country: 'AU', name: 'Pacific Australia Labour Mobility (PALM) scheme', desc: 'Horticulture employers recruiting seasonal workers for short and longer-term stream.' },
+        ],
+      },
+    ],
+    noneOfTheseBold: 'Hiring temporary, permanent, regionally or seasonal?',
+    noneOfTheseSecondLine: "Tell us the role you have in mind, and we'll figure out how you get there.",
+    checklist: [
+      'Matching the right visa to the role, and to where your business is actually hiring.',
+      "Preparing the nomination or Job Check, and the worker's own application alongside it.",
+      'Handling communication with immigration authorities for both steps.',
+      "Keeping you informed if the worker's circumstances, or the rules, change partway through.",
+    ],
+    faq: [
+      {
+        question: 'Does the worker need a job offer before we start?',
+        answer: "Yes, a confirmed, genuine job offer is the starting point for every route on this page, it's what the whole sponsorship is built around.",
+      },
+      {
+        question: 'How long does sponsorship take from job offer to visa?',
+        answer: "It depends on the visa and the country, and processing times shift often. We'll give you a realistic estimate once we know the specific role and route.",
+      },
+      {
+        question: 'Can this lead to permanent residence for the worker?',
+        answer: "Sometimes, directly through Australia's Employer Nomination Scheme, or over time through New Zealand's Green List pathways. We'll map out whether that's realistic for your situation, not just assume it.",
+      },
+      {
+        question: "What happens if the worker's role or location changes after they arrive?",
+        answer: "Most of these visas are tied to the specific job and employer approved in the nomination, so a real change usually needs a new Job Check or nomination, not just an internal transfer. We'll flag this early so it doesn't catch you out.",
+      },
+    ],
+    linkRowOrder: ['accreditation', 'entrepreneurs', 'employer-support', 'individuals', 'families'],
+    bottomStripHeading: 'Looking for Accreditation, Entrepreneurs, or Ongoing support instead?',
+  },
+  'employer-support': {
+    heroTitle: 'Keeping your business compliant',
+    bannerImage: '/images/partner-visas-banner-v2.png',
+    bannerPosition: '-7px',
+    heroDesc: 'We help you manage your ongoing accreditation obligations.',
+    cards: [
+      {
+        title: 'Our accreditation or sponsorship is due for renewal',
+        visas: [
+          { country: 'NZ', name: 'Accreditation renewal', desc: 'Granted for 1 year, renewed for 2 when you meet existing obligations.' },
+          { country: 'AU', name: 'Standard Business Sponsorship renewal', desc: 'Valid 5 years, renewed on the same compliance history.' },
+        ],
+      },
+      {
+        title: 'A worker or the business has changed',
+        visas: [
+          { country: 'NZ', name: 'Notify INZ if a sponsored worker stops working for you, or if your business changes in a relevant way.', desc: '' },
+          { country: 'AU', name: "Tell the Department in writing within 28 days of defined changes, to the worker's role or to your business.", desc: '' },
+        ],
+      },
+      {
+        title: "We've been selected for a compliance check",
+        visas: [
+          { country: 'NZ', name: 'Immigration checks that accredited employers meet their obligations.', desc: '' },
+          { country: 'AU', name: 'The Department and Fair Work Inspectors conduct audits on records, pay and reported changes.', desc: '' },
+        ],
+      },
+      {
+        title: 'We need to understand our ongoing obligations',
+        visas: [
+          { country: 'AU', name: 'The Skilling Australians Fund (SAF) levy', desc: 'Mandatory training contribution paid when nominating a worker.' },
+        ],
+      },
+    ],
+    noneOfTheseBold: 'Concerned about staying compliant?',
+    noneOfTheseSecondLine: 'We can review your setup and shore up any weak spots.',
+    checklist: [
+      "Reviewing your current obligations against what's actually been done so far.",
+      'Preparing renewal applications, with evidence that holds up to scrutiny.',
+      'Managing the notifications and reporting your business is required to make.',
+      'Standing with you through a compliance check or audit, not just before one.',
+    ],
+    faq: [
+      {
+        question: 'What happens if our accreditation or sponsorship lapses?',
+        answer: "In New Zealand, workers you already sponsor can keep working until their visa expires, but you can't sponsor anyone new until you're reaccredited. In Australia, a lapsed sponsorship similarly blocks new nominations. We'll help you renew with enough time to avoid the gap.",
+      },
+      {
+        question: "What if we're found non-compliant?",
+        answer: "It depends on the severity, from a formal letter of concern through to loss of accredited status. Acting early, before a check happens, is far better than responding after one. We'll help you get ahead of it.",
+      },
+      {
+        question: "Do we need to notify authorities if a worker's role changes, even a promotion?",
+        answer: "Often, yes. A real change to duties or structure can need a fresh notification, or even a new nomination, in both countries. We'll flag this before it becomes a compliance issue, not after.",
+      },
+      {
+        question: 'How much is the SAF levy, and can we pass the cost to the employee?',
+        answer: "The levy is a fixed, mandatory cost to the business, and employers are not allowed to recover it from the sponsored worker, directly or indirectly. We'll confirm the current rate for your business size.",
+      },
+    ],
+    linkRowOrder: ['accreditation', 'hiring', 'entrepreneurs', 'individuals', 'families'],
+    bottomStripHeading: 'Looking for Accreditation, Hiring, or Entrepreneurs instead?',
+  },
+  entrepreneurs: {
+    heroTitle: 'Investor visas',
+    bannerImage: '/images/partner-visas-banner-v2.png',
+    bannerPosition: '-7px',
+    heroDesc: 'Invest capital to buy and run businesses to secure residency.',
+    cards: [
+      {
+        title: 'I want to make a high-value investment',
+        visas: [
+          { country: 'NZ', name: 'Active Investor Plus visa', desc: 'Growth category (NZ$5 million, 3 years) or Balanced category (NZ$10 million, 5 years).' },
+        ],
+      },
+      {
+        title: 'I want to buy into or run an existing business',
+        visas: [
+          { country: 'NZ', name: 'Business Investor Work Visa', desc: 'NZ$1 million for a 3-year work-to-residence pathway, or NZ$2 million for a fast-tracked route after 12 months.' },
+        ],
+      },
+      {
+        title: 'I want to start a new business from scratch',
+        visas: [
+          { country: 'NZ', name: 'Entrepreneur Work Visa', desc: 'Leads to the Entrepreneur Resident Visa once established.' },
+        ],
+      },
+      {
+        title: 'I have an internationally recognised record in a nationally important field',
+        visas: [
+          { country: 'AU', name: 'National Innovation Visa (858)', desc: 'For exceptional talent driving growth in priority sectors. Invitation-only, not investment-based.' },
+        ],
+      },
+    ],
+    noneOfTheseBold: 'Thinking of investing?',
+    noneOfTheseSecondLine: "Tell us your plans and we'll be honest about which door is really open.",
+    checklist: [
+      "Giving you an honest, current picture of what's actually open, not just what used to be.",
+      'Matching your investment or business plan to the category that actually fits.',
+      'Preparing the application and the evidence it needs, including proof of funds and business plans.',
+      'Staying with you through what are often multi-year investment periods, not just the application itself.',
+    ],
+    faq: [
+      {
+        question: "Is Australia's investor visa really closed?",
+        answer: "Yes, the Business Innovation and Investment visa (188) closed to new applicants in July 2024. Its replacement, the National Innovation Visa, isn't an investment visa, it's invitation-only, for exceptional achievement, with no dollar threshold.",
+      },
+      {
+        question: 'Do I have to live in New Zealand to keep my Active Investor Plus visa?',
+        answer: 'Yes, there\'s a minimum time requirement during the investment period, currently as little as 21 days over 3 years for the Growth category, though this has changed before and can change again.',
+      },
+      {
+        question: 'What counts as "an existing business" for the Business Investor Work Visa?',
+        answer: "It must have been operating for at least 5 years already, this isn't a visa for buying a shell company or starting fresh, that's what the Entrepreneur visa is for.",
+      },
+      {
+        question: "If Australia's door is closed, is there any other way in through business?",
+        answer: "Often, yes, through the skilled migration program if your occupation qualifies, or an employer-sponsored route if you're also prepared to work for a sponsoring business. It's a different path than investing directly, and we can talk through whether it fits.",
+      },
+    ],
+    linkRowOrder: ['accreditation', 'hiring', 'employer-support', 'individuals', 'families'],
+    bottomStripHeading: 'Looking for Accreditation, Hiring, or Ongoing support instead?',
+  },
 };
 
 export async function getStaticPaths() {
-  return ['accreditation'].map((slug) => ({ params: { slug } }));
+  return ['accreditation', 'hiring', 'employer-support', 'entrepreneurs'].map((slug) => ({ params: { slug } }));
 }
 
 const { slug } = Astro.params;
