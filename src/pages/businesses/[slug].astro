@@ -33,7 +33,7 @@ const businessPagesData: Record<string, {
   bottomStripText?: string;
 }> = {
   accreditation: {
-    heroTitle: 'Get approved to\nhire from overseas',
+    heroTitle: 'Get approved',
     bannerImage: '/images/accreditation-banner-v2.png',
     heroDesc: "Business approval comes before any worker sponsorship.",
     cards: [
@@ -88,10 +88,9 @@ const businessPagesData: Record<string, {
     bottomStripHeading: 'Looking for hiring, investing or ongoing support instead?',
   },
   hiring: {
-    heroTitle: 'Hire the right overseas talent',
-    bannerImage: '/images/partner-visas-banner-v2.png',
-    bannerPosition: '-7px',
-    heroDesc: 'Once your business is approved, this is where you actually sponsor someone.',
+    heroTitle: 'Hire overseas talents',
+    bannerImage: '/images/hiring-banner-v2.png',
+    heroDesc: 'Once your business is approved, this\nis where you actually sponsor someone.',
     cards: [
       {
         title: 'We need a skilled worker for an ongoing job',
@@ -101,14 +100,14 @@ const businessPagesData: Record<string, {
         ],
       },
       {
-        title: 'We want to sponsor someone toward permanent residence',
+        title: 'We want to sponsor someone\nfor permanent residence',
         visas: [
-          { country: 'NZ', name: 'Work to Residence Visa', desc: 'For Tier 2 Green List roles, or jobs paid at least twice the median wage.' },
+          { country: 'NZ', name: 'Work to Residence Visa', desc: 'For Tier 2 Green List roles or jobs\npaid at least twice the median wage.' },
           { country: 'AU', name: 'Employer Nomination Scheme (186)', desc: 'Permanent residence through your employer.' },
         ],
       },
       {
-        title: "We're hiring for a regional location in Australia",
+        title: "We're hiring for a regional location",
         visas: [
           { country: 'AU', name: 'Skilled Employer Sponsored Regional visa (494)', desc: 'A provisional visa for regionally based employer-sponsored roles for permanent residence.' },
         ],
@@ -124,10 +123,10 @@ const businessPagesData: Record<string, {
     noneOfTheseBold: 'Hiring temporary, permanent, regionally or seasonal?',
     noneOfTheseSecondLine: "Tell us the role you have in mind, and we'll figure out how you get there.",
     checklist: [
-      'Matching the right visa to the role, and to where your business is actually hiring.',
-      "Preparing the nomination or Job Check, and the worker's own application alongside it.",
-      'Handling communication with immigration authorities for both steps.',
-      "Keeping you informed if the worker's circumstances, or the rules, change partway through.",
+      'Matching the right visa to the role and location.',
+      'Handling all communication with immigration.',
+      "Updating you if rules or the worker's situation change.",
+      "Preparing the nomination or Job Check and the worker's application.",
     ],
     faq: [
       {
@@ -151,44 +150,43 @@ const businessPagesData: Record<string, {
     bottomStripHeading: 'Looking for Accreditation, Entrepreneurs, or Ongoing support instead?',
   },
   'employer-support': {
-    heroTitle: 'Keeping your business compliant',
-    bannerImage: '/images/partner-visas-banner-v2.png',
-    bannerPosition: '-7px',
+    heroTitle: 'Keep businesses compliant',
+    bannerImage: '/images/employer-support-banner.png',
     heroDesc: 'We help you manage your ongoing accreditation obligations.',
     cards: [
       {
-        title: 'Our accreditation or sponsorship is due for renewal',
+        title: 'Our accreditation or sponsorship\nis due for renewal',
         visas: [
           { country: 'NZ', name: 'Accreditation renewal', desc: 'Granted for 1 year, renewed for 2 when you meet existing obligations.' },
           { country: 'AU', name: 'Standard Business Sponsorship renewal', desc: 'Valid 5 years, renewed on the same compliance history.' },
         ],
       },
       {
-        title: 'A worker or the business has changed',
+        title: 'Our employee or the business\nhas changed',
         visas: [
           { country: 'NZ', name: 'Notify INZ if a sponsored worker stops working for you, or if your business changes in a relevant way.', desc: '' },
           { country: 'AU', name: "Tell the Department in writing within 28 days of defined changes, to the worker's role or to your business.", desc: '' },
         ],
       },
       {
-        title: "We've been selected for a compliance check",
+        title: "We've been selected for\na compliance audit",
         visas: [
           { country: 'NZ', name: 'Immigration checks that accredited employers meet their obligations.', desc: '' },
           { country: 'AU', name: 'The Department and Fair Work Inspectors conduct audits on records, pay and reported changes.', desc: '' },
         ],
       },
       {
-        title: 'We need to understand our ongoing obligations',
+        title: 'We need to understand our\nongoing obligations',
         visas: [
-          { country: 'AU', name: 'The Skilling Australians Fund (SAF) levy', desc: 'Mandatory training contribution paid when nominating a worker.' },
+          { country: 'AU', name: 'The Skilling Australians Fund (SAF) levy', desc: 'Mandatory training contribution paid\nwhen nominating a worker.' },
         ],
       },
     ],
     noneOfTheseBold: 'Concerned about staying compliant?',
     noneOfTheseSecondLine: 'We can review your setup and shore up any weak spots.',
     checklist: [
-      "Reviewing your current obligations against what's actually been done so far.",
-      'Preparing renewal applications, with evidence that holds up to scrutiny.',
+      "Reviewing your obligations against what’s been done.",
+      'Preparing renewal applications with audit‑ready evidence.',
       'Managing the notifications and reporting your business is required to make.',
       'Standing with you through a compliance check or audit, not just before one.',
     ],
@@ -287,7 +285,7 @@ const data = businessPagesData[slug as string];
   title={data.heroTitle}
   description={data.heroDesc}
 >
-  <section class="relative overflow-hidden pb-16 pt-[94px] md:pt-[126px]" style="background: white;">
+  <section class="relative overflow-hidden min-h-[333px] pb-16 pt-[94px] md:pt-[126px]" style="background: white;">
     <div class="absolute inset-0 bg-cover" style={`background-image: url('${data.bannerImage ?? '/images/work-visas-banner.png'}'); background-position: center ${data.bannerPosition ?? 'bottom'};`}></div>
     <div class="container relative z-10 reveal pl-[53px] -mt-[50px]">
       <a href="/businesses" class="inline-flex items-center gap-1.5 text-sm font-semibold mb-6" style="color:#55BFC0;">

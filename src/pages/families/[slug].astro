@@ -247,7 +247,7 @@ const data = familyPagesData[slug as string];
   title={data.heroTitle}
   description={data.heroDesc}
 >
-  <section class="relative overflow-hidden pb-16 pt-[94px] md:pt-[126px]" style="background: white;">
+  <section class="relative overflow-hidden min-h-[333px] pb-16 pt-[94px] md:pt-[126px]" style="background: white;">
     <div class="absolute inset-0 bg-cover" style={`background-image: url('${data.bannerImage ?? '/images/work-visas-banner.png'}'); background-position: center ${data.bannerPosition ?? 'bottom'};`}></div>
     <div class="container relative z-10 reveal pl-[53px] -mt-[50px]">
       <a href="/families" class="inline-flex items-center gap-1.5 text-sm font-semibold mb-6" style="color:#55BFC0;">

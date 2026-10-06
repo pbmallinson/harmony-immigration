@@ -237,7 +237,7 @@ const heroDesc = customData ? customData.heroDesc : service.data.shortDesc;
   title={service.data.title}
   description={service.data.shortDesc}
 >
-  <section class={`relative overflow-hidden pb-16 ${isCustomLayout ? 'pt-[94px] md:pt-[126px]' : 'pt-16 md:pt-24'}`} style={isCustomLayout ? 'background: white;' : ''}>
+  <section class={`relative overflow-hidden pb-16 ${isCustomLayout ? 'min-h-[333px] pt-[94px] md:pt-[126px]' : 'pt-16 md:pt-24'}`} style={isCustomLayout ? 'background: white;' : ''}>
     {!isCustomLayout && (
       <div class="mesh-bg">
         <div class="mesh-blob" style="width:440px;height:440px;background:var(--color-ink-500);top:-180px;right:-100px;"></div>
