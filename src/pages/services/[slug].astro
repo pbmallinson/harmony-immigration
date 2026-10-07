@@ -1,5 +1,8 @@
 ---
 import Page from '@layouts/Page.astro';
+import { eligibilityHref } from '@lib/eligibility';
+const eligibilityFamily: Record<string, string> = { 'work-visas': 'work', 'student-visas': 'study', 'visitor-visas': 'visit', 'residence-citizenship': 'skilled' };
+
 import CtaSection from '@components/home/CtaSection.astro';
 import { getCollection, render } from 'astro:content';
 import Icon from '@components/global/Icon.astro';
@@ -310,7 +313,7 @@ const heroDesc = customData ? customData.heroDesc : service.data.shortDesc;
                   </div>
                 ))}
               </div>
-              <button type="button" class="btn btn-lift mt-6 self-start" style="background:#55BFC0; border-color:#55BFC0; color:white;">Check eligibility</button>
+              <a href={eligibilityHref(card.visas, eligibilityFamily[service.data.slug] ?? "")} class="btn btn-lift mt-6 self-start" style="background:#55BFC0; border-color:#55BFC0; color:white;">Check eligibility</a>
             </div>
           ))}
         </div>

@@ -1,5 +1,8 @@
 ---
 import Page from '@layouts/Page.astro';
+import { eligibilityHref } from '@lib/eligibility';
+const eligibilityFamily: Record<string, string> = { partner: 'partner', children: 'family', parents: 'family' };
+
 
 const linkLabels: Record<string, string> = {
   partner: 'Partner',
@@ -293,7 +296,7 @@ const data = familyPagesData[slug as string];
                     <p class="mt-0.5">
                       {visa.desc.split('\n').map((line, li) => (
                         <>
-                          {li > 0 && <br />}
+                          {li > 0 && <br class="hidden lg:inline" />}
                           {line}
                         </>
                       ))}
@@ -302,7 +305,7 @@ const data = familyPagesData[slug as string];
                 </div>
               ))}
             </div>
-            <button type="button" class="btn btn-lift mt-6 self-start" style="background:#55BFC0; border-color:#55BFC0; color:white;">Check eligibility</button>
+            <a href={eligibilityHref(card.visas, eligibilityFamily[slug as string] ?? "")} class="btn btn-lift mt-6 self-start" style="background:#55BFC0; border-color:#55BFC0; color:white;">Check eligibility</a>
           </div>
         ))}
       </div>

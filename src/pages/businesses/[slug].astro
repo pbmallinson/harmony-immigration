@@ -1,5 +1,8 @@
 ---
 import Page from '@layouts/Page.astro';
+import { eligibilityHref } from '@lib/eligibility';
+const eligibilityFamily: Record<string, string> = { hiring: 'work', accreditation: 'business', 'employer-support': 'business', entrepreneurs: 'business' };
+
 
 const linkLabels: Record<string, string> = {
   hiring: 'Hiring',
@@ -213,20 +216,19 @@ const businessPagesData: Record<string, {
   },
   entrepreneurs: {
     heroTitle: 'Investor visas',
-    bannerImage: '/images/partner-visas-banner-v2.png',
-    bannerPosition: '-7px',
-    heroDesc: 'Invest capital to buy and run businesses to secure residency.',
+    bannerImage: '/images/entrepreneurs-banner-v2.png',
+    heroDesc: 'Bring capital to buy and run businesses to secure residency.',
     cards: [
       {
         title: 'I want to make a high-value investment',
         visas: [
-          { country: 'NZ', name: 'Active Investor Plus visa', desc: 'Growth category (NZ$5 million, 3 years) or Balanced category (NZ$10 million, 5 years).' },
+          { country: 'NZ', name: 'Active Investor Plus visa', desc: 'Growth category (NZ$5 million, 3 years)\nor Balanced category (NZ$10 million, 5 years).' },
         ],
       },
       {
         title: 'I want to buy into or run an existing business',
         visas: [
-          { country: 'NZ', name: 'Business Investor Work Visa', desc: 'NZ$1 million for a 3-year work-to-residence pathway, or NZ$2 million for a fast-tracked route after 12 months.' },
+          { country: 'NZ', name: 'Business Investor Work Visa', desc: 'NZ$1 million for a 3-year work-to-residence pathway\nor NZ$2 million for a fast-tracked route after 12 months.' },
         ],
       },
       {
@@ -236,19 +238,19 @@ const businessPagesData: Record<string, {
         ],
       },
       {
-        title: 'I have an internationally recognised record in a nationally important field',
+        title: 'I have an internationally recognised\nrecord in a nationally important field',
         visas: [
-          { country: 'AU', name: 'National Innovation Visa (858)', desc: 'For exceptional talent driving growth in priority sectors. Invitation-only, not investment-based.' },
+          { country: 'AU', name: 'National Innovation Visa (858)', desc: 'For exceptional talent driving growth in priority sectors.\nInvitation-only, not investment-based.' },
         ],
       },
     ],
     noneOfTheseBold: 'Thinking of investing?',
     noneOfTheseSecondLine: "Tell us your plans and we'll be honest about which door is really open.",
     checklist: [
-      "Giving you an honest, current picture of what's actually open, not just what used to be.",
+      'Giving you a current picture of what options actually open.',
       'Matching your investment or business plan to the category that actually fits.',
-      'Preparing the application and the evidence it needs, including proof of funds and business plans.',
-      'Staying with you through what are often multi-year investment periods, not just the application itself.',
+      'Preparing the application and evidence, including funds and business plans.',
+      'Supporting you through the full multi‑year investment period.',
     ],
     faq: [
       {
@@ -331,7 +333,7 @@ const data = businessPagesData[slug as string];
                     <p class="mt-0.5">
                       {visa.desc.split('\n').map((line, li) => (
                         <>
-                          {li > 0 && <br />}
+                          {li > 0 && <br class="hidden lg:inline" />}
                           {line}
                         </>
                       ))}
@@ -340,7 +342,7 @@ const data = businessPagesData[slug as string];
                 </div>
               ))}
             </div>
-            <button type="button" class="btn btn-lift mt-6 self-start" style="background:#55BFC0; border-color:#55BFC0; color:white;">Check eligibility</button>
+            <a href={eligibilityHref(card.visas, eligibilityFamily[slug as string] ?? "")} class="btn btn-lift mt-6 self-start" style="background:#55BFC0; border-color:#55BFC0; color:white;">Check eligibility</a>
           </div>
         ))}
       </div>

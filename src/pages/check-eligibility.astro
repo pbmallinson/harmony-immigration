@@ -1,0 +1,418 @@
+---
+import Page from '@layouts/Page.astro';
+---
+
+<Page
+  title="Check eligibility"
+  description="Tell us about your situation and an adviser will personally review it and reply within one business day."
+>
+  <section class="pt-[94px] pb-16 md:pt-[126px]" style="background: white;">
+    <div class="container max-w-3xl">
+      <a href="/" class="inline-flex items-center gap-1.5 text-sm font-semibold mb-6" style="color:#55BFC0;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Home
+      </a>
+      <h1 class="text-4xl sm:text-5xl">Check eligibility</h1>
+      <p class="mt-5 text-lg">A personal review by one of our advisers. No automated result is given.</p>
+
+      <div id="progress" class="mt-8 h-2 w-full rounded-full bg-[#ECF5F5]">
+        <div id="progress-bar" class="h-2 rounded-full transition-all" style="width:0%; background:#55BFC0;"></div>
+      </div>
+      <p id="step-label" class="mt-3 text-sm text-[#123B57]"></p>
+
+      <form id="eligibility-form" class="mt-8 space-y-6" novalidate>
+        <div id="step-body" class="space-y-6"></div>
+
+        <p id="form-error" class="hidden text-sm font-semibold text-red-700"></p>
+
+        <div class="flex items-center justify-between gap-4 pt-4">
+          <button type="button" id="back-btn" class="btn" style="background:#ECF5F5; border-color:#ECF5F5; color:#123B57;">Back</button>
+          <button type="button" id="next-btn" class="btn btn-lift" style="background:#55BFC0; border-color:#55BFC0; color:white;">Next</button>
+        </div>
+      </form>
+
+      <div id="done" class="hidden mt-10 rounded-[var(--radius-xl)] p-8" style="background:#ECF5F5;">
+        <p class="text-lg font-semibold text-[#123B57]">We've received this. One of our advisers will personally review it and reply within one business day.</p>
+        <p class="mt-3 text-[#123B57]">This is not an automated result. A confirmation email restating what you submitted is being sent to the address you gave.</p>
+        <p id="test-note" class="mt-4 text-sm font-semibold text-[#123B57]"></p>
+        <button type="button" id="show-data" class="mt-4 btn" style="background:#ffffff; border-color:#55BFC0; color:#123B57;">Show submission data (test)</button>
+        <pre id="data-out" class="hidden mt-4 max-h-96 overflow-auto rounded-lg bg-white p-4 text-xs text-[#123B57]"></pre>
+      </div>
+    </div>
+  </section>
+</Page>
+
+<script>
+  import { questions, sections } from '../data/assessment/questions';
+
+  const STORAGE_KEY = 'harmony-eligibility-v1';
+  const EXCLUDED_IDS = new Set(['legal_name']);
+  const SECTION_ORDER = ['about', 'core', 'history', 'education', 'employment', 'english', 'work', 'skilled', 'family', 'partner', 'parents', 'study', 'business', 'visit', 'docs', 'health', 'character', 'final'];
+  const FAMILY_LABELS: Record<string, string> = {
+    work: 'Work', skilled: 'Skilled / permanent residence', partner: 'Partner', family: 'Family (children or parents)',
+    study: 'Study', business: 'Business & investment', visit: 'Visit', all: 'Not sure yet',
+  };
+  const FAMILY_VALUES = ['work', 'skilled', 'partner', 'family', 'study', 'business', 'visit', 'all'];
+
+  const params = new URLSearchParams(window.location.search);
+
+  type Answers = Record<string, string>;
+  type State = { step: number; answers: Answers; meta: { name: string; email: string; visa: string; country: string; family: string } };
+
+  const defaultMeta = {
+    name: '',
+    email: '',
+    visa: params.get('visa') ?? '',
+    country: params.get('country') ?? 'Not sure',
+    family: params.get('family') ?? '',
+  };
+
+  let state: State = { step: 0, answers: {}, meta: { ...defaultMeta } };
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? 'null');
+    if (saved && saved.meta && saved.answers) {
+      state = { step: saved.step ?? 0, answers: saved.answers, meta: { ...saved.meta, visa: defaultMeta.visa || saved.meta.visa, country: defaultMeta.country !== 'Not sure' ? defaultMeta.country : saved.meta.country, family: defaultMeta.family || saved.meta.family } };
+    }
+  } catch {}
+
+  function save() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+  }
+
+  function countryScope(): 'nz' | 'au' | 'all' {
+    if (state.meta.country === 'New Zealand') return 'nz';
+    if (state.meta.country === 'Australia') return 'au';
+    return 'all';
+  }
+
+  function visibleQuestions() {
+    const scope = countryScope();
+    const family = state.meta.family;
+    return questions.filter((q) => {
+      if (EXCLUDED_IDS.has(q.id)) return false;
+      const scopeOk = scope === 'all' || q.scope === 'both' || q.scope === scope;
+      const fams = Array.isArray(q.family) ? q.family : [q.family];
+      const familyOk = family === 'all' || fams.includes('all') || fams.includes(family as any);
+      return scopeOk && familyOk;
+    });
+  }
+
+  type Step =
+    | { kind: 'confirm' }
+    | { kind: 'notice'; section: string }
+    | { kind: 'questions'; section: string; title: string; intro?: string; items: typeof questions }
+    | { kind: 'review' };
+
+  function buildSteps(): Step[] {
+    const steps: Step[] = [{ kind: 'confirm' }];
+    const visible = visibleQuestions();
+    for (const sec of SECTION_ORDER) {
+      const items = visible.filter((q) => q.section === sec);
+      if (items.length === 0) continue;
+      if (sec === 'health') steps.push({ kind: 'notice', section: sec });
+      const meta = sections[sec];
+      for (let i = 0; i < items.length; i += 7) {
+        const chunk = items.slice(i, i + 7);
+        const part = items.length > 7 ? ` (${Math.floor(i / 7) + 1} of ${Math.ceil(items.length / 7)})` : '';
+        steps.push({ kind: 'questions', section: sec, title: meta.title + part, intro: i === 0 ? meta.intro : undefined, items: chunk as any });
+      }
+    }
+    steps.push({ kind: 'review' });
+    return steps;
+  }
+
+  const body = document.getElementById('step-body') as HTMLDivElement;
+  const err = document.getElementById('form-error') as HTMLParagraphElement;
+  const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
+  const backBtn = document.getElementById('back-btn') as HTMLButtonElement;
+  const bar = document.getElementById('progress-bar') as HTMLDivElement;
+  const label = document.getElementById('step-label') as HTMLParagraphElement;
+  const done = document.getElementById('done') as HTMLDivElement;
+  const form = document.getElementById('eligibility-form') as HTMLFormElement;
+
+  const INPUT = 'w-full rounded-lg border border-[rgba(18,59,87,0.3)] bg-white px-4 py-3 text-[#123B57]';
+
+  function el<K extends keyof HTMLElementTagNameMap>(tag: K, cls = '', text = ''): HTMLElementTagNameMap[K] {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text) n.textContent = text;
+    return n;
+  }
+
+  function fieldWrap(labelText: string, input: HTMLElement, hint?: string): HTMLElement {
+    const wrap = el('div', 'space-y-2');
+    const lab = el('label', 'block font-semibold text-[#123B57]', labelText);
+    wrap.append(lab, input);
+    if (hint) wrap.append(el('p', 'text-sm text-[#123B57]/70', hint));
+    return wrap;
+  }
+
+  function inputFor(id: string, q?: { type: string; options?: string[] }, value = ''): HTMLElement {
+    if (q && q.type === 'yesno') {
+      const wrap = el('div', 'flex gap-3');
+      for (const opt of ['Yes', 'No']) {
+        const b = el('button', 'btn', opt) as HTMLButtonElement;
+        b.type = 'button';
+        b.dataset.yn = opt;
+        const selected = value === opt;
+        b.style.background = selected ? '#55BFC0' : '#ffffff';
+        b.style.borderColor = '#55BFC0';
+        b.style.color = selected ? '#ffffff' : '#123B57';
+        b.addEventListener('click', () => {
+          readInputs(body);
+          state.answers[id] = opt;
+          save();
+          render();
+        });
+        wrap.append(b);
+      }
+      return wrap;
+    }
+    if (q && q.type === 'select') {
+      const s = el('select', INPUT) as HTMLSelectElement;
+      s.append(new Option('Please choose', ''));
+      for (const o of q.options ?? []) s.append(new Option(o, o));
+      s.value = value;
+      s.dataset.id = id;
+      return s;
+    }
+    if (q && q.type === 'multi') {
+      const wrap = el('div', 'grid gap-2 sm:grid-cols-2');
+      const selected = value ? value.split(' | ') : [];
+      for (const o of q.options ?? []) {
+        const row = el('label', 'flex items-center gap-2 text-[#123B57]');
+        const cb = el('input') as HTMLInputElement;
+        cb.type = 'checkbox';
+        cb.value = o;
+        cb.checked = selected.includes(o);
+        cb.dataset.multi = id;
+        row.append(cb, document.createTextNode(o));
+        wrap.append(row);
+      }
+      return wrap;
+    }
+    if (q && q.type === 'textarea') {
+      const t = el('textarea', INPUT + ' min-h-[110px]') as HTMLTextAreaElement;
+      t.value = value;
+      t.dataset.id = id;
+      return t;
+    }
+    const i = el('input', INPUT) as HTMLInputElement;
+    i.type = q?.type === 'date' ? 'date' : q?.type === 'number' ? 'number' : q?.type === 'email' ? 'email' : 'text';
+    i.value = value;
+    i.dataset.id = id;
+    return i;
+  }
+
+  function readInputs(container: HTMLElement) {
+    container.querySelectorAll<HTMLElement>('[data-id]').forEach((n) => {
+      const id = n.dataset.id as string;
+      state.answers[id] = (n as HTMLInputElement).value;
+    });
+    const multis = new Map<string, string[]>();
+    container.querySelectorAll<HTMLInputElement>('input[data-multi]').forEach((cb) => {
+      const id = cb.dataset.multi as string;
+      if (!multis.has(id)) multis.set(id, []);
+      if (cb.checked) multis.get(id)!.push(cb.value);
+    });
+    multis.forEach((vals, id) => { state.answers[id] = vals.join(' | '); });
+    container.querySelectorAll<HTMLElement>('[data-detail]').forEach((n) => {
+      state.answers[n.dataset.detail as string] = (n as HTMLTextAreaElement).value;
+    });
+  }
+
+  function renderConfirm() {
+    body.append(el('p', 'text-[#123B57]', 'Please check these details. You can change them if they are not right.'));
+    const visa = el('input', INPUT) as HTMLInputElement;
+    visa.value = state.meta.visa; visa.dataset.meta = 'visa';
+    const country = el('select', INPUT) as HTMLSelectElement;
+    for (const c of ['New Zealand', 'Australia', 'Both', 'Not sure']) country.append(new Option(c, c));
+    country.value = state.meta.country; country.dataset.meta = 'country';
+    const family = el('select', INPUT) as HTMLSelectElement;
+    family.append(new Option('Please choose', ''));
+    for (const f of FAMILY_VALUES) family.append(new Option(FAMILY_LABELS[f] ?? f, f));
+    family.value = state.meta.family; family.dataset.meta = 'family';
+    const name = el('input', INPUT) as HTMLInputElement;
+    name.value = state.meta.name; name.dataset.meta = 'name'; name.required = true;
+    const email = el('input', INPUT) as HTMLInputElement;
+    email.type = 'email'; email.value = state.meta.email; email.dataset.meta = 'email';
+    body.append(
+      fieldWrap('Visa you clicked', visa),
+      fieldWrap('Country', country),
+      fieldWrap('What you are looking at', family),
+      fieldWrap('Your full name', name),
+      fieldWrap('Your email address', email, 'We will send your confirmation here.'),
+    );
+  }
+
+  function renderNotice(section: string) {
+    const meta = sections[section];
+    body.append(el('h2', 'text-2xl font-semibold text-[#123B57]', 'Privacy notice'));
+    const box = el('div', 'space-y-3 rounded-[var(--radius-xl)] p-6 text-[#123B57]', '');
+    box.style.background = '#ECF5F5';
+    box.append(
+      el('p', '', 'The next questions are personal and sensitive. They are needed for immigration assessment, which often includes health and character checks.'),
+      el('p', '', 'Your answers are sent only to Harmony Immigration Services and are read only by our advisers. They are not shared with anyone else, and you will not receive an automatic result.'),
+      el('p', '', `[Privacy wording to be confirmed before going live.] ${meta.intro ?? ''}`),
+    );
+    body.append(box);
+  }
+
+  function renderQuestions(step: Extract<Step, { kind: 'questions' }>) {
+    body.append(el('h2', 'text-2xl font-semibold text-[#123B57]', step.title));
+    if (step.intro) body.append(el('p', 'text-[#123B57]', step.intro));
+    for (const q of step.items) {
+      const value = state.answers[q.id] ?? '';
+      const wrap = el('div', 'space-y-2');
+      const input = inputFor(q.id, q, value);
+      wrap.append(fieldWrap(q.text, input));
+      if (q.detailIfYes && value === 'Yes') {
+        const det = el('textarea', INPUT + ' min-h-[90px]') as HTMLTextAreaElement;
+        det.value = state.answers[q.id + '__detail'] ?? '';
+        det.dataset.detail = q.id + '__detail';
+        det.placeholder = 'Please give details';
+        wrap.append(fieldWrap('Please give details', det));
+      }
+      body.append(wrap);
+    }
+  }
+
+  function renderReview() {
+    body.append(el('h2', 'text-2xl font-semibold text-[#123B57]', 'Review your answers'));
+    body.append(el('p', 'text-[#123B57]', 'Please check these before sending. An adviser will read them personally.'));
+    const summary = el('div', 'space-y-2 rounded-[var(--radius-xl)] p-6', '');
+    summary.style.background = '#ECF5F5';
+    summary.append(
+      el('p', 'font-semibold text-[#123B57]', 'Your details'),
+      el('p', 'text-[#123B57]', `${state.meta.name} · ${state.meta.email}`),
+      el('p', 'text-[#123B57]', `${state.meta.country} · ${state.meta.visa} · ${FAMILY_LABELS[state.meta.family] ?? ''}`),
+    );
+    body.append(summary);
+    const visible = visibleQuestions();
+    for (const sec of SECTION_ORDER) {
+      const items = visible.filter((q) => q.section === sec);
+      if (items.length === 0) continue;
+      const block = el('div', 'space-y-2 border-b border-[rgba(18,59,87,0.15)] pb-4', '');
+      block.append(el('p', 'font-semibold text-[#123B57]', sections[sec].title));
+      for (const q of items) {
+        const a = state.answers[q.id];
+        if (!a) continue;
+        block.append(el('p', 'text-sm text-[#123B57]', `${q.text} — ${a}`));
+      }
+      body.append(block);
+    }
+    const confirm = el('label', 'flex items-start gap-3 text-[#123B57]');
+    const cb = el('input') as HTMLInputElement;
+    cb.type = 'checkbox'; cb.id = 'confirm-accurate';
+    confirm.append(cb, document.createTextNode('I confirm these answers are accurate to the best of my knowledge.'));
+    body.append(confirm);
+  }
+
+  function render() {
+    const steps = buildSteps();
+    if (state.step >= steps.length) state.step = steps.length - 1;
+    const step = steps[state.step];
+    body.innerHTML = '';
+    err.classList.add('hidden');
+    if (step.kind === 'confirm') renderConfirm();
+    else if (step.kind === 'notice') renderNotice(step.section);
+    else if (step.kind === 'questions') renderQuestions(step);
+    else renderReview();
+    const pct = Math.round((state.step / (steps.length - 1)) * 100);
+    bar.style.width = pct + '%';
+    label.textContent = `Step ${state.step + 1} of ${steps.length}`;
+    backBtn.style.visibility = state.step === 0 ? 'hidden' : 'visible';
+    nextBtn.textContent = step.kind === 'review' ? 'Send to adviser' : 'Next';
+    save();
+  }
+
+  function collect() {
+    readInputs(body);
+    body.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-meta]').forEach((n) => {
+      (state.meta as any)[n.dataset.meta as string] = n.value;
+    });
+    save();
+  }
+
+  function validate(): string | null {
+    const steps = buildSteps();
+    const step = steps[state.step];
+    if (step.kind === 'confirm') {
+      if (!state.meta.name.trim()) return 'Please enter your full name.';
+      if (!/^\S+@\S+\.\S+$/.test(state.meta.email)) return 'Please enter a valid email address.';
+      if (!state.meta.family) return 'Please choose what you are looking at, or choose "Not sure yet".';
+    }
+    if (step.kind === 'review') {
+      const box = document.getElementById('confirm-accurate') as HTMLInputElement | null;
+      if (!box?.checked) return 'Please tick the confirmation box before sending.';
+    }
+    return null;
+  }
+
+  nextBtn.addEventListener('click', () => {
+    collect();
+    const problem = validate();
+    if (problem) { err.textContent = problem; err.classList.remove('hidden'); return; }
+    const steps = buildSteps();
+    if (steps[state.step].kind === 'review') { submit(); return; }
+    state.step += 1;
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  backBtn.addEventListener('click', () => {
+    collect();
+    state.step = Math.max(0, state.step - 1);
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  function submission() {
+    const answered: Record<string, Record<string, string>> = {};
+    const visible = visibleQuestions();
+    for (const sec of SECTION_ORDER) {
+      const items = visible.filter((q) => q.section === sec);
+      if (!items.length) continue;
+      answered[sections[sec].title] = {};
+      for (const q of items) {
+        if (state.answers[q.id] !== undefined) answered[sections[sec].title][q.text] = state.answers[q.id];
+        if (state.answers[q.id + '__detail']) answered[sections[sec].title][q.text + ' (details)'] = state.answers[q.id + '__detail'];
+      }
+    }
+    return {
+      to: 'info@harmony-immigration.com',
+      subject: `Eligibility assessment: ${state.meta.name} – ${state.meta.visa || state.meta.family}`,
+      client: { name: state.meta.name, email: state.meta.email },
+      pathway: { country: state.meta.country, visa: state.meta.visa, family: FAMILY_LABELS[state.meta.family] ?? '' },
+      answers: answered,
+      submittedAt: new Date().toISOString(),
+    };
+  }
+
+  function submit() {
+    const payload = submission();
+    console.log('[check-eligibility] test submission', payload);
+    form.classList.add('hidden');
+    nextBtn.classList.add('hidden');
+    backBtn.classList.add('hidden');
+    bar.style.width = '100%';
+    label.textContent = '';
+    done.classList.remove('hidden');
+    (document.getElementById('test-note') as HTMLParagraphElement).textContent =
+      'Test mode: nothing has been emailed yet. The submission would go to info@harmony-immigration.com and a confirmation to ' + state.meta.email + '.';
+    (document.getElementById('show-data') as HTMLButtonElement).addEventListener('click', () => {
+      const out = document.getElementById('data-out') as HTMLPreElement;
+      out.textContent = JSON.stringify(payload, null, 2);
+      out.classList.remove('hidden');
+    });
+    try { localStorage.removeItem(STORAGE_KEY); } catch {}
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Keep URL-provided pathway if the saved draft came from another visa.
+  if (defaultMeta.visa) state.meta.visa = defaultMeta.visa;
+  if (defaultMeta.family) state.meta.family = defaultMeta.family;
+  if (defaultMeta.country !== 'Not sure') state.meta.country = defaultMeta.country;
+
+  render();
+</script>
