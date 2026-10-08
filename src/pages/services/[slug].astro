@@ -2,6 +2,7 @@
 import Page from '@layouts/Page.astro';
 import { eligibilityHref } from '@lib/eligibility';
 const eligibilityFamily: Record<string, string> = { 'work-visas': 'work', 'student-visas': 'study', 'visitor-visas': 'visit', 'residence-citizenship': 'skilled' };
+const breadcrumbLabel: Record<string, string> = { 'work-visas': 'Work visas', 'student-visas': 'Study visas', 'visitor-visas': 'Visitor visas', 'residence-citizenship': 'Skilled visas' };
 
 import CtaSection from '@components/home/CtaSection.astro';
 import { getCollection, render } from 'astro:content';
@@ -313,7 +314,7 @@ const heroDesc = customData ? customData.heroDesc : service.data.shortDesc;
                   </div>
                 ))}
               </div>
-              <a href={eligibilityHref(card.visas, eligibilityFamily[service.data.slug] ?? "")} class="btn btn-lift mt-6 self-start" style="background:#55BFC0; border-color:#55BFC0; color:white;">Check eligibility</a>
+              <a href={eligibilityHref(card.visas, eligibilityFamily[service.data.slug] ?? "", `/services/${service.data.slug}`, breadcrumbLabel[service.data.slug] ?? service.data.title)} class="btn btn-lift mt-6 self-start" style="background:#55BFC0; border-color:#55BFC0; color:white;">Check eligibility</a>
             </div>
           ))}
         </div>

@@ -7,36 +7,60 @@ const cards = [
     photo: '/images/businesses.jpg',
     photoPosition: 'object-[center_32%]',
     title: 'Job ready',
-    desc: 'Finding work in a new country is its own challenge, separate from the visa itself.',
+    desc: 'Finding work in a new country is a challenge on its own. We help you present your experience well and get in front of the right people:',
     checklist: ['CVs & cover letters', 'Employer connections', 'Interview preparation'],
+    cta: 'Ask about Job Support',
   },
   {
     icon: '/images/icons-more-than-visa/english-prep.svg',
     photo: '/images/hero-conversation.jpg',
     photoPosition: 'object-top',
     title: 'English prep',
-    desc: "Visa interviews and language requirements don't leave much room to guess.",
+    desc: "Visa interviews and language exams don't leave much room to guess. We help you practise for the real thing, so the day itself feels familiar:",
     checklist: ['IELTS & exam prep', 'Couples interview training'],
+    cta: 'Ask about English Prep',
   },
   {
     icon: '/images/icons-more-than-visa/certified-translation.svg',
     photo: '/images/individuals.jpg',
     photoPosition: 'object-[center_30%]',
     title: 'Translation',
-    desc: 'NAATI and NZSTI accredited, so documents meet requirements the first time.',
+    desc: 'NAATI and NZSTI accredited, so your documents are translated and certified. We also interpret when you need someone on your side:',
     checklist: ['Translating', 'Interpreting', 'Document certification'],
+    cta: 'Ask about Translation',
   },
   {
     icon: '/images/icons-more-than-visa/settling-in.svg',
     photo: '/images/families.jpg',
     photoPosition: 'object-[center_28%]',
     title: 'Settling in',
-    desc: 'Getting the visa is one milestone. Building an actual life here is the next.',
+    desc: 'Getting the visa is one milestone. Building an actual life here is the next. We help you work through those tasks:',
     checklist: ['Accommodation', 'Tenant rights', 'GP registration', 'Tax (IRD) enrolment', 'Opening a bank account', 'Transportation'],
+    cta: 'Ask about Settling In',
   },
 ];
 
 const faq = [
+  {
+    question: "Can you guarantee I'll find a job?",
+    answer: 'No, and nobody honestly can. We help you present your experience and connect with employers, but the hiring decision is always theirs.',
+  },
+  {
+    question: 'Do I need an IELTS result for my visa?',
+    answer: "It depends on the visa and the role. Some require a test result, others don't. We'll tell you what applies to you before you pay for an exam.",
+  },
+  {
+    question: 'Will immigration accept your translations?',
+    answer: 'Requirements depend on the visa and the country, so we check what your application needs before we start.',
+  },
+  {
+    question: 'How long does a translation take?',
+    answer: "It depends on how many documents there are and how long they are. We'll give you a timeframe before we begin.",
+  },
+  {
+    question: 'Can I use these services before I arrive?',
+    answer: "Yes, some things make sense to sort out before you arrive and some don't. For example, arranging accommodation and knowing what to set up first is a good idea.",
+  },
   {
     question: 'Do I need to be a client for immigration advice to use these?',
     answer: 'No, these stand on their own, with or without us handling your visa.',
@@ -50,6 +74,8 @@ const faq = [
     answer: "Yes, we'll always be upfront about cost before you commit to anything.",
   },
 ];
+const faqCol1 = faq.slice(0, 4);
+const faqCol2 = faq.slice(4, 8);
 
 const pathwayLinks = [
   { label: 'Individuals', href: '/services' },
@@ -63,7 +89,7 @@ const pathwayLinks = [
   description="Job readiness, English preparation, certified translation and settling-in support for after your visa is approved."
 >
   <section class="relative overflow-hidden pb-16 pt-[94px] md:pt-[126px]" style="background: white;">
-    <div class="absolute inset-0 bg-cover" style="background-image: url('/images/why-choose-harmony.png'); background-position: center 35%;"></div>
+    <div class="absolute inset-0 bg-cover" style="background-image: url('/images/settling-in-banner.png'); background-position: center 35%;"></div>
     <div class="absolute inset-0" style="background: linear-gradient(90deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.9) 35%, rgba(255,255,255,0.35) 65%, rgba(255,255,255,0) 100%);"></div>
     <div class="container relative z-10 reveal pl-[53px] -mt-[50px]">
       <a href="/" class="inline-flex items-center gap-1.5 text-sm font-semibold mb-6" style="color:#55BFC0;">
@@ -71,7 +97,7 @@ const pathwayLinks = [
         Home
       </a>
       <h1 class="mt-6 text-4xl sm:text-5xl">Settling in takes<br />more than a visa</h1>
-      <p class="mt-5 max-w-lg text-lg">A visa gets you here. These four things help with everything that comes after.</p>
+      <p class="mt-5 max-w-lg text-lg">We support you in four key areas to build your life here.</p>
     </div>
   </section>
 
@@ -79,12 +105,12 @@ const pathwayLinks = [
     <div class="container">
       <div class="relative z-10 mt-[47px] grid gap-6 sm:grid-cols-2">
         {cards.map((card, i) => (
-          <div class="card card-deep-shadow reveal overflow-hidden" style={`transition-delay:${i * 70}ms; border: 0.7px solid rgba(18, 59, 87, 0.4);`}>
+          <div class="card card-deep-shadow reveal relative overflow-hidden" style={`transition-delay:${i * 70}ms; border: 0.7px solid rgba(18, 59, 87, 0.4);`}>
             <div class="relative h-[180px] w-full overflow-hidden">
               <img src={card.photo} alt="" class={`h-full w-full object-cover ${card.photoPosition}`} />
-              <div class="absolute bottom-[-26px] left-7 flex h-[52px] w-[52px] items-center justify-center rounded-full bg-white shadow-md" style="border: 0.7px solid rgba(18,59,87,0.15);">
-                <img src={card.icon} alt="" class="h-7 w-7" />
-              </div>
+            </div>
+            <div class="absolute top-[134px] left-7 z-10 flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white">
+              <img src={card.icon} alt="" class="h-[52.8px] w-[52.8px]" />
             </div>
             <div class="p-7 pt-9">
               <h3 class="tracking-tight">{card.title}</h3>
@@ -98,7 +124,7 @@ const pathwayLinks = [
                 ))}
               </ul>
               <a href="/contact" class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold" style="color:#55BFC0;">
-                Want help with this? <span class="underline">Send a message</span>
+                {card.cta}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </div>
@@ -106,15 +132,10 @@ const pathwayLinks = [
         ))}
       </div>
 
-      <div class="reveal relative mx-auto mt-[80px] flex max-w-[972px] flex-col items-start gap-6 overflow-hidden rounded-[var(--radius-xl)] p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10" style="background: #ECF5F5;">
-        <div class="flex items-start gap-5 sm:items-center">
-          <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full" style="background: #C9E1EA;">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" style="color:#123B57;"><path d="M4 9h16M4 15h16M9 4v16M15 4v16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          </div>
-          <div>
-            <p class="text-lg font-semibold text-[#123B57]">Not sure which of these you actually need?</p>
-            <p class="mt-2 text-[#123B57]">Most people need more than one. Tell us where you're at, and we'll help you work out what matters most right now.</p>
-          </div>
+      <div class="reveal mx-auto mt-16 flex max-w-[942px] flex-col items-start gap-6 rounded-[var(--radius-xl)] bg-[#123B57] p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+        <div>
+          <p class="text-lg font-semibold text-white">Not sure which of these you actually need?</p>
+          <p class="mt-2 text-lg text-white/80">Tell us where you're at and we'll help you work out your next step.</p>
         </div>
         <a href="/contact" class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">Send a message</a>
       </div>
@@ -123,17 +144,30 @@ const pathwayLinks = [
 
   <section class="bg-white pt-28 pb-20">
     <div class="container">
-      <h2>Common questions</h2>
-      <div class="mt-8 space-y-4">
-        {faq.map((item) => (
-          <details class="faq-box rounded-[var(--radius-lg)] p-5" style="border: 0.7px solid rgba(18, 59, 87, 0.2);">
-            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-[#123B57]">
-              {item.question}
-              <svg class="faq-chevron h-4 w-4 shrink-0 text-[#123B57]" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </summary>
-            <p class="mt-3 text-[#123B57]">{item.answer}</p>
-          </details>
-        ))}
+      <h2>Have questions?</h2>
+      <div class="mt-6 grid gap-x-10 gap-y-4 sm:grid-cols-2">
+        <div class="space-y-4">
+          {faqCol1.map((item) => (
+            <details class="faq-details">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-[#123B57]">
+                {item.question}
+                <span class="faq-icon shrink-0 text-2xl leading-none text-[#123B57]">+</span>
+              </summary>
+              <p class="mt-2 italic text-[#123B57]">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+        <div class="space-y-4">
+          {faqCol2.map((item) => (
+            <details class="faq-details">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-[#123B57]">
+                {item.question}
+                <span class="faq-icon shrink-0 text-2xl leading-none text-[#123B57]">+</span>
+              </summary>
+              <p class="mt-2 italic text-[#123B57]">{item.answer}</p>
+            </details>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -159,16 +193,16 @@ const pathwayLinks = [
 </Page>
 
 <style>
-  .faq-box summary {
+  .faq-details summary {
     list-style: none;
   }
-  .faq-box summary::-webkit-details-marker {
+  .faq-details summary::-webkit-details-marker {
     display: none;
   }
-  .faq-chevron {
+  .faq-details .faq-icon {
     transition: transform 0.2s ease;
   }
-  .faq-box[open] .faq-chevron {
-    transform: rotate(180deg);
+  .faq-details[open] .faq-icon {
+    transform: rotate(45deg);
   }
 </style>

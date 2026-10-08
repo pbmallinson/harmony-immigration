@@ -2,6 +2,7 @@
 import Page from '@layouts/Page.astro';
 import { eligibilityHref } from '@lib/eligibility';
 const eligibilityFamily: Record<string, string> = { hiring: 'work', accreditation: 'business', 'employer-support': 'business', entrepreneurs: 'business' };
+const breadcrumbLabel: Record<string, string> = { accreditation: 'Accreditation', hiring: 'Hiring', 'employer-support': 'Renewals', entrepreneurs: 'Entrepreneurs' };
 
 
 const linkLabels: Record<string, string> = {
@@ -342,7 +343,7 @@ const data = businessPagesData[slug as string];
                 </div>
               ))}
             </div>
-            <a href={eligibilityHref(card.visas, eligibilityFamily[slug as string] ?? "")} class="btn btn-lift mt-6 self-start" style="background:#55BFC0; border-color:#55BFC0; color:white;">Check eligibility</a>
+            <a href={eligibilityHref(card.visas, eligibilityFamily[slug as string] ?? "", `/businesses/${slug}`, breadcrumbLabel[slug as string] ?? data.heroTitle)} class="btn btn-lift mt-6 self-start" style="background:#55BFC0; border-color:#55BFC0; color:white;">Check eligibility</a>
           </div>
         ))}
       </div>

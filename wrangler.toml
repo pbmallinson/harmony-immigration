@@ -2,6 +2,18 @@ name = "harmony-immigration"
 pages_build_output_dir = "dist"
 compatibility_date = "2025-04-01"
 
+# Durable Object used by functions/_worker.js to hand out a collision-free,
+# sequential "Assessment Reference Number" (HI-DDMMYYYY-###) per submission.
+# RESEND_API_KEY and RESEND_FROM_EMAIL are set as environment variables /
+# secrets in the Cloudflare Pages dashboard, never here.
+[[durable_objects.bindings]]
+name = "REF_COUNTER"
+class_name = "ReferenceCounter"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["ReferenceCounter"]
+
 [env.preview]
 vars = { ASTRO_ENV = "preview" }
 

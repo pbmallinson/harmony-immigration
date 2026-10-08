@@ -8,12 +8,12 @@ import Page from '@layouts/Page.astro';
 >
   <section class="pt-[94px] pb-16 md:pt-[126px]" style="background: white;">
     <div class="container max-w-3xl">
-      <a href="/" class="inline-flex items-center gap-1.5 text-sm font-semibold mb-6" style="color:#55BFC0;">
+      <a id="back-link" href="/" class="inline-flex items-center gap-1.5 text-sm font-semibold mb-6" style="color:#55BFC0;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Home
+        <span id="back-link-text">Home</span>
       </a>
-      <h1 class="text-4xl sm:text-5xl">Check eligibility</h1>
-      <p class="mt-5 text-lg">A personal review by one of our advisers. No automated result is given.</p>
+      <h1 id="main-heading" class="text-4xl sm:text-5xl">Let's start with you</h1>
+      <p id="main-subheading" class="mt-5 text-lg">Tell us about your situation and we'll get you started.</p>
 
       <div id="progress" class="mt-8 h-2 w-full rounded-full bg-[#ECF5F5]">
         <div id="progress-bar" class="h-2 rounded-full transition-all" style="width:0%; background:#55BFC0;"></div>
@@ -21,7 +21,7 @@ import Page from '@layouts/Page.astro';
       <p id="step-label" class="mt-3 text-sm text-[#123B57]"></p>
 
       <form id="eligibility-form" class="mt-8 space-y-6" novalidate>
-        <div id="step-body" class="space-y-6"></div>
+        <div id="step-body" class="space-y-9"></div>
 
         <p id="form-error" class="hidden text-sm font-semibold text-red-700"></p>
 
@@ -32,15 +32,20 @@ import Page from '@layouts/Page.astro';
       </form>
 
       <div id="done" class="hidden mt-10 rounded-[var(--radius-xl)] p-8" style="background:#ECF5F5;">
-        <p class="text-lg font-semibold text-[#123B57]">We've received this. One of our advisers will personally review it and reply within one business day.</p>
-        <p class="mt-3 text-[#123B57]">This is not an automated result. A confirmation email restating what you submitted is being sent to the address you gave.</p>
-        <p id="test-note" class="mt-4 text-sm font-semibold text-[#123B57]"></p>
-        <button type="button" id="show-data" class="mt-4 btn" style="background:#ffffff; border-color:#55BFC0; color:#123B57;">Show submission data (test)</button>
-        <pre id="data-out" class="hidden mt-4 max-h-96 overflow-auto rounded-lg bg-white p-4 text-xs text-[#123B57]"></pre>
+        <p id="done-ref" class="hidden text-sm font-semibold tracking-wide" style="color:#55BFC0;"></p>
+        <p id="done-text" class="mt-2 text-[#123B57]"></p>
+        <a href="/" class="btn btn-lift mt-6 inline-flex" style="background:#55BFC0; border-color:#55BFC0; color:white;">Homepage</a>
       </div>
     </div>
   </section>
 </Page>
+
+<style is:global>
+  .ce-option:hover {
+    background-color: #55BFC0 !important;
+    color: white !important;
+  }
+</style>
 
 <script>
   import { questions, sections } from '../data/assessment/questions';
@@ -56,6 +61,15 @@ import Page from '@layouts/Page.astro';
 
   const params = new URLSearchParams(window.location.search);
 
+  const backFrom = params.get('from');
+  const backLabel = params.get('label');
+  if (backFrom && backLabel) {
+    const backLink = document.getElementById('back-link') as HTMLAnchorElement;
+    const backLinkText = document.getElementById('back-link-text') as HTMLSpanElement;
+    backLink.href = backFrom;
+    backLinkText.textContent = backLabel;
+  }
+
   type Answers = Record<string, string>;
   type State = { step: number; answers: Answers; meta: { name: string; email: string; visa: string; country: string; family: string } };
 
@@ -70,8 +84,13 @@ import Page from '@layouts/Page.astro';
   let state: State = { step: 0, answers: {}, meta: { ...defaultMeta } };
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? 'null');
-    if (saved && saved.meta && saved.answers) {
-      state = { step: saved.step ?? 0, answers: saved.answers, meta: { ...saved.meta, visa: defaultMeta.visa || saved.meta.visa, country: defaultMeta.country !== 'Not sure' ? defaultMeta.country : saved.meta.country, family: defaultMeta.family || saved.meta.family } };
+    // Only resume a saved draft if it's the same visa and the same "what you are looking at"
+    // as the link just clicked — otherwise this is a new assessment and must start empty.
+    const sameAttempt = saved && saved.meta && saved.meta.visa === defaultMeta.visa && saved.meta.family === defaultMeta.family;
+    if (sameAttempt) {
+      state = { step: saved.step ?? 0, answers: saved.answers ?? {}, meta: { ...saved.meta, ...defaultMeta } };
+    } else {
+      try { localStorage.removeItem(STORAGE_KEY); } catch {}
     }
   } catch {}
 
@@ -98,22 +117,21 @@ import Page from '@layouts/Page.astro';
   }
 
   type Step =
+    | { kind: 'intro' }
     | { kind: 'confirm' }
-    | { kind: 'notice'; section: string }
     | { kind: 'questions'; section: string; title: string; intro?: string; items: typeof questions }
     | { kind: 'review' };
 
   function buildSteps(): Step[] {
-    const steps: Step[] = [{ kind: 'confirm' }];
+    const steps: Step[] = [{ kind: 'intro' }, { kind: 'confirm' }];
     const visible = visibleQuestions();
     for (const sec of SECTION_ORDER) {
       const items = visible.filter((q) => q.section === sec);
       if (items.length === 0) continue;
-      if (sec === 'health') steps.push({ kind: 'notice', section: sec });
       const meta = sections[sec];
       for (let i = 0; i < items.length; i += 7) {
         const chunk = items.slice(i, i + 7);
-        const part = items.length > 7 ? ` (${Math.floor(i / 7) + 1} of ${Math.ceil(items.length / 7)})` : '';
+        const part = items.length > 7 ? ` ${Math.floor(i / 7) + 1} of ${Math.ceil(items.length / 7)}` : '';
         steps.push({ kind: 'questions', section: sec, title: meta.title + part, intro: i === 0 ? meta.intro : undefined, items: chunk as any });
       }
     }
@@ -141,9 +159,69 @@ import Page from '@layouts/Page.astro';
 
   function fieldWrap(labelText: string, input: HTMLElement, hint?: string): HTMLElement {
     const wrap = el('div', 'space-y-2');
-    const lab = el('label', 'block font-semibold text-[#123B57]', labelText);
+    const lab = el('label', 'block font-normal', labelText);
+    lab.style.color = 'rgba(18,59,87,0.4)';
     wrap.append(lab, input);
     if (hint) wrap.append(el('p', 'text-sm text-[#123B57]/70', hint));
+    return wrap;
+  }
+
+  let openDropdown: HTMLElement | null = null;
+  document.addEventListener('click', (e) => {
+    if (openDropdown && !(e.target as HTMLElement).closest('.ce-select')) {
+      openDropdown.classList.add('hidden');
+      openDropdown = null;
+    }
+  });
+
+  function customSelect(
+    attr: 'data-id' | 'data-meta', key: string,
+    options: { label: string; value: string }[], value: string, placeholder = 'Please choose',
+  ): HTMLElement {
+    const wrap = el('div', 'ce-select relative');
+    const hidden = el('input') as HTMLInputElement;
+    hidden.type = 'hidden';
+    hidden.value = value;
+    (hidden.dataset as any)[attr === 'data-id' ? 'id' : 'meta'] = key;
+
+    const currentLabel = options.find((o) => o.value === value)?.label ?? '';
+    const trigger = el('button', INPUT + ' flex items-center justify-between gap-3 text-left') as HTMLButtonElement;
+    trigger.type = 'button';
+    const label = el('span', '', currentLabel || placeholder);
+    if (!currentLabel) label.style.color = 'rgba(18,59,87,0.4)';
+    const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    chevron.setAttribute('width', '14'); chevron.setAttribute('height', '14'); chevron.setAttribute('viewBox', '0 0 24 24'); chevron.setAttribute('fill', 'none');
+    (chevron as unknown as HTMLElement).style.transition = 'transform 0.15s ease';
+    (chevron as unknown as HTMLElement).style.flexShrink = '0';
+    chevron.innerHTML = '<path d="M6 9l6 6 6-6" stroke="#123B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+    trigger.append(label, chevron);
+
+    const listbox = el('div', 'hidden absolute left-0 right-0 top-full z-20 mt-1 max-h-60 overflow-auto rounded-lg border border-[rgba(18,59,87,0.3)] bg-white shadow-lg');
+    for (const o of options) {
+      const opt = el('div', 'ce-option px-4 py-2.5 cursor-pointer text-[#123B57]', o.label);
+      if (o.value === value) { opt.style.background = '#55BFC0'; opt.style.color = '#ffffff'; }
+      opt.addEventListener('click', () => {
+        hidden.value = o.value;
+        label.textContent = o.label;
+        label.style.color = '';
+        listbox.querySelectorAll('.ce-option').forEach((n) => { (n as HTMLElement).style.background = ''; (n as HTMLElement).style.color = '#123B57'; });
+        opt.style.background = '#55BFC0'; opt.style.color = '#ffffff';
+        listbox.classList.add('hidden');
+        openDropdown = null;
+      });
+      listbox.append(opt);
+    }
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = listbox.classList.contains('hidden');
+      if (openDropdown && openDropdown !== listbox) openDropdown.classList.add('hidden');
+      listbox.classList.toggle('hidden', !willOpen);
+      chevron.style.transform = willOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+      openDropdown = willOpen ? listbox : null;
+    });
+
+    wrap.append(hidden, trigger, listbox);
     return wrap;
   }
 
@@ -169,12 +247,7 @@ import Page from '@layouts/Page.astro';
       return wrap;
     }
     if (q && q.type === 'select') {
-      const s = el('select', INPUT) as HTMLSelectElement;
-      s.append(new Option('Please choose', ''));
-      for (const o of q.options ?? []) s.append(new Option(o, o));
-      s.value = value;
-      s.dataset.id = id;
-      return s;
+      return customSelect('data-id', id, (q.options ?? []).map((o) => ({ label: o, value: o })), value);
     }
     if (q && q.type === 'multi') {
       const wrap = el('div', 'grid gap-2 sm:grid-cols-2');
@@ -222,22 +295,16 @@ import Page from '@layouts/Page.astro';
   }
 
   function renderConfirm() {
-    body.append(el('p', 'text-[#123B57]', 'Please check these details. You can change them if they are not right.'));
     const visa = el('input', INPUT) as HTMLInputElement;
     visa.value = state.meta.visa; visa.dataset.meta = 'visa';
-    const country = el('select', INPUT) as HTMLSelectElement;
-    for (const c of ['New Zealand', 'Australia', 'Both', 'Not sure']) country.append(new Option(c, c));
-    country.value = state.meta.country; country.dataset.meta = 'country';
-    const family = el('select', INPUT) as HTMLSelectElement;
-    family.append(new Option('Please choose', ''));
-    for (const f of FAMILY_VALUES) family.append(new Option(FAMILY_LABELS[f] ?? f, f));
-    family.value = state.meta.family; family.dataset.meta = 'family';
+    const country = customSelect('data-meta', 'country', ['New Zealand', 'Australia', 'Both', 'Not sure'].map((c) => ({ label: c, value: c })), state.meta.country);
+    const family = customSelect('data-meta', 'family', FAMILY_VALUES.map((f) => ({ label: FAMILY_LABELS[f] ?? f, value: f })), state.meta.family);
     const name = el('input', INPUT) as HTMLInputElement;
     name.value = state.meta.name; name.dataset.meta = 'name'; name.required = true;
     const email = el('input', INPUT) as HTMLInputElement;
     email.type = 'email'; email.value = state.meta.email; email.dataset.meta = 'email';
     body.append(
-      fieldWrap('Visa you clicked', visa),
+      fieldWrap('Visa you choose', visa),
       fieldWrap('Country', country),
       fieldWrap('What you are looking at', family),
       fieldWrap('Your full name', name),
@@ -245,21 +312,29 @@ import Page from '@layouts/Page.astro';
     );
   }
 
-  function renderNotice(section: string) {
-    const meta = sections[section];
-    body.append(el('h2', 'text-2xl font-semibold text-[#123B57]', 'Privacy notice'));
-    const box = el('div', 'space-y-3 rounded-[var(--radius-xl)] p-6 text-[#123B57]', '');
+  function renderIntro() {
+    const box = el('div', 'space-y-4 rounded-[var(--radius-xl)] p-6 text-[#123B57]', '');
     box.style.background = '#ECF5F5';
     box.append(
-      el('p', '', 'The next questions are personal and sensitive. They are needed for immigration assessment, which often includes health and character checks.'),
-      el('p', '', 'Your answers are sent only to Harmony Immigration Services and are read only by our advisers. They are not shared with anyone else, and you will not receive an automatic result.'),
-      el('p', '', `[Privacy wording to be confirmed before going live.] ${meta.intro ?? ''}`),
+      el('p', '', 'This assessment asks for personal and sensitive information, including details about your health, character, criminal and immigration history, to assess your visa options.'),
+      el('p', '', 'By submitting this form, you acknowledge that you have read our Privacy Policy & Terms of Use and consent to Harmony Immigration contacting you about your assessment or a consultation.'),
+      el('p', '', 'Your answers are sent directly to Harmony Immigration and reviewed by our advisers. They are not used for marketing or to train AI models, and no automated or AI-based decision is made about your eligibility. Submitting this form does not create a client relationship with Harmony Immigration.'),
     );
     body.append(box);
+
+    const confirm = el('label', 'mt-2 flex items-start gap-3 pl-6 text-[#123B57]');
+    const cb = el('input') as HTMLInputElement;
+    cb.type = 'checkbox'; cb.id = 'confirm-privacy';
+    cb.style.width = '1em'; cb.style.height = '1em'; cb.style.flexShrink = '0'; cb.style.marginTop = '0.2em'; cb.style.accentColor = '#123B57'; cb.style.borderColor = '#123B57';
+    const text = el('span');
+    const policyLink = el('a', 'underline', 'Privacy Policy & Terms of Use') as HTMLAnchorElement;
+    policyLink.href = '/privacy-policy?from=assessment&returnTo=' + encodeURIComponent(window.location.href);
+    text.append(document.createTextNode('I have read the '), policyLink);
+    confirm.append(cb, text);
+    body.append(confirm);
   }
 
   function renderQuestions(step: Extract<Step, { kind: 'questions' }>) {
-    body.append(el('h2', 'text-2xl font-semibold text-[#123B57]', step.title));
     if (step.intro) body.append(el('p', 'text-[#123B57]', step.intro));
     for (const q of step.items) {
       const value = state.answers[q.id] ?? '';
@@ -278,7 +353,6 @@ import Page from '@layouts/Page.astro';
   }
 
   function renderReview() {
-    body.append(el('h2', 'text-2xl font-semibold text-[#123B57]', 'Review your answers'));
     body.append(el('p', 'text-[#123B57]', 'Please check these before sending. An adviser will read them personally.'));
     const summary = el('div', 'space-y-2 rounded-[var(--radius-xl)] p-6', '');
     summary.style.background = '#ECF5F5';
@@ -304,7 +378,12 @@ import Page from '@layouts/Page.astro';
     const confirm = el('label', 'flex items-start gap-3 text-[#123B57]');
     const cb = el('input') as HTMLInputElement;
     cb.type = 'checkbox'; cb.id = 'confirm-accurate';
-    confirm.append(cb, document.createTextNode('I confirm these answers are accurate to the best of my knowledge.'));
+    cb.style.width = '1em'; cb.style.height = '1em'; cb.style.flexShrink = '0'; cb.style.marginTop = '0.2em'; cb.style.accentColor = '#123B57'; cb.style.borderColor = '#123B57';
+    const confirmText = el('span');
+    confirmText.append(
+      document.createTextNode('I confirm these answers are accurate to the best of my knowledge.'),
+    );
+    confirm.append(cb, confirmText);
     body.append(confirm);
   }
 
@@ -314,8 +393,18 @@ import Page from '@layouts/Page.astro';
     const step = steps[state.step];
     body.innerHTML = '';
     err.classList.add('hidden');
-    if (step.kind === 'confirm') renderConfirm();
-    else if (step.kind === 'notice') renderNotice(step.section);
+    const mainHeading = document.getElementById('main-heading') as HTMLHeadingElement;
+    const mainSub = document.getElementById('main-subheading') as HTMLParagraphElement;
+    if (step.kind === 'intro' || step.kind === 'confirm') {
+      mainHeading.textContent = "Let's start with you";
+      mainSub.textContent = "Tell us about your situation and we'll get you started.";
+      mainSub.style.display = '';
+    } else {
+      mainHeading.textContent = step.kind === 'questions' ? step.title : 'Review your answers';
+      mainSub.style.display = 'none';
+    }
+    if (step.kind === 'intro') renderIntro();
+    else if (step.kind === 'confirm') renderConfirm();
     else if (step.kind === 'questions') renderQuestions(step);
     else renderReview();
     const pct = Math.round((state.step / (steps.length - 1)) * 100);
@@ -334,13 +423,40 @@ import Page from '@layouts/Page.astro';
     save();
   }
 
+  function visibleFieldEl(n: HTMLElement): HTMLElement {
+    const ceSelect = n.closest('.ce-select');
+    return ceSelect ? (ceSelect.querySelector('button') as HTMLElement) : n;
+  }
+
+  function clearFieldErrors() {
+    body.querySelectorAll<HTMLElement>('[data-meta], .ce-select button').forEach((n) => { n.style.borderColor = ''; n.style.borderWidth = ''; });
+  }
+
+  function markInvalid(metas: string[]) {
+    for (const meta of metas) {
+      const n = body.querySelector<HTMLElement>(`[data-meta="${meta}"]`);
+      if (n) { const target = visibleFieldEl(n); target.style.borderColor = '#C0392B'; target.style.borderWidth = '2px'; }
+    }
+  }
+
   function validate(): string | null {
     const steps = buildSteps();
     const step = steps[state.step];
+    clearFieldErrors();
+    if (step.kind === 'intro') {
+      const box = document.getElementById('confirm-privacy') as HTMLInputElement | null;
+      if (!box?.checked) return 'Please tick the box to confirm you have read the Privacy Policy & Terms of Use.';
+    }
     if (step.kind === 'confirm') {
-      if (!state.meta.name.trim()) return 'Please enter your full name.';
-      if (!/^\S+@\S+\.\S+$/.test(state.meta.email)) return 'Please enter a valid email address.';
-      if (!state.meta.family) return 'Please choose what you are looking at, or choose "Not sure yet".';
+      const problems: string[] = [];
+      const invalidMetas: string[] = [];
+      if (!state.meta.family) { problems.push('What you are looking at'); invalidMetas.push('family'); }
+      if (!state.meta.name.trim()) { problems.push('Your full name'); invalidMetas.push('name'); }
+      if (!/^\S+@\S+\.\S+$/.test(state.meta.email)) { problems.push('Your email address'); invalidMetas.push('email'); }
+      if (problems.length) {
+        markInvalid(invalidMetas);
+        return `Please fill in: ${problems.join(', ')}.`;
+      }
     }
     if (step.kind === 'review') {
       const box = document.getElementById('confirm-accurate') as HTMLInputElement | null;
@@ -389,30 +505,51 @@ import Page from '@layouts/Page.astro';
     };
   }
 
-  function submit() {
+  async function submit() {
     const payload = submission();
-    console.log('[check-eligibility] test submission', payload);
+    const originalLabel = nextBtn.textContent;
+    nextBtn.disabled = true;
+    nextBtn.textContent = 'Sending…';
+    err.classList.add('hidden');
+
+    let reference = '';
+    try {
+      const res = await fetch('/api/submit-assessment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+      const data = await res.json();
+      reference = data.reference ?? '';
+    } catch (e) {
+      console.error('[check-eligibility] submit failed', e);
+      nextBtn.disabled = false;
+      nextBtn.textContent = originalLabel;
+      err.textContent = 'Something went wrong sending your assessment. Please try again, or email us directly at info@harmony-immigration.com.';
+      err.classList.remove('hidden');
+      return;
+    }
+
     form.classList.add('hidden');
     nextBtn.classList.add('hidden');
     backBtn.classList.add('hidden');
     bar.style.width = '100%';
     label.textContent = '';
+    (document.getElementById('main-heading') as HTMLHeadingElement).innerHTML = "Thank you.<br>We've received your assessment.";
+    const refEl = document.getElementById('done-ref') as HTMLParagraphElement;
+    if (reference) {
+      refEl.textContent = `Assessment Reference Number: ${reference}`;
+      refEl.classList.remove('hidden');
+    } else {
+      refEl.classList.add('hidden');
+    }
+    (document.getElementById('done-text') as HTMLParagraphElement).textContent =
+      `Your information is handled by a real person, there's no automated AI involved. One of our advisers will check the details you provided and contact you about the next steps within 2 working days. A copy of the submitted information will be sent to this email address (${state.meta.email}).`;
     done.classList.remove('hidden');
-    (document.getElementById('test-note') as HTMLParagraphElement).textContent =
-      'Test mode: nothing has been emailed yet. The submission would go to info@harmony-immigration.com and a confirmation to ' + state.meta.email + '.';
-    (document.getElementById('show-data') as HTMLButtonElement).addEventListener('click', () => {
-      const out = document.getElementById('data-out') as HTMLPreElement;
-      out.textContent = JSON.stringify(payload, null, 2);
-      out.classList.remove('hidden');
-    });
     try { localStorage.removeItem(STORAGE_KEY); } catch {}
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
-  // Keep URL-provided pathway if the saved draft came from another visa.
-  if (defaultMeta.visa) state.meta.visa = defaultMeta.visa;
-  if (defaultMeta.family) state.meta.family = defaultMeta.family;
-  if (defaultMeta.country !== 'Not sure') state.meta.country = defaultMeta.country;
 
   render();
 </script>

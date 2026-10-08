@@ -5,6 +5,9 @@ dist/
 # generated types
 .astro/
 
+# local Cloudflare Workers/Pages dev state
+.wrangler/
+
 # dependencies
 node_modules/
 

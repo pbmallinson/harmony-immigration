@@ -1,0 +1,45 @@
+---
+import Page from '@layouts/Page.astro';
+
+const pathwayLinks = [
+  { label: 'Individuals', href: '/services' },
+  { label: 'Families', href: '/families' },
+  { label: 'Businesses', href: '/businesses' },
+];
+---
+
+<Page
+  title="Page not found"
+  description="The page you're looking for doesn't exist or may have moved."
+>
+  <section class="pt-[94px] pb-24 md:pt-[126px] md:pb-32" style="background: white;">
+    <div class="container max-w-2xl text-center">
+      <p class="text-sm font-semibold tracking-wide" style="color:#55BFC0;">404</p>
+      <h1 class="mt-3 text-4xl sm:text-5xl">We can't find that page</h1>
+      <p class="mt-5 text-lg text-[#123B57]">
+        The page you're looking for doesn't exist, or it may have moved.
+      </p>
+
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <a href="/" class="btn btn-lift" style="background:#55BFC0; border-color:#55BFC0; color:white;">
+          Back to homepage
+        </a>
+        <a href="/contact" class="btn btn-lift" style="background:#ECF5F5; border-color:#ECF5F5; color:#123B57;">
+          Contact us
+        </a>
+      </div>
+
+      <div class="mt-16 border-t pt-10" style="border-color: rgba(18,59,87,0.15);">
+        <p class="text-sm font-semibold text-[#123B57]">Looking for a visa pathway instead?</p>
+        <div class="mt-4 flex flex-wrap items-center justify-center gap-3">
+          {pathwayLinks.map((link) => (
+            <a href={link.href} class="inline-flex items-center gap-1.5 text-sm font-semibold" style="color:#55BFC0;">
+              {link.label}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Page>

@@ -21,6 +21,15 @@ const checklist = [
   [data-demo-form] {
     box-shadow: 0 0 14px 3px rgba(1, 44, 85, 0.175);
   }
+  [data-demo-form] input::placeholder,
+  [data-demo-form] textarea::placeholder {
+    color: rgba(18, 59, 87, 0.35);
+    opacity: 1;
+  }
+  .pathway-option:hover {
+    background-color: #55BFC0;
+    color: white;
+  }
 </style>
 
 <section class="py-24 md:py-32 bg-[#E4F1F2]/70">
@@ -52,10 +61,19 @@ const checklist = [
           <input id="email" name="email" type="email" required class="mt-2 w-full rounded-lg border border-[#123B57]/50 bg-white/50 px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="jane@email.com" />
         </div>
         <div class="sm:col-span-2">
-          <label for="pathway" class="text-sm font-medium text-[#123B57]">What can we help with?</label>
-          <select id="pathway" name="pathway" class="mt-2 w-full rounded-lg border border-[#123B57]/50 px-4 py-3 text-sm outline-none transition-colors bg-white/50 focus:border-[var(--color-ink-700)]" style="color: rgba(41, 50, 60, 0.5);" data-pathway-select>
-            {options.map((opt) => <option>{opt}</option>)}
-          </select>
+          <label for="pathway-trigger" class="text-sm font-medium text-[#123B57]">What can we help with?</label>
+          <div class="relative mt-2" data-pathway-field>
+            <input type="hidden" id="pathway" name="pathway" value={options[0]} />
+            <button type="button" id="pathway-trigger" class="flex w-full items-center justify-between gap-3 rounded-lg border border-[#123B57]/50 bg-white/50 px-4 py-3 text-left text-sm outline-none transition-colors focus:border-[var(--color-ink-700)]" data-pathway-trigger>
+              <span data-pathway-label style="color: rgba(18, 59, 87, 0.35);">{options[0]}</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" class="shrink-0" data-pathway-chevron style="transition: transform 0.15s ease;"><path d="M6 9l6 6 6-6" stroke="#123B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="hidden absolute left-0 right-0 top-full z-20 mt-1 max-h-60 overflow-auto rounded-lg border border-[#123B57]/30 bg-white shadow-lg" data-pathway-listbox>
+              {options.map((opt) => (
+                <div class="pathway-option cursor-pointer px-4 py-2.5 text-sm text-[#123B57]" data-value={opt}>{opt}</div>
+              ))}
+            </div>
+          </div>
         </div>
         <div class="sm:col-span-2">
           <label for="message" class="text-sm font-medium text-[#123B57]">Tell about your situation</label>
@@ -63,7 +81,7 @@ const checklist = [
         </div>
       </div>
       <div class="mt-6 flex justify-center">
-        <button type="submit" class="btn" style="background:#55BFC0; border-color:#55BFC0; color:#00152A;">Send inquiry</button>
+        <button type="submit" class="btn" style="background:#55BFC0; border-color:#55BFC0; color:white;">Send inquiry</button>
       </div>
     </form>
   </div>
@@ -77,11 +95,41 @@ const checklist = [
     if (note) note.textContent = "Thanks! (Demo only — this didn't actually send anywhere.)";
   });
 
-  // The dropdown shows its first real option ("Work Visa") faded, like a
-  // placeholder, until the visitor actually makes a choice — the list itself
-  // only ever contains the real visa options, nothing extra.
-  const pathwaySelect = document.querySelector('[data-pathway-select]');
-  pathwaySelect?.addEventListener('change', () => {
-    pathwaySelect.style.color = '#123B57';
-  }, { once: true });
+  // Custom dropdown for "What can we help with?" — native <select> option
+  // hover colors can't be styled reliably across browsers (Chrome/Safari
+  // render the list as an OS-native widget), so this is a real div-based
+  // listbox instead, with a hidden input carrying the value for submission.
+  const pathwayField = document.querySelector('[data-pathway-field]');
+  if (pathwayField) {
+    const hidden = pathwayField.querySelector('input[type="hidden"]') as HTMLInputElement;
+    const trigger = pathwayField.querySelector('[data-pathway-trigger]') as HTMLButtonElement;
+    const label = pathwayField.querySelector('[data-pathway-label]') as HTMLSpanElement;
+    const chevron = pathwayField.querySelector('[data-pathway-chevron]') as unknown as HTMLElement;
+    const listbox = pathwayField.querySelector('[data-pathway-listbox]') as HTMLElement;
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = listbox.classList.contains('hidden');
+      listbox.classList.toggle('hidden', !willOpen);
+      chevron.style.transform = willOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+    });
+
+    listbox.querySelectorAll('.pathway-option').forEach((opt) => {
+      opt.addEventListener('click', () => {
+        const value = (opt as HTMLElement).dataset.value ?? '';
+        hidden.value = value;
+        label.textContent = value;
+        label.style.color = '#123B57';
+        listbox.classList.add('hidden');
+        chevron.style.transform = 'rotate(0deg)';
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!(e.target as HTMLElement).closest('[data-pathway-field]')) {
+        listbox.classList.add('hidden');
+        chevron.style.transform = 'rotate(0deg)';
+      }
+    });
+  }
 </script>

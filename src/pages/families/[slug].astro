@@ -2,6 +2,7 @@
 import Page from '@layouts/Page.astro';
 import { eligibilityHref } from '@lib/eligibility';
 const eligibilityFamily: Record<string, string> = { partner: 'partner', children: 'family', parents: 'family' };
+const breadcrumbLabel: Record<string, string> = { partner: 'Partner visas', children: 'Child visas', parents: 'Parent visas' };
 
 
 const linkLabels: Record<string, string> = {
@@ -305,7 +306,7 @@ const data = familyPagesData[slug as string];
                 </div>
               ))}
             </div>
-            <a href={eligibilityHref(card.visas, eligibilityFamily[slug as string] ?? "")} class="btn btn-lift mt-6 self-start" style="background:#55BFC0; border-color:#55BFC0; color:white;">Check eligibility</a>
+            <a href={eligibilityHref(card.visas, eligibilityFamily[slug as string] ?? "", `/families/${slug}`, breadcrumbLabel[slug as string] ?? data.heroTitle)} class="btn btn-lift mt-6 self-start" style="background:#55BFC0; border-color:#55BFC0; color:white;">Check eligibility</a>
           </div>
         ))}
       </div>

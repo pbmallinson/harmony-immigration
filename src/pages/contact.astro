@@ -1,12 +1,11 @@
 ---
 import Page from '@layouts/Page.astro';
-import Icon from '@components/global/Icon.astro';
 
 const details = [
-  { label: 'Office', value: '48 Holdens Road, Henderson, Auckland 0612, New Zealand', icon: 'map-pin' },
-  { label: 'Phone', value: '+64 21 270 4860', icon: 'phone' },
-  { label: 'Email', value: 'info@harmony-immigration.com', icon: 'mail' },
-  { label: 'Hours', value: 'Mon – Fri, 9am – 5pm (NZ time)', icon: 'clock' },
+  { label: 'Office', value: '48 Holdens Road, Henderson, Auckland 0612, New Zealand', icon: '/images/icons-contact/pin.svg' },
+  { label: 'Phone', value: '+64 21 270 4860', icon: '/images/icons-contact/phone.svg' },
+  { label: 'Email', value: 'info@harmony-immigration.com', icon: '/images/icons-contact/email.svg' },
+  { label: 'Hours', value: 'Mon – Fri, 9am – 5pm (NZ time)', icon: '/images/icons-contact/clock.svg' },
 ];
 
 const options = [
@@ -24,29 +23,25 @@ const options = [
   title="Contact"
   description="Book a free consultation with Harmony Immigration Services. Tell us about your situation and hear back within one business day."
 >
-  <section class="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32">
-    <div class="mesh-bg">
-      <div class="mesh-blob" style="width:480px;height:480px;background:var(--color-ink-500);top:-200px;right:-120px;"></div>
+  <section class="relative overflow-hidden min-h-[333px] pb-16 pt-[94px] md:pt-[126px]" style="background: white;">
+    <div class="absolute inset-0 bg-cover" style="background-image: url('/images/contact-banner.png'); background-position: center bottom;"></div>
+    <div class="container relative z-10 reveal pl-[53px] -mt-[50px]">
+      <h1 class="mt-6 text-4xl sm:text-5xl md:whitespace-nowrap">What's on your mind?</h1>
+      <p class="mt-5 text-lg">
+        Get in touch by email, assessment form or phone. We are here to help.
+      </p>
     </div>
+  </section>
 
+  <section class="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32">
     <div class="container relative z-10">
-      <div class="reveal max-w-2xl">
-        <span class="eyebrow">Get In Touch</span>
-        <h1 class="mt-5">Let's talk about your options.</h1>
-        <p class="mt-6 text-lg">
-          Fill out the form and one of our licensed advisers will respond within one business day, or call us directly during office hours.
-        </p>
-      </div>
-
-      <div class="mt-14 grid gap-10 lg:grid-cols-[1fr_1.3fr]">
+      <div class="grid gap-10 lg:grid-cols-[1fr_1.3fr]">
         <div class="reveal space-y-5">
           {details.map((d) => (
-            <div class="card flex items-start gap-4 p-6">
-              <span class="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-[var(--color-cream-200)] text-[var(--color-ink-800)]">
-                <Icon name={d.icon} class="w-5 h-5" />
-              </span>
+            <div class="card flex items-start gap-4 p-6" style="border: 0.7px solid rgba(18, 59, 87, 0.15);">
+              <img src={d.icon} alt="" class="h-[52.8px] w-[52.8px] flex-none" />
               <div>
-                <p class="text-sm font-semibold text-[var(--color-ink-950)]">{d.label}</p>
+                <p class="text-sm font-bold text-[var(--color-ink-950)]">{d.label}</p>
                 <p class="text-sm text-[var(--color-neutral-600)] mt-0.5">{d.value}</p>
               </div>
             </div>
@@ -56,34 +51,61 @@ const options = [
         <form id="contact-form" class="reveal card p-8 md:p-10" style="transition-delay:100ms" data-demo-form>
           <div class="grid gap-5 sm:grid-cols-2">
             <div>
-              <label for="name" class="text-sm font-medium text-[var(--color-neutral-800)]">Full name</label>
-              <input id="name" name="name" type="text" required class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="Jane Doe" />
+              <label for="name" class="text-sm font-medium text-[#123B57]">Full name</label>
+              <input id="name" name="name" type="text" required class="mt-2 w-full rounded-lg border border-[#123B57]/50 bg-white/50 px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="Jane Doe" />
             </div>
             <div>
-              <label for="email" class="text-sm font-medium text-[var(--color-neutral-800)]">Email</label>
-              <input id="email" name="email" type="email" required class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="jane@email.com" />
+              <label for="email" class="text-sm font-medium text-[#123B57]">Email</label>
+              <input id="email" name="email" type="email" required class="mt-2 w-full rounded-lg border border-[#123B57]/50 bg-white/50 px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="jane@email.com" />
             </div>
             <div>
-              <label for="phone" class="text-sm font-medium text-[var(--color-neutral-800)]">Phone (optional)</label>
-              <input id="phone" name="phone" type="tel" class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="+64 21 000 0000" />
+              <label for="phone" class="text-sm font-medium text-[#123B57]">Phone (optional)</label>
+              <input id="phone" name="phone" type="tel" class="mt-2 w-full rounded-lg border border-[#123B57]/50 bg-white/50 px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors" placeholder="+64 21 000 0000" />
             </div>
             <div>
-              <label for="pathway" class="text-sm font-medium text-[var(--color-neutral-800)]">What are you looking into?</label>
-              <select id="pathway" name="pathway" class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors bg-white">
-                {options.map((opt) => <option>{opt}</option>)}
-              </select>
+              <label for="pathway-trigger" class="text-sm font-medium text-[#123B57]">What are you looking into?</label>
+              <div class="relative mt-2" data-pathway-field>
+                <input type="hidden" id="pathway" name="pathway" value={options[0]} />
+                <button type="button" id="pathway-trigger" class="flex w-full items-center justify-between gap-3 rounded-lg border border-[#123B57]/50 bg-white/50 px-4 py-3 text-left text-sm outline-none transition-colors focus:border-[var(--color-ink-700)]" data-pathway-trigger>
+                  <span data-pathway-label style="color: rgba(18, 59, 87, 0.35);">{options[0]}</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" class="shrink-0" data-pathway-chevron style="transition: transform 0.15s ease;"><path d="M6 9l6 6 6-6" stroke="#123B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="hidden absolute left-0 right-0 top-full z-20 mt-1 max-h-60 overflow-auto rounded-lg border border-[#123B57]/30 bg-white shadow-lg" data-pathway-listbox>
+                  {options.map((opt) => (
+                    <div class="pathway-option cursor-pointer px-4 py-2.5 text-sm text-[#123B57]" data-value={opt}>{opt}</div>
+                  ))}
+                </div>
+              </div>
             </div>
             <div class="sm:col-span-2">
-              <label for="message" class="text-sm font-medium text-[var(--color-neutral-800)]">Tell us about your situation</label>
-              <textarea id="message" name="message" rows="5" class="mt-2 w-full rounded-lg border border-[var(--color-neutral-200)] px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors resize-none" placeholder="Where are you now, where are you hoping to go, and what's your timeline?"></textarea>
+              <label for="message" class="text-sm font-medium text-[#123B57]">Tell us about your situation</label>
+              <textarea id="message" name="message" rows="5" class="mt-2 w-full rounded-lg border border-[#123B57]/50 bg-white/50 px-4 py-3 text-sm outline-none focus:border-[var(--color-ink-700)] transition-colors resize-none" placeholder="Where are you now, where are you hoping to go, and what's your timeline?"></textarea>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary w-full mt-6">Send Message</button>
+          <div class="mt-6 flex justify-center">
+            <button type="submit" class="btn" style="background:#55BFC0; border-color:#55BFC0; color:white;">Send message</button>
+          </div>
         </form>
       </div>
     </div>
   </section>
 </Page>
+
+<style>
+  /* Soft blurred glow around the form at rest, instead of a crisp border — matches the "Tell us where you're headed." form. */
+  [data-demo-form] {
+    box-shadow: 0 0 14px 3px rgba(1, 44, 85, 0.175);
+  }
+  [data-demo-form] input::placeholder,
+  [data-demo-form] textarea::placeholder {
+    color: rgba(18, 59, 87, 0.35);
+    opacity: 1;
+  }
+  .pathway-option:hover {
+    background-color: #55BFC0;
+    color: white;
+  }
+</style>
 
 <script>
   const form = document.querySelector('[data-demo-form]');
@@ -92,4 +114,42 @@ const options = [
     const note = form.querySelector('[data-demo-note]');
     if (note) note.textContent = "Thanks! (Demo only, this didn't actually send anywhere.)";
   });
+
+  // Custom dropdown for "What are you looking into?" — native <select> option
+  // hover colors can't be styled reliably across browsers (Chrome/Safari
+  // render the list as an OS-native widget), so this is a real div-based
+  // listbox instead, with a hidden input carrying the value for submission.
+  const pathwayField = document.querySelector('[data-pathway-field]');
+  if (pathwayField) {
+    const hidden = pathwayField.querySelector('input[type="hidden"]') as HTMLInputElement;
+    const trigger = pathwayField.querySelector('[data-pathway-trigger]') as HTMLButtonElement;
+    const label = pathwayField.querySelector('[data-pathway-label]') as HTMLSpanElement;
+    const chevron = pathwayField.querySelector('[data-pathway-chevron]') as unknown as HTMLElement;
+    const listbox = pathwayField.querySelector('[data-pathway-listbox]') as HTMLElement;
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = listbox.classList.contains('hidden');
+      listbox.classList.toggle('hidden', !willOpen);
+      chevron.style.transform = willOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+    });
+
+    listbox.querySelectorAll('.pathway-option').forEach((opt) => {
+      opt.addEventListener('click', () => {
+        const value = (opt as HTMLElement).dataset.value ?? '';
+        hidden.value = value;
+        label.textContent = value;
+        label.style.color = '#123B57';
+        listbox.classList.add('hidden');
+        chevron.style.transform = 'rotate(0deg)';
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!(e.target as HTMLElement).closest('[data-pathway-field]')) {
+        listbox.classList.add('hidden');
+        chevron.style.transform = 'rotate(0deg)';
+      }
+    });
+  }
 </script>
