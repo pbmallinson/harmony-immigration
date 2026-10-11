@@ -94,8 +94,8 @@ const customServicesData: Record<string, {
       'Supporting you after approval, including renewals and settling.',
     ],
     linkRowOrder: ['family-partner-visas', 'student-visas', 'visitor-visas', 'residence-citizenship', 'business-investor-visas'],
-    bottomStripHeading: 'Looking for something else?',
-    bottomStripText: 'Explore other visa pathways to find the option that fits your situation.',
+    bottomStripHeading: 'Looking for a different pathway, or a little extra support?',
+    bottomStripText: "Here's where else to look.",
   },
   'student-visas': {
     heroTitleLines: ['Study visas'],
@@ -139,7 +139,7 @@ const customServicesData: Record<string, {
       'Staying with you through the course, and into what comes after.',
     ],
     linkRowOrder: ['work-visas', 'visitor-visas', 'residence-citizenship', 'family-partner-visas', 'business-investor-visas'],
-    bottomStripHeading: 'Not studying or looking a little further ahead?',
+    bottomStripHeading: 'Not studying or need some help settling in?',
     bottomStripText: "Here's where else to look.",
   },
   'visitor-visas': {
@@ -180,7 +180,7 @@ const customServicesData: Record<string, {
       'Preparing your application or your NZeTA or ETA, and handling any questions from immigration.',
     ],
     linkRowOrder: ['work-visas', 'student-visas', 'residence-citizenship', 'family-partner-visas', 'business-investor-visas'],
-    bottomStripHeading: 'Here for something more than a visit?',
+    bottomStripHeading: 'Here for something more than a visit or need another kind of support?',
     bottomStripText: "Here's where else to look.",
   },
   'residence-citizenship': {
@@ -226,7 +226,7 @@ const customServicesData: Record<string, {
       "Keeping an eye on list and policy changes that could affect your case while it's underway.",
     ],
     linkRowOrder: ['work-visas', 'student-visas', 'visitor-visas', 'family-partner-visas', 'business-investor-visas'],
-    bottomStripHeading: 'Here about something other than staying permanently?',
+    bottomStripHeading: 'Looking for another visa option or some extra support?',
     bottomStripText: "Here's where else to look.",
   },
 };
@@ -422,6 +422,7 @@ const heroDesc = customData ? customData.heroDesc : service.data.shortDesc;
             {customData.linkRowOrder.map((slug) => (
               <a href={`/services/${slug}`} class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">{serviceLabels[slug]}</a>
             ))}
+            <a href="/support-services" class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">Beyond visas</a>
           </div>
         </div>
       </div>

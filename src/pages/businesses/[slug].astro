@@ -89,7 +89,8 @@ const businessPagesData: Record<string, {
       },
     ],
     linkRowOrder: ['hiring', 'entrepreneurs', 'employer-support', 'individuals', 'families'],
-    bottomStripHeading: 'Looking for hiring, investing or ongoing support instead?',
+    bottomStripHeading: 'Want help with hiring and investing? Perhaps settlement support?',
+    bottomStripText: "Here's where else to look.",
   },
   hiring: {
     heroTitle: 'Hire overseas talents',
@@ -151,7 +152,8 @@ const businessPagesData: Record<string, {
       },
     ],
     linkRowOrder: ['accreditation', 'entrepreneurs', 'employer-support', 'individuals', 'families'],
-    bottomStripHeading: 'Looking for Accreditation, Entrepreneurs, or Ongoing support instead?',
+    bottomStripHeading: 'Looking for Accreditation, Entrepreneurs, or a little extra support?',
+    bottomStripText: "Here's where else to look.",
   },
   'employer-support': {
     heroTitle: 'Keep businesses compliant',
@@ -214,6 +216,7 @@ const businessPagesData: Record<string, {
     ],
     linkRowOrder: ['accreditation', 'hiring', 'entrepreneurs', 'individuals', 'families'],
     bottomStripHeading: 'Looking for Accreditation, Hiring, or Entrepreneurs instead?',
+    bottomStripText: "Here's where else to look.",
   },
   entrepreneurs: {
     heroTitle: 'Investor visas',
@@ -272,7 +275,8 @@ const businessPagesData: Record<string, {
       },
     ],
     linkRowOrder: ['accreditation', 'hiring', 'employer-support', 'individuals', 'families'],
-    bottomStripHeading: 'Looking for Accreditation, Hiring, or Ongoing support instead?',
+    bottomStripHeading: 'Need more information about accreditation, hiring or advice beyond visas?',
+    bottomStripText: "Here's where else to look.",
   },
 };
 
@@ -407,6 +411,7 @@ const data = businessPagesData[slug as string];
           {data.linkRowOrder.map((key) => (
             <a href={linkHrefs[key]} class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">{linkLabels[key] ?? key}</a>
           ))}
+          <a href="/support-services" class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">Beyond visas</a>
         </div>
       </div>
     </div>

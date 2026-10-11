@@ -102,7 +102,7 @@ const familyPagesData: Record<string, {
       },
     ],
     linkRowOrder: ['children', 'parents', 'individuals', 'businesses'],
-    bottomStripHeading: 'Looking for Children, Parent or other visa categories?',
+    bottomStripHeading: 'Looking for other options or help beyond visas?',
     bottomStripText: "Here's where else to look.",
   },
   children: {
@@ -170,7 +170,7 @@ const familyPagesData: Record<string, {
       },
     ],
     linkRowOrder: ['partner', 'parents', 'individuals', 'businesses'],
-    bottomStripHeading: 'Looking for Partner, Parent or other visa categories?',
+    bottomStripHeading: 'Thinking of other family pathways or settlement support?',
     bottomStripText: "Here's where else to look.",
   },
   parents: {
@@ -234,7 +234,7 @@ const familyPagesData: Record<string, {
       },
     ],
     linkRowOrder: ['partner', 'children', 'individuals', 'businesses'],
-    bottomStripHeading: 'Looking for Partner, Children or other visa categories?',
+    bottomStripHeading: 'Interested in other family visa categories or support beyond visas?',
     bottomStripText: "Here's where else to look.",
   },
 };
@@ -370,6 +370,7 @@ const data = familyPagesData[slug as string];
           {data.linkRowOrder.map((key) => (
             <a href={linkHrefs[key]} class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">{linkLabels[key] ?? key}</a>
           ))}
+          <a href="/support-services" class="btn flex-none" style="background:#55BFC0; border-color:#55BFC0; color:white;">Beyond visas</a>
         </div>
       </div>
     </div>
